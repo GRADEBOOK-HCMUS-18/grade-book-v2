@@ -1,6 +1,8 @@
-import { HomePage } from "pages";
-import logo from "./logo.svg";
-import "./App.css";
+import { HomePage } from 'pages';
+import logo from './logo.svg';
+import './App.css';
+import { Route } from 'react-router-dom';
+import { PrivateRoute } from 'router/private-route';
 
 function App() {
   return (
@@ -18,7 +20,8 @@ function App() {
         >
           Learn React
         </a>
-
+        <Route exact path="/test" component={() => <div>Test</div>} />
+        <PrivateRoute exact path="/ok" component={() => <div>OK</div>} />
         <HomePage />
       </header>
     </div>
