@@ -1,8 +1,8 @@
+import { Route } from 'react-router-dom';
+import { PrivateRoute } from 'router/private-route';
 import { HomePage } from 'pages';
 import logo from './logo.svg';
 import './App.css';
-import { Route } from 'react-router-dom';
-import { PrivateRoute } from 'router/private-route';
 
 function App() {
   return (
