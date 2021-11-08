@@ -1,0 +1,112 @@
+[
+    {
+        "hex": "#FFCF48",
+        "name": "Sunglow",
+        "rgb": "(255, 207, 72)"
+    },
+    {
+        "hex": "#FD5E53",
+        "name": "Sunset Orange",
+        "rgb": "(253, 94, 83)"
+    },
+    {
+        "hex": "#FAA76C",
+        "name": "Tan",
+        "rgb": "(250, 167, 108)"
+    },
+    {
+        "hex": "#18A7B5",
+        "name": "Teal Blue",
+        "rgb": "(24, 167, 181)"
+    },
+    {
+        "hex": "#EBC7DF",
+        "name": "Thistle",
+        "rgb": "(235, 199, 223)"
+    },
+    {
+        "hex": "#FC89AC",
+        "name": "Tickle Me Pink",
+        "rgb": "(252, 137, 172)"
+    },
+    {
+        "hex": "#17806D",
+        "name": "Tropical Rain Forest",
+        "rgb": "(23, 128, 109)"
+    },
+    {
+        "hex": "#DEAA88",
+        "name": "Tumbleweed",
+        "rgb": "(222, 170, 136)"
+    },
+    {
+        "hex": "#77DDE7",
+        "name": "Turquoise Blue",
+        "rgb": "(119, 221, 231)"
+    },
+    {
+        "hex": "#FFFF66",
+        "name": "Unmellow Yellow",
+        "rgb": "(255, 255, 102)"
+    },
+    {
+        "hex": "#926EAE",
+        "name": "Violet (Purple)",
+        "rgb": "(146, 110, 174)"
+    },
+    {
+        "hex": "#324AB2",
+        "name": "Violet Blue",
+        "rgb": "(50, 74, 178)"
+    },
+    {
+        "hex": "#F75394",
+        "name": "Violet Red",
+        "rgb": "(247, 83, 148)"
+    },
+    {
+        "hex": "#FFA089",
+        "name": "Vivid Tangerine",
+        "rgb": "(255, 160, 137)"
+    },
+    {
+        "hex": "#8F509D",
+        "name": "Vivid Violet",
+        "rgb": "(143, 80, 157)"
+    },
+    {
+        "hex": "#A2ADD0",
+        "name": "Wild Blue Yonder",
+        "rgb": "(162, 173, 208)"
+    },
+    {
+        "hex": "#FF43A4",
+        "name": "Wild Strawberry",
+        "rgb": "(255, 67, 164)"
+    },
+    {
+        "hex": "#FC6C85",
+        "name": "Wild Watermelon",
+        "rgb": "(252, 108, 133)"
+    },
+    {
+        "hex": "#CDA4DE",
+        "name": "Wisteria",
+        "rgb": "(205, 164, 222)"
+    },
+    {
+        "hex": "#FCE883",
+        "name": "Yellow",
+        "rgb": "(252, 232, 131)"
+    },
+    {
+        "hex": "#C5E384",
+        "name": "Yellow Green",
+        "rgb": "(197, 227, 132)"
+    },
+    {
+        "hex": "#FFAE42",
+        "name": "Yellow Orange",
+        "rgb": "(255, 174, 66)"
+    }
+]
