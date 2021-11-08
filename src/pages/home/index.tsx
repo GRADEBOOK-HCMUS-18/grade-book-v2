@@ -1,33 +1,31 @@
+import Button from '@restart/ui/esm/Button';
 import { observer } from 'mobx-react';
+import { ClassDetail } from 'pages';
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { googleProvider, facebookProvider } from 'firebase-services/provider';
-import { socialLogin } from 'firebase-services/auth';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { HomeViewModel } from './home-view-models';
 
 export const HomePage = observer(() => {
   const [viewModal] = useState(new HomeViewModel());
+  const { path } = useRouteMatch();
 
   const handleClick = () => {
     viewModal.getTodoById();
   };
 
-  const loginWithGoogle = () => {
-    socialLogin(googleProvider);
-  };
-
-  const loginWithFacebook = () => {
-    socialLogin(facebookProvider);
-  };
-
   return (
-    <div>
-      <p>{viewModal.todo.name}</p>
-      <Button variant="primary" onClick={loginWithGoogle}>
-        Login with google
-      </Button>
-      <button onClick={loginWithFacebook}>Login with facebook</button>
-      <button onClick={handleClick}>Get random to do</button>
-    </div>
+    <Switch>
+      <Route exact path={path}>
+        <>
+          <p>Danh sach lop hoc</p>
+          <p>{viewModal.todo.name}</p>
+          <Button onClick={handleClick}>Get random to do</Button>
+        </>
+      </Route>
+
+      <Route path={`${path}/:id`}>
+        <ClassDetail />
+      </Route>
+    </Switch>
   );
 });

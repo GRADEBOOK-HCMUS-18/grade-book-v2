@@ -1,0 +1,29 @@
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.item-content {
+  margin-left: 20px;
+}
+.sidebar-item:hover {
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  background-color: var(--light-gray);
+}
+
+.sidebar-item-selected {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  background-color: var(--light-blue);
+}

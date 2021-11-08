@@ -1,1 +1,3 @@
-export {};
+import { classViewModel } from './class-view-model';
+import { userViewModel } from './user-view-model';
+export { userViewModel, classViewModel };

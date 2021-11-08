@@ -1,3 +1,4 @@
-import { HomePage } from "./home";
+import { ClassDetail } from './class-detail';
+import { HomePage } from './home';
 
-export { HomePage };
+export { HomePage, ClassDetail };

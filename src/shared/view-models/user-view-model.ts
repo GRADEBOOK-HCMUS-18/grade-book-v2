@@ -1,11 +1,23 @@
 import { makeAutoObservable } from 'mobx';
+import { User } from 'shared/models';
 export class UserViewModel {
-  private role: string = 'TEACHER' || 'STUDENT';
-  private email: string = '';
-  private username: string = '';
-  private studentID: string = '';
+  private user: User = new User();
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  getUser() {
+    return this.user;
+  }
+
+  isLogin() {
+    return this.user.username !== '';
+  }
+
+  setAvatarColor(color: string) {
+    this.user.avatarColor = color;
+  }
 }
+
+export const userViewModel = new UserViewModel();
