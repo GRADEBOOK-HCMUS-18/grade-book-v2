@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SideBar, NavBar } from 'layout';
-import { HomePage } from 'pages';
+import { HomePage, LoginPage } from 'pages';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { PrivateRoute } from 'router';
 
@@ -20,11 +20,12 @@ function App() {
           <SideBar show={showSidebar} toggle={toggleSideBar} />
         </>
       )}
-      <div className="App">
-        <Switch>
-          <Route exact path="/">
-            <div>Login di ban</div>
-          </Route>
+
+      <Switch>
+        <Route exact path="/">
+          <LoginPage />
+        </Route>
+        <div className="App">
           <PrivateRoute path="/class">
             <HomePage />
           </PrivateRoute>
@@ -40,8 +41,8 @@ function App() {
           <Route>
             <Redirect to="/class" />
           </Route>
-        </Switch>
-      </div>
+        </div>
+      </Switch>
     </>
   );
 }
