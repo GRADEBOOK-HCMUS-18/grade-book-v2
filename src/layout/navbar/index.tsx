@@ -29,14 +29,13 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
         <Title pathName={location.pathname} />
       </div>
       {isInClass && <ClassTab />}
-      {!isMobile && (
-        <div style={rightItem}>
-          {location.pathname === '/class' && (
-            <AiOutlinePlus style={{ marginRight: 10 }} size={30} />
-          )}
-          {<Avatar user={userViewModel.getUser()} />}
-        </div>
-      )}
+
+      <div style={rightItem}>
+        {location.pathname === '/class' && (
+          <AiOutlinePlus style={{ marginRight: 10 }} size={30} />
+        )}
+        {!isMobile && <Avatar user={userViewModel.getUser()} />}
+      </div>
     </div>
   );
 };
