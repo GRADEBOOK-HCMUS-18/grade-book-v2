@@ -24,3 +24,7 @@ A single page contain:
 -service
 
 #### Use private route to protect route
+
+#### Note for mobx
+
+- For mobxjs use makeObservable if you want extends from BaseViewModel

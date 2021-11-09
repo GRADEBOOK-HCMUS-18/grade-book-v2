@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { ClassDetail } from 'pages';
 import { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Loading } from 'shared/components';
 import { HomeViewModel } from './home-view-models';
 
 export const HomePage = observer(() => {
@@ -19,6 +20,7 @@ export const HomePage = observer(() => {
         <>
           <p>Danh sach lop hoc</p>
           <p>{viewModal.todo.name}</p>
+          <Loading isLoading={viewModal.loading} />
           <Button onClick={handleClick}>Get random to do</Button>
         </>
       </Route>
