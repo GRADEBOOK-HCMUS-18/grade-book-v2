@@ -27,3 +27,23 @@
   border-top-right-radius: 30px;
   background-color: var(--light-blue);
 }
+
+.avatar-item {
+  padding: 10px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  border-bottom: 0.0625rem solid var(--light-gray);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.user-info > span:first-child {
+  font-weight: bold;
+}

@@ -2,9 +2,10 @@
   --light-blue: #e8f0fe;
   --light-gray: #e0e0e0;
   --blue: #3178c6;
+  --link: #3c4043;
 }
 
-body {
+html {
   font-size: 16px;
 }
 
@@ -16,7 +17,7 @@ body {
 
 a {
   text-decoration: none !important;
-  color: black !important;
+  color: var(--link) !important;
 }
 
 .offcanvas-start {
@@ -24,4 +25,10 @@ a {
 }
 h4 {
   margin-bottom: 0 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
 }

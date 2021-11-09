@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import logo from 'assets/images/logo.png';
 import { centerHorizontal } from 'shared/styles';
+import { classViewModel } from 'shared/view-models';
 
 interface IProps {
   pathName: string;
@@ -29,7 +30,8 @@ export const Title = ({ pathName }: IProps) => {
       return <h4 style={marginStyle}>Lớp học đã lưu trữ</h4>;
     case '/calendar':
       return <h4 style={marginStyle}>Lịch</h4>;
+
     default:
-      return <></>;
+      return <h4 style={marginStyle}>{classViewModel.getClass().className}</h4>;
   }
 };

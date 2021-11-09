@@ -1,4 +1,5 @@
 import { matchPath, useLocation } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { CSSProperties } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -6,8 +7,8 @@ import { baseColors } from 'assets/color';
 import { Avatar } from 'shared/components';
 import { userViewModel } from 'shared/view-models';
 import { centerHorizontal } from 'shared/styles';
+import { useResponsive } from 'shared/hooks';
 import { ClassTab, Title } from './components';
-
 interface IProps {
   toggleSideBar: () => void;
 }
@@ -20,6 +21,8 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
     strict: false,
   });
 
+  const { isMobile } = useResponsive();
+
   return (
     <div style={navStyle}>
       <div style={leftItem}>
@@ -27,12 +30,14 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
         <Title pathName={location.pathname} />
       </div>
       {isInClass && <ClassTab />}
-      <div style={rightItem}>
-        {location.pathname === '/class' && (
-          <AiOutlinePlus style={{ marginRight: 10 }} size={30} />
-        )}
-        <Avatar user={userViewModel.getUser()} />
-      </div>
+      {!isMobile && (
+        <div style={rightItem}>
+          {location.pathname === '/class' && (
+            <AiOutlinePlus style={{ marginRight: 10 }} size={30} />
+          )}
+          {<Avatar user={userViewModel.getUser()} />}
+        </div>
+      )}
     </div>
   );
 };
@@ -42,6 +47,7 @@ const useStyles = () => {
     ...centerHorizontal,
     borderBottom: `0.0625rem solid ${baseColors.lightGray}`,
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
   };
 
   const rightItem: CSSProperties = {

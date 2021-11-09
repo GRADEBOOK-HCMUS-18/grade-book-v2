@@ -24,7 +24,7 @@ export const ClassTab = () => {
   }, [history, location]);
 
   const handleSelectItem = (id: number, path: string) => {
-    history.push(`/class/${classViewModel.getClassId()}${path}`);
+    history.push(`/class/${classViewModel.getClass().classID}${path}`);
     setSelectedItem(id);
   };
 

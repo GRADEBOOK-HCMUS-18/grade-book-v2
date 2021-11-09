@@ -7,8 +7,8 @@ class ClassViewModel {
     makeAutoObservable(this);
   }
 
-  getClassId() {
-    return this.class.classID;
+  getClass() {
+    return this.class;
   }
 }
 

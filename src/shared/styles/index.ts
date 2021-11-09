@@ -9,3 +9,7 @@ export const centerVertical: CSSProperties = {
   alignItems: 'center',
   flexDirection: 'column',
 };
+
+export const responsiveType = {
+  mobile: '(max-width: 600px)',
+};
