@@ -1,5 +1,4 @@
 import { matchPath, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import { CSSProperties } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlinePlus } from 'react-icons/ai';
