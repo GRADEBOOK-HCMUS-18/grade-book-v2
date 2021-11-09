@@ -3,5 +3,6 @@ import { responsiveType } from 'shared/styles';
 
 export const useResponsive = () => {
   const isMobile = useMediaQuery({ query: responsiveType.mobile });
-  return { isMobile };
+  const isTablet = useMediaQuery({ query: responsiveType.tablet });
+  return { isMobile, isTablet };
 };

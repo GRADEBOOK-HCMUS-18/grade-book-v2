@@ -1,3 +1,6 @@
+.class-tab {
+  display: flex;
+}
 .class-tab-item {
   display: flex;
   align-items: center;

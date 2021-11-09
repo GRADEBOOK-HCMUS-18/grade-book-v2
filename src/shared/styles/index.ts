@@ -12,4 +12,5 @@ export const centerVertical: CSSProperties = {
 
 export const responsiveType = {
   mobile: '(max-width: 600px)',
+  tablet: '(max-width: 768px)',
 };

@@ -20,26 +20,28 @@ function App() {
           <SideBar show={showSidebar} toggle={toggleSideBar} />
         </>
       )}
-      <Switch>
-        <Route exact path="/">
-          <div>Login di ban</div>
-        </Route>
-        <PrivateRoute path="/class">
-          <HomePage />
-        </PrivateRoute>
-        <PrivateRoute path="/setting">
-          <div>Setting</div>
-        </PrivateRoute>
-        <PrivateRoute path="/archived">
-          <div>Lưu trữ</div>
-        </PrivateRoute>
-        <PrivateRoute path="/calendar">
-          <div>Lịch</div>
-        </PrivateRoute>
-        <Route>
-          <Redirect to="/class" />
-        </Route>
-      </Switch>
+      <div className="App">
+        <Switch>
+          <Route exact path="/">
+            <div>Login di ban</div>
+          </Route>
+          <PrivateRoute path="/class">
+            <HomePage />
+          </PrivateRoute>
+          <PrivateRoute path="/setting">
+            <div>Setting</div>
+          </PrivateRoute>
+          <PrivateRoute path="/archived">
+            <div>Lưu trữ</div>
+          </PrivateRoute>
+          <PrivateRoute path="/calendar">
+            <div>Lịch</div>
+          </PrivateRoute>
+          <Route>
+            <Redirect to="/class" />
+          </Route>
+        </Switch>
+      </div>
     </>
   );
 }

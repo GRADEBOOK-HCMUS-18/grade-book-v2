@@ -21,17 +21,19 @@ export const Title = ({ pathName }: IProps) => {
             src={logo}
             alt="Lớp học"
           ></img>
-          <h4 style={{ marginLeft: 10 }}>Lớp học</h4>
+          <span style={{ marginLeft: 10 }}>Lớp học</span>
         </div>
       );
     case '/setting':
-      return <h4 style={marginStyle}>Cài đặt</h4>;
+      return <span style={marginStyle}>Cài đặt</span>;
     case '/archived':
-      return <h4 style={marginStyle}>Lớp học đã lưu trữ</h4>;
+      return <span style={marginStyle}>Lớp học đã lưu trữ</span>;
     case '/calendar':
-      return <h4 style={marginStyle}>Lịch</h4>;
+      return <span style={marginStyle}>Lịch</span>;
 
     default:
-      return <h4 style={marginStyle}>{classViewModel.getClass().className}</h4>;
+      return (
+        <span style={marginStyle}>{classViewModel.getClass().className}</span>
+      );
   }
 };

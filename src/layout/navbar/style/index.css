@@ -1,0 +1,30 @@
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--border-bottom-width) solid var(--light-gray);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: white;
+}
+
+.nav-bar-left-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.nav-bar-left-right {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.nav-bar-notification {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+}
