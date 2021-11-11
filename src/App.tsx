@@ -8,13 +8,15 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const location = useLocation();
+  const isInLoginPage =
+    location.pathname !== '/' && location.pathname !== '/register';
 
   const toggleSideBar = () => {
     setShowSidebar(!showSidebar);
   };
   return (
     <>
-      {location.pathname !== '/' && (
+      {isInLoginPage && (
         <>
           <NavBar toggleSideBar={toggleSideBar} />
           <SideBar show={showSidebar} toggle={toggleSideBar} />
@@ -23,25 +25,28 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <LoginPage />
+          <LoginPage isLogin={true} />
         </Route>
-        <div className="App">
-          <PrivateRoute path="/class">
-            <HomePage />
-          </PrivateRoute>
-          <PrivateRoute path="/setting">
-            <div>Setting</div>
-          </PrivateRoute>
-          <PrivateRoute path="/archived">
-            <div>Lưu trữ</div>
-          </PrivateRoute>
-          <PrivateRoute path="/calendar">
-            <div>Lịch</div>
-          </PrivateRoute>
-          <Route>
-            <Redirect to="/class" />
-          </Route>
-        </div>
+
+        <Route path="/register">
+          <LoginPage isLogin={false} />
+        </Route>
+
+        <PrivateRoute path="/class">
+          <HomePage />
+        </PrivateRoute>
+        <PrivateRoute path="/setting">
+          <div>Setting</div>
+        </PrivateRoute>
+        <PrivateRoute path="/archived">
+          <div>Lưu trữ</div>
+        </PrivateRoute>
+        <PrivateRoute path="/calendar">
+          <div>Lịch</div>
+        </PrivateRoute>
+        <Route>
+          <Redirect to="/class" />
+        </Route>
       </Switch>
     </>
   );

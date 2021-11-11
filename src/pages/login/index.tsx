@@ -1,46 +1,78 @@
 import { observer } from 'mobx-react';
+import { useHistory } from 'react-router';
+import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
-import { GiOpenBook } from 'react-icons/gi';
-import { Button, Form } from 'react-bootstrap';
+import loginBanner from 'assets/images/logobanner.svg';
+import { Loading } from 'shared/components';
+import { googleLogin } from 'firebase-services/auth';
+import { LoginViewModel } from './login-view-model';
+import { LoginForm, RegisterForm } from './components';
 import './style/index.css';
 
-export const LoginPage = observer(() => {
+interface IProps {
+  isLogin: boolean;
+}
+
+export const LoginPage = observer(({ isLogin }: IProps) => {
+  const [viewModel] = useState(new LoginViewModel());
+
+  const history = useHistory();
+
+  const openRegisterForm = () => {
+    history.push('/register');
+  };
+
+  const openLoginForm = () => {
+    history.push('/');
+  };
+
+  const loginWithGoogle = async () => {
+    viewModel.startLoading();
+    const userInformation = await googleLogin();
+    viewModel.stopLoading();
+    console.log(userInformation);
+  };
+
   return (
     <div className="login-container">
-      <div className="login-banner">
-        <h1>Chào mừng đến với Grade Book</h1>
-        <GiOpenBook size={70} />
-      </div>
-      <div className="login-form">
-        <h3 className="form-title">Đăng nhập vào Grade Book</h3>
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email/ Tên người dùng</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-          </Form.Group>
+      <Loading isLoading={viewModel.loading} />
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Mật khẩu</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Lưu mật khẩu" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Đăng nhập
-          </Button>
-        </Form>
-        <div className="social-login">
-          <div className="social-button">
+      <div className="login-form">
+        {isLogin ? (
+          <h3>Đăng nhập vào tài khoản của bạn</h3>
+        ) : (
+          <h3>Đăng kí tài khoản</h3>
+        )}
+        {isLogin ? <LoginForm /> : <RegisterForm />}
+
+        {isLogin ? (
+          <div className="register-area">
+            <span>Chưa có tài khoản?</span>
+            <span onClick={openRegisterForm} className="register-btn">
+              {' '}
+              Đăng kí
+            </span>
+          </div>
+        ) : (
+          <div className="register-area">
+            <span>Đã có tài khoản?</span>
+            <span onClick={openLoginForm} className="register-btn">
+              {' '}
+              Đăng nhập
+            </span>
+          </div>
+        )}
+
+        <div onClick={loginWithGoogle} className="social-button">
+          <div className="google-icon">
             <FcGoogle size={30} />
-            <span>Đăng nhập bằng google</span>
           </div>
-          <div className="social-button">
-            <FaFacebook size={30} />
-            <span>Đăng nhập bằng Facebook</span>
-          </div>
+          <span>Đăng nhập bằng google</span>
         </div>
+      </div>
+      <div className="login-banner">
+        <h2>Grade book</h2>
+        <img src={loginBanner} alt="" className="banner-image"></img>
       </div>
     </div>
   );

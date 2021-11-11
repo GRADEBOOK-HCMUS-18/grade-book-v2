@@ -17,12 +17,12 @@ export const HomePage = observer(() => {
   return (
     <Switch>
       <Route exact path={path}>
-        <>
+        <div className="container">
           <p>Danh sach lop hoc</p>
           <p>{viewModal.todo.name}</p>
           <Loading isLoading={viewModal.loading} />
           <Button onClick={handleClick}>Get random to do</Button>
-        </>
+        </div>
       </Route>
 
       <Route path={`${path}/:id`}>

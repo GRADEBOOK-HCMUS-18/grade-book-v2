@@ -6,55 +6,82 @@
 
 .login-banner {
   background: linear-gradient(to bottom, #1c7ce0, #150051);
-  width: 50%;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   color: white;
   padding: 20px;
+  overflow: hidden;
 }
 
-.login-banner > h1 {
+.login-banner > h2 {
+  font-family: Rooster;
+  font-weight: lighter;
   text-align: center;
+  font-size: 4rem;
+  letter-spacing: 5px;
   animation: fade-top 1s ease-in-out;
 }
 
-.login-banner > svg {
+.login-banner > img {
   text-align: center;
   animation: fade-down 1s ease-in-out;
 }
 .login-form {
-  width: 50%;
   display: flex;
+  width: 40%;
   padding: 0 3rem;
   flex-direction: column;
   justify-content: center;
 }
 
-.social-login {
-  padding-top: 2rem;
-  width: max-content;
+.login-form > h3 {
+  margin-bottom: 20px;
+}
+
+.banner-image {
+  width: 500px;
+  height: 500px;
 }
 
 .social-button {
   border: 1px solid rgb(66, 133, 244);
-  padding: 0.6rem 1rem;
   border-radius: 0.6rem;
-  margin-bottom: 1.2rem;
   cursor: pointer;
+  display: flex;
+  margin-top: 1rem;
+  width: fit-content;
+  padding-right: 2rem;
+  align-items: center;
+  background-color: rgb(66, 133, 244);
+  color: white;
 }
 .social-button:hover {
-  border: 1px solid #18338c;
+  border: 1px solid #1c79dd;
+  background-color: #1c79dd;
 }
 
 .social-button > span {
   margin-left: 0.8rem;
 }
 
-.form-title {
-  display: none;
-  margin-bottom: 2rem;
+.google-icon {
+  background-color: #ffff;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 5px;
+  margin-right: 1rem;
+}
+
+.register-area {
+  margin-top: 1rem;
+}
+
+.register-btn {
+  color: #1c79dd;
+  cursor: pointer;
 }
 
 @keyframes fade-top {
@@ -83,8 +110,15 @@
   .login-banner {
     display: none;
   }
-  .form-title {
-    display: block;
+
+  .login-form {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .login-banner {
+    display: none;
   }
 
   .login-form {
