@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Loading } from 'shared/components';
 import { HomeViewModel } from './home-view-models';
+import { DashboardPage } from 'pages/dashboard';
 
 export const HomePage = observer(() => {
   const [viewModal] = useState(new HomeViewModel());
@@ -18,10 +19,7 @@ export const HomePage = observer(() => {
     <Switch>
       <Route exact path={path}>
         <>
-          <p>Danh sach lop hoc</p>
-          <p>{viewModal.todo.name}</p>
-          <Loading isLoading={viewModal.loading} />
-          <Button onClick={handleClick}>Get random to do</Button>
+          <DashboardPage userId = "1234"/>
         </>
       </Route>
 
