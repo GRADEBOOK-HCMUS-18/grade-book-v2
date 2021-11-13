@@ -1,21 +1,32 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { UserAuthen } from 'shared/types';
 import { getErrors, getErrorsState } from './helper';
 import { FormError } from './types';
 
+interface IProps {
+  onLogin: (user: UserAuthen) => void;
+}
+
 const initState = {
-  email: '',
   username: '',
   password: '',
 };
 
-export const LoginForm = () => {
+export const LoginForm = memo(({ onLogin }: IProps) => {
   const [errors, setErrors] = useState<FormError[]>([]);
   const [formValue, setFormValue] = useState<any>(initState);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const newErrors = getErrorsState(formValue);
+
+    if (!newErrors.length) {
+      onLogin({
+        userName: formValue['username'],
+        password: formValue['password'],
+      });
+    }
     setErrors(newErrors);
   };
 
@@ -35,7 +46,6 @@ export const LoginForm = () => {
   return (
     <Form noValidate onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Tên người dùng/Email</Form.Label>
         <Form.Control
           required
           onChange={(event: any) =>
@@ -43,7 +53,7 @@ export const LoginForm = () => {
           }
           isInvalid={!!userNameError}
           type="text"
-          placeholder="Nhập tên người dùng/email"
+          placeholder="Nhập tên đăng nhập/email"
         />
         <Form.Control.Feedback type="invalid">
           {userNameError?.errorMessage}
@@ -51,7 +61,6 @@ export const LoginForm = () => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Mật khẩu</Form.Label>
         <Form.Control
           onChange={(event: any) =>
             handleFieldChange('password', event.target.value)
@@ -68,10 +77,9 @@ export const LoginForm = () => {
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Lưu mật khẩu" />
       </Form.Group>
-
       <Button variant="secondary" type="submit">
         Đăng nhập
       </Button>
     </Form>
   );
-};
+});

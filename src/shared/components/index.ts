@@ -1,3 +1,4 @@
 import { Loading } from './loading';
 import { Avatar } from './avatar';
-export { Avatar, Loading };
+import { PopupAlert } from './popup-alert';
+export { Avatar, Loading, PopupAlert };

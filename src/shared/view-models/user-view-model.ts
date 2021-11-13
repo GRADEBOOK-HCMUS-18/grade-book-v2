@@ -15,8 +15,8 @@ export class UserViewModel {
     return this.user.username !== '';
   }
 
-  setAvatarColor(color: string) {
-    this.user.avatarColor = color;
+  updateUser() {
+    this.user.username = 'HOAVO';
   }
 }
 

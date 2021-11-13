@@ -1,4 +1,9 @@
-import { validateEmailAddress, validatePassword } from 'utils/regex';
+import {
+  validateEmailAddress,
+  validatePassword,
+  validateUserName,
+  validateFirstLastName,
+} from 'utils/regex';
 import { find } from 'lodash';
 import { FormError } from '../types';
 
@@ -7,8 +12,17 @@ export const getErrors = (errors: FormError[]) => {
   const userNameError = find(errors, { errorType: 'username' });
   const passwordError = find(errors, { errorType: 'password' });
   const reInputPasswordError = find(errors, { errorType: 'reInputPassword' });
+  const firstNameError = find(errors, { errorType: 'firstName' });
+  const lastNameError = find(errors, { errorType: 'lastName' });
 
-  return { emailError, userNameError, passwordError, reInputPasswordError };
+  return {
+    emailError,
+    userNameError,
+    passwordError,
+    reInputPasswordError,
+    firstNameError,
+    lastNameError,
+  };
 };
 
 const getErrorMessage = (
@@ -22,7 +36,16 @@ const getErrorMessage = (
         return 'Vui lòng nhập email hợp lệ';
       break;
     case 'username':
-      if (value === '') return 'Vui lòng nhập tên người dùng hợp lệ';
+      if (value === '' || !validateUserName(value))
+        return 'Độ dài tên đằng nhập từ 6-32 kí tự';
+      break;
+    case 'lastName':
+      if (value === '' || !validateFirstLastName(value))
+        return 'Độ dài họ từ 1-32 kí tự';
+      break;
+    case 'firstName':
+      if (value === '' || !validateFirstLastName(value))
+        return 'Độ dài tên từ 1-32 kí tự';
       break;
     case 'password':
       if (value === '' || !validatePassword(value))
@@ -56,8 +79,3 @@ export const getErrorsState = (formValue: any) => {
   });
   return newErrors;
 };
-
-export const removeError = (
-  errorType: FormError['errorType'],
-  errors: FormError[]
-) => {};

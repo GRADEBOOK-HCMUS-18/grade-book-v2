@@ -3,7 +3,9 @@ import { useHistory } from 'react-router';
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import loginBanner from 'assets/images/logobanner.svg';
-import { Loading } from 'shared/components';
+import { usePreviousPath } from 'shared/hooks';
+import { UserAuthen } from 'shared/types';
+import { Loading, PopupAlert } from 'shared/components';
 import { googleLogin } from 'firebase-services/auth';
 import { LoginViewModel } from './login-view-model';
 import { LoginForm, RegisterForm } from './components';
@@ -15,7 +17,7 @@ interface IProps {
 
 export const LoginPage = observer(({ isLogin }: IProps) => {
   const [viewModel] = useState(new LoginViewModel());
-
+  const { previousPath } = usePreviousPath();
   const history = useHistory();
 
   const openRegisterForm = () => {
@@ -24,6 +26,19 @@ export const LoginPage = observer(({ isLogin }: IProps) => {
 
   const openLoginForm = () => {
     history.push('/');
+  };
+
+  const onRegister = (user: UserAuthen) => {
+    viewModel.register(user);
+  };
+
+  const onLogin = async (user: UserAuthen) => {
+    await viewModel.login(user);
+    if (previousPath) {
+      history.push(previousPath);
+    } else {
+      history.push('/class');
+    }
   };
 
   const loginWithGoogle = async () => {
@@ -43,7 +58,11 @@ export const LoginPage = observer(({ isLogin }: IProps) => {
         ) : (
           <h3>Đăng kí tài khoản</h3>
         )}
-        {isLogin ? <LoginForm /> : <RegisterForm />}
+        {isLogin ? (
+          <LoginForm onLogin={onLogin} />
+        ) : (
+          <RegisterForm onRegister={onRegister} />
+        )}
 
         {isLogin ? (
           <div className="register-area">
@@ -74,6 +93,12 @@ export const LoginPage = observer(({ isLogin }: IProps) => {
         <h2>Grade book</h2>
         <img src={loginBanner} alt="" className="banner-image"></img>
       </div>
+      <PopupAlert
+        show={viewModel.isError}
+        error={true}
+        onHide={() => (viewModel.isError = false)}
+        message={viewModel.message}
+      />
     </div>
   );
 });

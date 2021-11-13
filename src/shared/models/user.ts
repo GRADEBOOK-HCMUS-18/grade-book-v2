@@ -1,8 +1,13 @@
+import { makeAutoObservable } from 'mobx';
 export class User {
   role: string = 'TEACHER' || 'STUDENT';
-  email: string = 'hoa@gmail.com';
-  username: string = 'HOAVO';
+  email: string = '';
+  username: string = '';
   studentID: string = '';
-  imageUrl: string | null = null;
-  avatarColor: string | null = null;
+  imageUrl: string = '';
+  avatarColor: string = '';
+  defaultAvatar: string = '';
+  constructor() {
+    makeAutoObservable(this);
+  }
 }

@@ -1,22 +1,38 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { UserAuthen } from 'shared/types';
 import { getErrors, getErrorsState } from './helper';
 import { FormError } from './types';
+
+interface IProps {
+  onRegister: (user: UserAuthen) => void;
+}
 
 const initState = {
   email: '',
   username: '',
   password: '',
+  firstName: '',
+  lastName: '',
   reInputPassword: '',
 };
 
-export const RegisterForm = () => {
+export const RegisterForm = memo(({ onRegister }: IProps) => {
   const [errors, setErrors] = useState<FormError[]>([]);
   const [formValue, setFormValue] = useState<any>(initState);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const newErrors = getErrorsState(formValue);
+    if (!newErrors.length) {
+      onRegister({
+        userName: formValue['username'],
+        password: formValue['password'],
+        firstName: formValue['firstName'],
+        lastName: formValue['lastName'],
+        email: formValue['email'],
+      });
+    }
     setErrors(newErrors);
   };
 
@@ -31,14 +47,19 @@ export const RegisterForm = () => {
     }
   };
 
-  const { emailError, userNameError, passwordError, reInputPasswordError } =
-    getErrors(errors);
+  const {
+    emailError,
+    userNameError,
+    passwordError,
+    reInputPasswordError,
+    firstNameError,
+    lastNameError,
+  } = getErrors(errors);
 
   return (
     <Form noValidate onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} md="5" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
           <Form.Control
             isInvalid={!!emailError}
             required
@@ -53,7 +74,6 @@ export const RegisterForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="7" controlId="formBasicUserName">
-          <Form.Label>Tên người dùng</Form.Label>
           <Form.Control
             onChange={(event: any) =>
               handleFieldChange('username', event.target.value)
@@ -69,8 +89,37 @@ export const RegisterForm = () => {
         </Form.Group>
       </Row>
       <Row className="mb-3">
+        <Form.Group as={Col} md="5" controlId="formBasicFirstName">
+          <Form.Control
+            isInvalid={!!firstNameError}
+            required
+            onChange={(event: any) =>
+              handleFieldChange('firstName', event.target.value)
+            }
+            type="text"
+            placeholder="Nhập tên"
+          />
+          <Form.Control.Feedback type="invalid">
+            {firstNameError?.errorMessage}
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="7" controlId="formBasicLastName">
+          <Form.Control
+            onChange={(event: any) =>
+              handleFieldChange('lastName', event.target.value)
+            }
+            isInvalid={!!lastNameError}
+            required
+            type="text"
+            placeholder="Nhập họ"
+          />
+          <Form.Control.Feedback type="invalid">
+            {lastNameError?.errorMessage}
+          </Form.Control.Feedback>
+        </Form.Group>
+      </Row>
+      <Row className="mb-3">
         <Form.Group as={Col} md="5" controlId="formBasicPassword">
-          <Form.Label>Mật khẩu</Form.Label>
           <Form.Control
             onChange={(event: any) =>
               handleFieldChange('password', event.target.value)
@@ -85,7 +134,6 @@ export const RegisterForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="7" controlId="formBasicRepeatPassword">
-          <Form.Label>Xác nhận mật khẩu</Form.Label>
           <Form.Control
             onChange={(event: any) =>
               handleFieldChange('reInputPassword', event.target.value)
@@ -109,4 +157,4 @@ export const RegisterForm = () => {
       </Button>
     </Form>
   );
-};
+});
