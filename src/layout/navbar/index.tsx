@@ -23,7 +23,11 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       </div>
 
       <div className="nav-bar-left-right">
-        {location.pathname === '/class' && <AiOutlinePlus size={30} />}
+        {location.pathname === '/class' && 
+          <button className = 'btn-floating py-0 my-0'>
+            <AiOutlinePlus size={25} />
+          </button>
+        }
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
         {!isMobile && <Avatar user={userViewModel.getUser()} />}
       </div>
