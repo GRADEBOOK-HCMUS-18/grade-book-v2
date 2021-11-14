@@ -4,8 +4,7 @@ export class User {
   email: string = '';
   username: string = '';
   studentID: string = '';
-  imageUrl: string = '';
-  avatarColor: string = '';
+  profilePictureUrl: string = '';
   defaultAvatar: string = '';
   constructor() {
     makeAutoObservable(this);

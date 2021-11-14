@@ -15,6 +15,7 @@ export const Avatar = ({ user, size }: IProps) => {
     borderRadius: avatarSize,
   };
 
-  if (!user.imageUrl) return <DefaultAvatar size={avatarSize} user={user} />;
-  else return <img style={avatarStyle} alt="" src={user.imageUrl} />;
+  if (!user.profilePictureUrl)
+    return <DefaultAvatar size={avatarSize} user={user} />;
+  else return <img style={avatarStyle} alt="" src={user.profilePictureUrl} />;
 };

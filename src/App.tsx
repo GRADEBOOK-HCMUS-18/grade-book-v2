@@ -33,7 +33,6 @@ function App() {
         <Route path="/class/:id">
           <ClassDetail />
         </Route>
-
         <PrivateRoute path="/class">
           <HomePage />
         </PrivateRoute>
