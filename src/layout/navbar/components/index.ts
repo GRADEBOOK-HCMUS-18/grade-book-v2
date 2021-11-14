@@ -1,2 +1,3 @@
 import { Title } from './title';
-export { Title };
+import { CreateJoinClassDropDownButton } from './create-join-class-dropdown-btn';
+export { Title,CreateJoinClassDropDownButton };

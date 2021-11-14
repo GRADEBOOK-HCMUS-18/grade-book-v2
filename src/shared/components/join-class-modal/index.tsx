@@ -1,10 +1,10 @@
 import {useState} from 'react'
 import {observer} from 'mobx-react'
 import{Modal, Form, Button} from 'react-bootstrap'
-import '../style/join-class.css'
+import { homeViewModel } from 'shared/view-models'
+import './style/index.css'
 
-const JoinClass = observer(() => {
-    const [showModal, setShowModal] = useState(false);
+const JoinClassModal = observer(() => {
     const [InviteID, setInviteID] = useState("");
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -12,8 +12,9 @@ const JoinClass = observer(() => {
         setInviteID(inviteID)
     }
 
+    const showModal = homeViewModel.getterShowJoinClassModal;
     const hideDialog=()=>{
-        setShowModal(false);
+        homeViewModel.setShowJoinClassModal(false);
     }
 
     const handleSubmit = (event:React.FormEvent<HTMLFormElement>)=>{
@@ -52,4 +53,4 @@ const JoinClass = observer(() => {
     )
 })
 
-export {JoinClass}
+export {JoinClassModal}

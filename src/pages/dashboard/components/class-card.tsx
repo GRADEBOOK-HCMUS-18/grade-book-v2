@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {AiOutlineFolderOpen} from 'react-icons/ai'
 import {MdAssignmentInd} from 'react-icons/md'
 import{BsThreeDotsVertical} from 'react-icons/bs'
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 export const ClassCard = ({classname,teacherName,room,classID,role}:IProps)=>{
+  
   return(
       <Col className ='mb-3'>
         <Card className= 'class-card border-1 p-0'>

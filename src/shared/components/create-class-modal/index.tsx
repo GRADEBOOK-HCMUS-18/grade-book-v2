@@ -1,19 +1,18 @@
 import {useState} from 'react'
 import {observer} from 'mobx-react'
 import{Modal, Form, Button} from 'react-bootstrap'
-import '../style/add-class-modal.css';
+import { homeViewModel } from 'shared/view-models';
+import './style/index.css';
 
-const AddClassModal = observer(() => {
-    const [showModal, setShowModal] = useState(false);
+const CreateClassModal = observer(() => {
     const [classInfo, setClassInfo] = useState({
         title:"",
         room:"",
         description:""
     });
-
-
+    const showModal = homeViewModel.getterShowCreateClassModal
     const hideDialog=()=>{
-        setShowModal(false);
+        homeViewModel.setShowCreateClassModal(false);
     }
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
@@ -82,4 +81,4 @@ const AddClassModal = observer(() => {
     )
 })
 
-export {AddClassModal}
+export {CreateClassModal}
