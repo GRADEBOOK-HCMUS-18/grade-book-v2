@@ -5,6 +5,7 @@ import {ClassCard} from "./components/index";
 //import { Route, Switch, useRouteMatch,useHistory } from 'react-router-dom';
 import {ClassListViewModel} from './class-list-view-model'
 import {Row} from 'react-bootstrap'
+import { CreateClassModal, JoinClassModal } from 'shared/components';
 
 interface IProps{
   userId:string,
@@ -30,6 +31,8 @@ export const DashboardPage = observer(({userId}:IProps)=> {
                   )
           })}
       </Row>
+      <CreateClassModal/>
+      <JoinClassModal/>
     </div>
   );
 })
