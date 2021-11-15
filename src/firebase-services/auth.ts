@@ -11,11 +11,12 @@ export const googleLogin = async () => {
     const response: any = await signInWithPopup(auth, googleProvider);
     const { user } = response;
     return {
-      userName: user.displayName,
+      username: user.displayName,
       email: user.email,
-      imageUrl: user.photoURL,
       firstName: response._tokenResponse.firstName,
       lastName: response._tokenResponse.lastName,
+      profilePictureUrl: user.photoURL,
+      defaultProfilePictureHex: '',
     };
   } catch (err: any) {
     console.log(err.message);

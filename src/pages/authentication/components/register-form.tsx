@@ -1,6 +1,7 @@
 import { useState, memo } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { UserAuthen } from 'shared/types';
+import { getRandomAvatarColor } from 'utils/random';
 import { getErrors, getErrorsState } from './helper';
 import { FormError } from './types';
 
@@ -25,12 +26,15 @@ export const RegisterForm = memo(({ onRegister }: IProps) => {
     event.preventDefault();
     const newErrors = getErrorsState(formValue);
     if (!newErrors.length) {
+      const defaultAvatar = getRandomAvatarColor();
       onRegister({
-        userName: formValue['username'],
+        username: formValue['username'],
         password: formValue['password'],
         firstName: formValue['firstName'],
         lastName: formValue['lastName'],
         email: formValue['email'],
+        profilePictureUrl: '',
+        defaultProfilePictureHex: defaultAvatar,
       });
     }
     setErrors(newErrors);

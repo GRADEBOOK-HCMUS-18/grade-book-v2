@@ -23,7 +23,7 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
 
     if (!newErrors.length) {
       onLogin({
-        userName: formValue['username'],
+        usernameOrEmail: formValue['username'],
         password: formValue['password'],
       });
     }

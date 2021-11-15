@@ -10,6 +10,7 @@ export class BaseViewModel {
       isError: observable,
       startLoading: action,
       stopLoading: action,
+      makeError: action,
     });
   }
 
@@ -19,5 +20,10 @@ export class BaseViewModel {
 
   stopLoading() {
     this.loading = false;
+  }
+
+  makeError(message: string) {
+    this.isError = true;
+    this.message = message;
   }
 }

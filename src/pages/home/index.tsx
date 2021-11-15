@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react';
-import { ClassDetail } from 'pages';
 import { useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Loading } from 'shared/components';

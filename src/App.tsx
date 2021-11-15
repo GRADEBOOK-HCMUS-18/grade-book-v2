@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SideBar, NavBar } from 'layout';
-import { ClassDetail, HomePage, LoginPage } from 'pages';
+import { ClassDetail, HomePage, AuthenticationPage } from 'pages';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { PrivateRoute } from 'router';
 
@@ -25,10 +25,10 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <LoginPage isLogin={true} />
+          <AuthenticationPage isLogin={true} />
         </Route>
         <Route path="/register">
-          <LoginPage isLogin={false} />
+          <AuthenticationPage isLogin={false} />
         </Route>
         <Route path="/class/:id">
           <ClassDetail />
@@ -37,13 +37,13 @@ function App() {
           <HomePage />
         </PrivateRoute>
         <PrivateRoute path="/setting">
-          <div>Setting</div>
+          <div className="container">Setting</div>
         </PrivateRoute>
         <PrivateRoute path="/archived">
-          <div>Lưu trữ</div>
+          <div className="container">Lưu trữ</div>
         </PrivateRoute>
         <PrivateRoute path="/calendar">
-          <div>Lịch</div>
+          <div className="container">Lịch</div>
         </PrivateRoute>
 
         <Route>

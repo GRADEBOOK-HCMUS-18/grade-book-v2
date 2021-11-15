@@ -1,5 +1,5 @@
-import { LoginPage } from './login/index';
+import { AuthenticationPage } from './authentication';
 import { ClassDetail } from './class-detail';
 import { HomePage } from './home';
 
-export { HomePage, ClassDetail, LoginPage };
+export { HomePage, ClassDetail, AuthenticationPage };

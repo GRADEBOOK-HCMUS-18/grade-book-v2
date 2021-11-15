@@ -7,15 +7,16 @@ import { usePreviousPath } from 'shared/hooks';
 import { UserAuthen } from 'shared/types';
 import { Loading, PopupAlert } from 'shared/components';
 import { googleLogin } from 'firebase-services/auth';
-import { LoginViewModel } from './login-view-model';
+import { LoginViewModel } from './authen-view-model';
 import { LoginForm, RegisterForm } from './components';
 import './style/index.css';
+import { IoMdReturnLeft } from 'react-icons/io';
 
 interface IProps {
   isLogin: boolean;
 }
 
-export const LoginPage = observer(({ isLogin }: IProps) => {
+export const AuthenticationPage = observer(({ isLogin }: IProps) => {
   const [viewModel] = useState(new LoginViewModel());
   const { previousPath } = usePreviousPath();
   const history = useHistory();
@@ -28,24 +29,42 @@ export const LoginPage = observer(({ isLogin }: IProps) => {
     history.push('/');
   };
 
-  const onRegister = (user: UserAuthen) => {
-    viewModel.register(user);
+  const onRegister = async (user: UserAuthen) => {
+    const result = await viewModel.register(user);
+    if (result) {
+      if (previousPath) {
+        history.push(previousPath);
+      } else {
+        history.push('/class');
+      }
+    }
   };
 
   const onLogin = async (user: UserAuthen) => {
-    await viewModel.login(user);
-    if (previousPath) {
-      history.push(previousPath);
-    } else {
-      history.push('/class');
+    const result = await viewModel.login(user);
+    if (result) {
+      if (previousPath) {
+        history.push(previousPath);
+      } else {
+        history.push('/class');
+      }
     }
   };
 
   const loginWithGoogle = async () => {
-    viewModel.startLoading();
-    const userInformation = await googleLogin();
-    viewModel.stopLoading();
-    console.log(userInformation);
+    const user: any = await googleLogin();
+    if (!user) {
+      viewModel.makeError('CÓ lỗi xảy ra');
+      return;
+    }
+    const result = await viewModel.register(user);
+    if (result) {
+      if (previousPath) {
+        history.push(previousPath);
+      } else {
+        history.push('/class');
+      }
+    }
   };
 
   return (
