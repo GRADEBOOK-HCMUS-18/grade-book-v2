@@ -1,23 +1,29 @@
+@media  (max-width: 600px){
+    .fill-form {
+        width:70vw!important;
+    }
+}
+
 @media  (max-width: 767px) {
     .fill-form {
-        width:55vw;
+        width:60vw!important;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .fill-form {
-        width:45vw!important;
+        width:50vw!important;
     }
 }
 
 @media (min-width: 1024px) and (orientation: landscape) {
     .fill-form {
-        width:35vw!important;
+        width:40vw!important;
     }
 }
 
 @media (min-width: 1281px) {
     .fill-form {
-        width:30vw!important;
+        width:25vw!important;
     }
   }

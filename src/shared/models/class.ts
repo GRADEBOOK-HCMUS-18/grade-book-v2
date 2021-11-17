@@ -1,22 +1,11 @@
-interface ClassInfoInterface{
-  classID: string,
-  className:string,
-  teacherID:string,
-  teacherName:string
-  description:string,
-  room:string
-  createdAt:Date,
-}
-
-class Class implements ClassInfoInterface {
-  classID= ""
-  className=""
-  teacherID=""
-  teacherName=""
-  description=""
-  room=""
-  createdAt= new Date()
-  
+class Class {
+  id:number= 0
+  roleOfCurrentUser:string=""
+  name:string=""
+  teacherName:string=""
+  room:string=""
+  startDate:Date= new Date()
+  description:string = ''
 }
 
 export{Class}

@@ -6,14 +6,14 @@ import {Card,Col, Popover,  OverlayTrigger, Tooltip} from 'react-bootstrap'
 import '../style/class-card.css';
 
 interface IProps {
-  classname: string;
-    teacherName: string;
-    room: string;
-    classID:string, 
-    role:string
+  id:number
+  roleOfCurrentUser:string
+  name:string
+  teacherName:string
+  room:string
 }
 
-export const ClassCard = ({classname,teacherName,room,classID,role}:IProps)=>{
+export const ClassCard = ({id,roleOfCurrentUser,name,teacherName,room}:IProps)=>{
   
   return(
       <Col className ='mb-3'>
@@ -24,7 +24,7 @@ export const ClassCard = ({classname,teacherName,room,classID,role}:IProps)=>{
               <Popover>
                 <Popover.Body className = 'p-0'>
                   <div className="list-group">
-                    {(role==='student')
+                    {(roleOfCurrentUser==='student')
                       ?(
                         <button type="button" className="list-group-item list-group-item-action">
                         Hủy đăng ký
@@ -47,7 +47,7 @@ export const ClassCard = ({classname,teacherName,room,classID,role}:IProps)=>{
             </OverlayTrigger>
             <div className='ps-3'>
                 <a className ='go-to-class d-block ' href='#/go-to-class'>
-                  <div className = 'class-title text-white text-truncate'>{classname}</div>
+                  <div className = 'class-title text-white text-truncate'>{name}</div>
                   <div className = 'class-room  text-white text-truncate'>{room}</div>
                 </a>
                 <span className = 'class-teacher-name  text-white text-truncate'>{teacherName}</span>
@@ -56,12 +56,12 @@ export const ClassCard = ({classname,teacherName,room,classID,role}:IProps)=>{
         </Card.Header>
         <Card.Body className = 'card-body'/>
         <Card.Footer className='card-footer bg-white d-flex flex-row-reverse'>
-          <OverlayTrigger placement='bottom-end' overlay={<Tooltip>Mở folder cho {classname}</Tooltip>}>
+          <OverlayTrigger placement='bottom-end' overlay={<Tooltip>Mở folder cho {name}</Tooltip>}>
             <button className = 'btn-floating'>
               <AiOutlineFolderOpen/>
             </button>
           </OverlayTrigger>
-          <OverlayTrigger placement='bottom-end' overlay={<Tooltip>Mở bài tập cho {classname}</Tooltip>}>
+          <OverlayTrigger placement='bottom-end' overlay={<Tooltip>Mở bài tập cho {name}</Tooltip>}>
             <button className = 'btn-floating'>
               <MdAssignmentInd/>
             </button>

@@ -1,7 +1,7 @@
 
   .class-card{
     background: white;
-    width: 18rem!important;
+    width: 20rem!important;
     transition: all 0.5s linear;
   }
 
@@ -68,7 +68,7 @@
 
   }
   .go-to-class{
-    width:15rem;
+    width:16rem;
   }
 
   .go-to-class:hover .class-title{

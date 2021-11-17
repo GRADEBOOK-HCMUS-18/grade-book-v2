@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Loading } from 'shared/components';
 import { HomeViewModel } from './home-view-models';
-import { DashboardPage } from 'pages/dashboard';
+import { DashboardPage } from './components';
 export const HomePage = observer(() => {
   const [viewModal] = useState(new HomeViewModel());
   const { path } = useRouteMatch();

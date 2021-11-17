@@ -24,9 +24,9 @@ export const DashboardPage = observer(({userId}:IProps)=> {
                     key = {index}
                     teacherName={item.teacherName}
                     room ={item.room}
-                    classname={item.className}
-                    classID={item.classID}
-                    role={roleInClass}
+                    name={item.name}
+                    id={item.id}
+                    roleOfCurrentUser={item.roleOfCurrentUser}
                   />
                   )
           })}
