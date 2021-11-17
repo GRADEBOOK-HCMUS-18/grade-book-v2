@@ -1,7 +1,7 @@
 import { makeObservable, observable, action } from 'mobx';
 import { TOKEN_KEY } from 'shared/constants';
 import { storageService } from 'shared/services';
-import { UserResponse } from 'shared/types';
+import { UserStore } from 'shared/types';
 import { User } from 'shared/models';
 export class UserViewModel {
   private user: User = new User();
@@ -23,7 +23,7 @@ export class UserViewModel {
     return storageService.getLocalStorage(TOKEN_KEY) !== null;
   }
 
-  updateUser(user: UserResponse) {
+  updateUser(user: UserStore) {
     const {
       firstName,
       lastName,
@@ -36,7 +36,7 @@ export class UserViewModel {
     this.user.fistName = firstName;
     this.user.lastName = lastName;
     this.user.defaultAvatar = defaultProfilePictureHex;
-    this.user.displayName = lastName + '' + firstName;
+    this.user.displayName = user.displayName;
     this.triggerChange();
   }
 

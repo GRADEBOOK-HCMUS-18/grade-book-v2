@@ -16,4 +16,13 @@ export type UserResponse = {
   token: string;
 };
 
+export type UserStore = {
+  defaultProfilePictureHex: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  profilePictureUrl: string;
+  displayName: string;
+};
+
 export type StateType = 'success' | 'error' | 'warning' | null;

@@ -1,6 +1,6 @@
 import { AuthenError, HttpError } from 'shared/errors';
 import { TOKEN_KEY, USER_KEY } from 'shared/constants';
-import { UserAuthen, UserResponse } from 'shared/types';
+import { UserAuthen, UserResponse, UserStore } from 'shared/types';
 import { httpService, cryptoService, storageService } from 'shared/services';
 import { BaseViewModel, userViewModel } from 'shared/view-models';
 
@@ -26,13 +26,14 @@ export class LoginViewModel extends BaseViewModel {
     }
   }
 
-  getRememberUser(response: UserResponse) {
+  getRememberUser(response: UserResponse): UserStore {
     return {
-      fistName: response.firstName,
+      firstName: response.firstName,
       lastName: response.lastName,
       email: response.email,
       defaultProfilePictureHex: response.defaultProfilePictureHex,
       profilePictureUrl: response.profilePictureUrl,
+      displayName: response.lastName + ' ' + response.firstName,
     };
   }
 
@@ -41,7 +42,7 @@ export class LoginViewModel extends BaseViewModel {
     const encryptToken = cryptoService.encrypt(response.token);
     storageService.setLocalStorage(TOKEN_KEY, encryptToken);
     storageService.setLocalStorage(USER_KEY, JSON.stringify(rememberUser));
-    userViewModel.updateUser(response);
+    userViewModel.updateUser(rememberUser);
   }
 
   handleError(response: HttpError) {
