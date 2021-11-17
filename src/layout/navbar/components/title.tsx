@@ -33,7 +33,7 @@ export const Title = ({ pathName }: IProps) => {
 
     default:
       return (
-        <span style={marginStyle}>{classViewModel.getClass().className}</span>
+        <span style={marginStyle}>{classViewModel.getClass().name}</span>
       );
   }
 };

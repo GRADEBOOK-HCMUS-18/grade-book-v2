@@ -15,17 +15,33 @@
 .nav-bar-left-item {
   display: flex;
   align-items: center;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 2rem;
+
 }
 
 .nav-bar-left-right {
   display: flex;
   align-items: center;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
 .nav-bar-notification {
   position: absolute;
   top: 15px;
   right: 5px;
+}
+
+.btn-floating{
+  border-radius: 50%;
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  border: 0px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-floating:hover{
+  background-color: rgba(0, 0, 0, 0.3);
 }
