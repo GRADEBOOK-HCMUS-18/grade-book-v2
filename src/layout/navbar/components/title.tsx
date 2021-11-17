@@ -13,7 +13,7 @@ export const Title = ({ pathName }: IProps) => {
   };
 
   switch (pathName) {
-    case '/class':
+    case '/':
       return (
         <div style={centerHorizontal}>
           <img

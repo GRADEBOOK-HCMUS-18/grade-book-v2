@@ -24,10 +24,19 @@ export class UserViewModel {
   }
 
   updateUser(user: UserResponse) {
-    this.user.username = user.username;
-    this.user.profilePictureUrl = user.profilePictureUrl;
-    this.user.email = user.email;
-    this.user.defaultAvatar = user.defaultProfilePictureHex;
+    const {
+      firstName,
+      lastName,
+      email,
+      profilePictureUrl,
+      defaultProfilePictureHex,
+    } = user;
+    this.user.profilePictureUrl = profilePictureUrl;
+    this.user.email = email;
+    this.user.fistName = firstName;
+    this.user.lastName = lastName;
+    this.user.defaultAvatar = defaultProfilePictureHex;
+    this.user.displayName = lastName + '' + firstName;
     this.triggerChange();
   }
 

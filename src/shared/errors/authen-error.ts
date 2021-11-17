@@ -9,9 +9,9 @@ export class AuthenError extends HttpError {
   getMessage(): string {
     switch (this.message) {
       case 'No user with that username or email':
-        return 'Tên đăng nhập hoặc email không tồn tại';
+        return 'Email này chưa có tài khoản trong hệ thống';
       case 'Existed user':
-        return 'Tên đăng nhập hoặc email đã tồn tại';
+        return 'Tài khoản với email này đã tồn tại, hãy đăng nhập lại !!!!';
       default:
         return super.getDefaultMessage();
     }

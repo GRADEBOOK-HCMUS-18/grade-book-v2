@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const DefaultAvatar = ({ user, size }: IProps) => {
-  const { username, defaultAvatar } = user;
+  const { fistName, defaultAvatar } = user;
 
   const color = defaultAvatar;
 
@@ -24,7 +24,7 @@ export const DefaultAvatar = ({ user, size }: IProps) => {
   };
   return (
     <div style={style}>
-      <span>{username[0]}</span>
+      <span>{fistName[0]}</span>
     </div>
   );
 };

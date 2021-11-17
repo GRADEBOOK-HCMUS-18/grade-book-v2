@@ -10,7 +10,6 @@ import { googleLogin } from 'firebase-services/auth';
 import { LoginViewModel } from './authen-view-model';
 import { LoginForm, RegisterForm } from './components';
 import './style/index.css';
-import { IoMdReturnLeft } from 'react-icons/io';
 
 interface IProps {
   isLogin: boolean;
@@ -30,40 +29,27 @@ export const AuthenticationPage = observer(({ isLogin }: IProps) => {
   };
 
   const onRegister = async (user: UserAuthen) => {
-    const result = await viewModel.register(user);
+    const result = await viewModel.authenUser(user, 'register');
     if (result) {
-      if (previousPath) {
-        history.push(previousPath);
-      } else {
-        history.push('/class');
-      }
+      previousPath ? history.push(previousPath) : history.push('/');
     }
   };
 
   const onLogin = async (user: UserAuthen) => {
-    const result = await viewModel.login(user);
+    const result = await viewModel.authenUser(user, 'login');
     if (result) {
-      if (previousPath) {
-        history.push(previousPath);
-      } else {
-        history.push('/class');
-      }
+      previousPath ? history.push(previousPath) : history.push('/');
     }
   };
 
   const loginWithGoogle = async () => {
     const user: any = await googleLogin();
     if (!user) {
-      viewModel.makeError('CÓ lỗi xảy ra');
       return;
     }
-    const result = await viewModel.register(user);
+    const result = await viewModel.authenUser(user, 'google');
     if (result) {
-      if (previousPath) {
-        history.push(previousPath);
-      } else {
-        history.push('/class');
-      }
+      previousPath ? history.push(previousPath) : history.push('/');
     }
   };
 
@@ -105,7 +91,11 @@ export const AuthenticationPage = observer(({ isLogin }: IProps) => {
           <div className="google-icon">
             <FcGoogle size={30} />
           </div>
-          <span>Đăng nhập bằng google</span>
+          {isLogin ? (
+            <span>Đăng nhập bằng google</span>
+          ) : (
+            <span>Đăng ký bằng google</span>
+          )}
         </div>
       </div>
       <div className="login-banner">
@@ -115,7 +105,7 @@ export const AuthenticationPage = observer(({ isLogin }: IProps) => {
       <PopupAlert
         show={viewModel.isError}
         error={true}
-        onHide={() => (viewModel.isError = false)}
+        onHide={() => viewModel.deleteError()}
         message={viewModel.message}
       />
     </div>

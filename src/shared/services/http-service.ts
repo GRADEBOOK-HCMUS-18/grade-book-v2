@@ -1,14 +1,13 @@
 import axios from 'axios';
-import { HttpError } from 'shared/error';
-import { TOKEN_KEY } from 'shared/constants';
+import { HttpError } from 'shared/errors';
+import { TOKEN_KEY, BASE_URL } from 'shared/constants';
 import { storageService } from './storage-service';
 import { cryptoService } from './crypto-service';
 
-const baseUrl = 'http://localhost:5000';
 class HttpService {
-  async sendGet(url: string, token: string) {
+  async sendGet(url: string, token?: string) {
     try {
-      const response = await axios.get(`${baseUrl}${url}`, {
+      const response = await axios.get(`${BASE_URL}${url}`, {
         headers: this.getHeader(token),
       });
 
@@ -21,7 +20,7 @@ class HttpService {
   async sendPost(url: string, body: any, token?: string) {
     try {
       const response = await axios.post(
-        `${baseUrl}${url}`,
+        `${BASE_URL}${url}`,
         JSON.stringify(body),
         {
           headers: this.getHeader(token),
@@ -36,7 +35,7 @@ class HttpService {
   async sendPut(url: string, body: any, token?: string) {
     try {
       const response = await axios.put(
-        `${baseUrl}${url}`,
+        `${BASE_URL}${url}`,
         JSON.stringify(body),
         {
           headers: this.getHeader(token),
@@ -50,7 +49,7 @@ class HttpService {
 
   async sendDelete(url: string, token?: string) {
     try {
-      const response = await axios.delete(`${baseUrl}${url}`, {
+      const response = await axios.delete(`${BASE_URL}${url}`, {
         headers: this.getHeader(token),
       });
 

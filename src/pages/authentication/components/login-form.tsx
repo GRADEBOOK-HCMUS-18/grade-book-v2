@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const initState = {
-  username: '',
+  email: '',
   password: '',
 };
 
@@ -23,7 +23,7 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
 
     if (!newErrors.length) {
       onLogin({
-        usernameOrEmail: formValue['username'],
+        email: formValue['email'],
         password: formValue['password'],
       });
     }
@@ -35,13 +35,11 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
     value: string
   ) => {
     const state = { ...formValue };
-    if (fieldName) {
-      state[fieldName] = value;
-      setFormValue(state);
-    }
+    state[fieldName] = value;
+    setFormValue(state);
   };
 
-  const { userNameError, passwordError } = getErrors(errors);
+  const { emailError, passwordError } = getErrors(errors);
 
   return (
     <Form noValidate onSubmit={handleSubmit}>
@@ -49,14 +47,14 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
         <Form.Control
           required
           onChange={(event: any) =>
-            handleFieldChange('username', event.target.value)
+            handleFieldChange('email', event.target.value)
           }
-          isInvalid={!!userNameError}
+          isInvalid={!!emailError}
           type="text"
           placeholder="Nhập tên đăng nhập/email"
         />
         <Form.Control.Feedback type="invalid">
-          {userNameError?.errorMessage}
+          {emailError?.errorMessage}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -74,9 +72,7 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
           {passwordError?.errorMessage}
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Lưu mật khẩu" />
-      </Form.Group>
+
       <Button variant="secondary" type="submit">
         Đăng nhập
       </Button>

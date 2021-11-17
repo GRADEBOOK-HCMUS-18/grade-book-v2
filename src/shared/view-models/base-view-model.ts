@@ -11,6 +11,7 @@ export class BaseViewModel {
       startLoading: action,
       stopLoading: action,
       makeError: action,
+      deleteError: action,
     });
   }
 
@@ -25,5 +26,9 @@ export class BaseViewModel {
   makeError(message: string) {
     this.isError = true;
     this.message = message;
+  }
+  deleteError() {
+    this.isError = false;
+    this.message = '';
   }
 }

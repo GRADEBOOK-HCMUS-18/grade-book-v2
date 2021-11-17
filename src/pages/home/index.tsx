@@ -23,7 +23,7 @@ export const HomePage = observer(() => {
         </div>
       </Route>
       <Route>
-        <Redirect to="/class" />
+        <Redirect to="/" />
       </Route>
     </Switch>
   );

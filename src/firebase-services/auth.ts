@@ -1,5 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
+import { getRandomAvatarColor } from 'utils/random';
 import { app } from './config';
 
 const auth = getAuth(app);
@@ -16,7 +17,7 @@ export const googleLogin = async () => {
       firstName: response._tokenResponse.firstName,
       lastName: response._tokenResponse.lastName,
       profilePictureUrl: user.photoURL,
-      defaultProfilePictureHex: '',
+      defaultProfilePictureHex: getRandomAvatarColor(),
     };
   } catch (err: any) {
     console.log(err.message);

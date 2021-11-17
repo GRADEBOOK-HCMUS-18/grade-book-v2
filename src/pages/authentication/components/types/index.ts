@@ -1,10 +1,4 @@
 export type FormError = {
-  errorType:
-    | 'email'
-    | 'username'
-    | 'password'
-    | 'reInputPassword'
-    | 'firstName'
-    | 'lastName';
+  errorType: 'email' | 'password' | 'firstName' | 'lastName';
   errorMessage: string;
 };

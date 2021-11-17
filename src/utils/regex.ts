@@ -8,10 +8,6 @@ export const validatePassword = (password: string) => {
   return password.length >= 8 && password.length <= 16;
 };
 
-export const validateUserName = (username: string) => {
-  return username.length >= 6 && username.length <= 32;
-};
-
 export const validateFirstLastName = (name: string) => {
   return name.length <= 32;
 };

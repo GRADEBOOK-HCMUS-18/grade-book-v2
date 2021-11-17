@@ -30,7 +30,7 @@ export const SideBar = ({ show, toggle }: IProps) => {
           <Avatar size={50} user={user} />
           <div className="user-info">
             <span>{user.email}</span>
-            <span>{user.username}</span>
+            <span>{user.displayName}</span>
           </div>
         </div>
       )}

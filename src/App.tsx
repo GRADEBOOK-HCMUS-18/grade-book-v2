@@ -8,15 +8,15 @@ function App() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const location = useLocation();
-  const isInLoginPage =
-    location.pathname !== '/' && location.pathname !== '/register';
+  const isInAuthenPage =
+    location.pathname !== '/login' && location.pathname !== '/register';
 
   const toggleSideBar = () => {
     setShowSidebar(!showSidebar);
   };
   return (
     <>
-      {isInLoginPage && (
+      {isInAuthenPage && (
         <>
           <NavBar toggleSideBar={toggleSideBar} />
           <SideBar show={showSidebar} toggle={toggleSideBar} />
@@ -24,18 +24,19 @@ function App() {
       )}
 
       <Switch>
-        <Route exact path="/">
+        <PrivateRoute exact path="/">
+          <HomePage />
+        </PrivateRoute>
+        <Route path="/login">
           <AuthenticationPage isLogin={true} />
         </Route>
         <Route path="/register">
           <AuthenticationPage isLogin={false} />
         </Route>
-        <Route path="/class/:id">
+        <Route exact path="/class/:id">
           <ClassDetail />
         </Route>
-        <PrivateRoute path="/class">
-          <HomePage />
-        </PrivateRoute>
+
         <PrivateRoute path="/setting">
           <div className="container">Setting</div>
         </PrivateRoute>
@@ -47,7 +48,7 @@ function App() {
         </PrivateRoute>
 
         <Route>
-          <Redirect to="/class" />
+          <Redirect to="/" />
         </Route>
       </Switch>
     </>
