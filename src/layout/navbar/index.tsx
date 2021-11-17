@@ -22,7 +22,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       </div>
 
       <div className="nav-bar-left-right">
-        {location.pathname === '/class' && 
+        {location.pathname === '/' && 
           <CreateJoinClassDropDownButton/>
         }
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />

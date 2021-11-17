@@ -15,8 +15,13 @@ export const DashboardPage = observer(({userId}:IProps)=> {
   const [viewModal] = useState(new ClassListViewModel())
   const [classes, setClasses] = useState(viewModal.Classes);
   
+  useEffect(()=>{
+    viewModal.getClasses();
+    
+  },[])
+
   return (
-    <div className = 'my-4'>
+    <div className = 'container my-4'>
       <Row className = 'd-flex-block justify-content-start g-3 mx-auto'>
         {classes.map((item, index) => {
           const roleInClass:string= "student";

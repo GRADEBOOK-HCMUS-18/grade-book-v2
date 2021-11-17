@@ -12,10 +12,12 @@ export class LoginViewModel extends BaseViewModel {
     else if (type === 'google') url = '/Authentication/google';
     storageService.clearUser();
     this.startLoading();
+    
     const response: UserResponse | HttpError = await httpService.sendPost(
       url,
       user
     );
+    console.log(response)
     this.stopLoading();
     if (response instanceof HttpError) {
       this.handleError(response);

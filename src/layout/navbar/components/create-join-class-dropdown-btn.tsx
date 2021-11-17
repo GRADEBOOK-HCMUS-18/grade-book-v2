@@ -4,12 +4,6 @@ import {homeViewModel} from 'shared/view-models'
 import {observer} from 'mobx-react'
 
 const CreateJoinClassDropDownButton = observer(()=>{
-    const ShowJoinClassModal = ()=>{
-        homeViewModel.setShowJoinClassModal(true)
-    }
-    const ShowCreateClassModal = ()=>{
-        homeViewModel.setShowCreateClassModal(true)
-    }
 
     return(
         <OverlayTrigger trigger="focus" placement = 'bottom-end' overlay = {

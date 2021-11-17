@@ -60,7 +60,7 @@ class HttpService {
   }
 
   getBearerToken() {
-    const token = storageService.getSessionStorage(TOKEN_KEY);
+    const token = storageService.getLocalStorage(TOKEN_KEY);
     const decryptToken = cryptoService.decrypt(token || '');
     return `Bearer ${decryptToken}`;
   }
