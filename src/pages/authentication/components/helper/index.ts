@@ -1,9 +1,9 @@
+import { find } from 'lodash';
 import {
   validateEmailAddress,
   validatePassword,
   validateFirstLastName,
 } from 'utils/regex';
-import { find } from 'lodash';
 import { FormError } from '../types';
 
 export const getErrors = (errors: FormError[]) => {

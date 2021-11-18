@@ -1,22 +1,21 @@
 import { observer } from 'mobx-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Loading } from 'shared/components';
-import { HomeViewModel } from './home-view-models';
-import { DashboardPage } from './components';
+import { Dashboard } from './components';
+import { HomeViewModel } from './home-view-model';
 export const HomePage = observer(() => {
-  const [viewModal] = useState(new HomeViewModel());
+  const [viewModel] = useState(new HomeViewModel());
   const { path } = useRouteMatch();
 
-  const handleClick = () => {
-    viewModal.getTodoById();
-  };
+  useEffect(() => {
+    viewModel.getAllClass();
+  }, [viewModel]);
 
   return (
     <Switch>
       <Route exact path={path}>
         <>
-          <DashboardPage userId = "1234"/>
+          <Dashboard allClass={viewModel.allClass} userId="1234" />
         </>
       </Route>
       <Route>

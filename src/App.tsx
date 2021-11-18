@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { SideBar, NavBar } from 'layout';
 import { ClassDetail, HomePage, AuthenticationPage } from 'pages';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { PrivateRoute } from 'router';
 
 function App() {

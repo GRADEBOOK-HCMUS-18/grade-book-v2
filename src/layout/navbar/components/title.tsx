@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
-import logo from 'assets/images/logo.png';
 import { centerHorizontal } from 'shared/styles';
 import { classViewModel } from 'shared/view-models';
+import logo from 'assets/images/logo.png';
 
 interface IProps {
   pathName: string;
@@ -32,8 +32,6 @@ export const Title = ({ pathName }: IProps) => {
       return <span style={marginStyle}>Lịch</span>;
 
     default:
-      return (
-        <span style={marginStyle}>{classViewModel.getClass().name}</span>
-      );
+      return <span style={marginStyle}>{classViewModel.getClass().name}</span>;
   }
 };

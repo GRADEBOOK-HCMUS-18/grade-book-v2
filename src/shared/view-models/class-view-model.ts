@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
-import { Class } from 'shared/models';
+import { ClassInfo } from 'shared/models';
 class ClassViewModel {
-  private class: Class = new Class();
+  private class: ClassInfo = new ClassInfo();
 
   constructor() {
     makeAutoObservable(this);
