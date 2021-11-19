@@ -33,9 +33,9 @@ function App() {
         <Route path="/register">
           <AuthenticationPage isLogin={false} />
         </Route>
-        <Route exact path="/class/:id">
+        <PrivateRoute exact path="/class/:id">
           <ClassDetail />
-        </Route>
+        </PrivateRoute>
 
         <PrivateRoute path="/setting">
           <div className="container">Setting</div>
