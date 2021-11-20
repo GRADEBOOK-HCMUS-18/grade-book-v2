@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import { useRef, useState } from 'react';
 import { Overlay, Popover } from 'react-bootstrap';
 import { AiOutlineLogout } from 'react-icons/ai';
@@ -6,7 +7,7 @@ import { Avatar } from 'shared/components';
 import { userViewModel } from 'shared/view-models';
 import './style/index.css';
 
-export const PopOverProfile = () => {
+export const PopOverProfile = observer(() => {
   const [show, setShow] = useState(false);
 
   const [target, setTarget] = useState(null);
@@ -30,7 +31,7 @@ export const PopOverProfile = () => {
     userViewModel.logout();
   };
 
-  const user = userViewModel.getUser();
+  const user = userViewModel.user;
   return (
     <div ref={ref}>
       <Avatar onClick={handleClick} user={user} />
@@ -63,4 +64,4 @@ export const PopOverProfile = () => {
       </Overlay>
     </div>
   );
-};
+});

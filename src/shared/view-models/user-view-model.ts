@@ -4,21 +4,19 @@ import { TOKEN_KEY } from 'shared/constants';
 import { httpService, storageService } from 'shared/services';
 import { UserStore } from 'shared/types';
 import { User } from 'shared/models';
-export class UserViewModel {
-  private user: User = new User();
+import { BaseViewModel } from './base-view-model';
+export class UserViewModel extends BaseViewModel {
+  user: User = new User();
   dataVersion: number = 0;
 
   constructor() {
+    super();
     makeObservable(this, {
       dataVersion: observable,
+      user: observable,
       updateUser: action,
-      triggerChange: action,
-      changeAvatar: action,
+      updateUserAvatar: action,
     });
-  }
-
-  getUser() {
-    return this.user;
   }
 
   isLogin() {
@@ -26,6 +24,7 @@ export class UserViewModel {
   }
 
   updateUser(user: UserStore) {
+    console.log(user);
     const {
       firstName,
       lastName,
@@ -33,28 +32,22 @@ export class UserViewModel {
       profilePictureUrl,
       defaultProfilePictureHex,
     } = user;
-    this.user.profilePictureUrl = profilePictureUrl;
-    this.user.email = email;
-    this.user.fistName = firstName;
-    this.user.lastName = lastName;
-    this.user.defaultAvatar = defaultProfilePictureHex;
-    this.user.displayName = user.displayName;
-    this.triggerChange();
-  }
-
-  triggerChange() {
-    if (this.dataVersion > 1) {
-      this.dataVersion--;
-    } else {
-      this.dataVersion++;
-    }
+    const temp = new User();
+    temp.profilePictureUrl = profilePictureUrl;
+    temp.email = email;
+    temp.fistName = firstName;
+    temp.lastName = lastName;
+    temp.defaultAvatar = defaultProfilePictureHex;
+    temp.displayName = user.displayName;
+    temp.isPasswordNotSet = user.isPasswordNotSet;
+    this.user = User.map(temp);
   }
 
   logout() {
     storageService.clearUser();
   }
 
-  async changeAvatar(data: any) {
+  async requestNewAvatar(data: any): Promise<boolean> {
     const response: { profilePictureUrl: string } | HttpError =
       await httpService.sendFile(
         '/User/avatar',
@@ -63,8 +56,16 @@ export class UserViewModel {
         httpService.getBearerToken()
       );
     if (response instanceof HttpError) {
-      alert('looix');
+      return false;
+    } else {
+      this.updateUserAvatar(response.profilePictureUrl);
+      return true;
     }
+  }
+
+  updateUserAvatar(avatar: string) {
+    this.user.profilePictureUrl = avatar;
+    this.user = User.map(this.user);
   }
 }
 

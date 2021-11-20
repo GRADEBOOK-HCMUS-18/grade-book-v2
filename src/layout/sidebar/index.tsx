@@ -25,7 +25,7 @@ export const SideBar = ({ show, toggle }: IProps) => {
   const history = useHistory();
   const location = useLocation();
   const { isMobile } = useResponsive();
-  const user = userViewModel.getUser();
+  const user = userViewModel.user;
 
   useEffect(() => {
     const path: any = location.pathname;
