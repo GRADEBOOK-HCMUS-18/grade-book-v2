@@ -1,5 +1,5 @@
 import { AuthenticationPage } from './authentication';
 import { ClassDetail } from './class-detail';
 import { HomePage } from './home';
-
-export { HomePage, ClassDetail, AuthenticationPage };
+import { MemberInvitation } from './member-inviation';
+export { HomePage, ClassDetail, AuthenticationPage,MemberInvitation };
