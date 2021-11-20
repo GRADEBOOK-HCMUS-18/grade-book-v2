@@ -9,12 +9,14 @@ type ItemArr = Array<{
 }>;
 const iconSize = 20;
 
+export const PathDisplay = ['/', '/calendar', '/archived', '/setting'];
+
 export const SideBarItems: ItemArr = [
   {
     id: 0,
     content: 'Lớp học',
     icon: <BsHouseDoor size={iconSize} />,
-    path: '/class',
+    path: '/',
   },
   {
     id: 1,

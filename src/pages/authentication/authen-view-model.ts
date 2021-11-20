@@ -1,5 +1,5 @@
 import { AuthenError, HttpError } from 'shared/errors';
-import { TOKEN_KEY, USER_KEY } from 'shared/constants';
+import { TOKEN_KEY } from 'shared/constants';
 import { UserAuthen, UserResponse, UserStore } from 'shared/types';
 import { httpService, cryptoService, storageService } from 'shared/services';
 import { BaseViewModel, userViewModel } from 'shared/view-models';
@@ -12,12 +12,12 @@ export class LoginViewModel extends BaseViewModel {
     else if (type === 'google') url = '/Authentication/google';
     storageService.clearUser();
     this.startLoading();
-    
+
     const response: UserResponse | HttpError = await httpService.sendPost(
       url,
       user
     );
-    console.log(response)
+    console.log(response);
     this.stopLoading();
     if (response instanceof HttpError) {
       this.handleError(response);
@@ -43,7 +43,6 @@ export class LoginViewModel extends BaseViewModel {
     const rememberUser = this.getRememberUser(response);
     const encryptToken = cryptoService.encrypt(response.token);
     storageService.setLocalStorage(TOKEN_KEY, encryptToken);
-    storageService.setLocalStorage(USER_KEY, JSON.stringify(rememberUser));
     userViewModel.updateUser(rememberUser);
   }
 

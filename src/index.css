@@ -1,6 +1,7 @@
 :root {
   --light-blue: #e8f0fe;
   --light-gray: #e0e0e0;
+  --medium-gray: #dadce0;
   --blue: #3178c6;
   --link: #3c4043;
   --border-bottom-width: 0.0625rem;
@@ -15,7 +16,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
@@ -48,9 +49,24 @@ h4 {
 
 @media only screen and (max-width: 600px) {
   html {
-    font-size: 14px;
+    font-size: 15px;
   }
   .offcanvas-start {
     width: 250px !important;
   }
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.center-horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.btn-floating {
+  margin: 0 !important;
 }

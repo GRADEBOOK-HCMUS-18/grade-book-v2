@@ -30,7 +30,8 @@ export const Title = ({ pathName }: IProps) => {
       return <span style={marginStyle}>Lớp học đã lưu trữ</span>;
     case '/calendar':
       return <span style={marginStyle}>Lịch</span>;
-
+    case '/profile':
+      return <span style={marginStyle}>Hồ sơ</span>;
     default:
       return <span style={marginStyle}>{classViewModel.getClass().name}</span>;
   }

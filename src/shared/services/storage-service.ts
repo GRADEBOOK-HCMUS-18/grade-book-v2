@@ -1,4 +1,4 @@
-import { USER_KEY, TOKEN_KEY } from 'shared/constants';
+import { TOKEN_KEY } from 'shared/constants';
 class StorageService {
   getLocalStorage(key: string) {
     const data = localStorage.getItem(key);
@@ -35,7 +35,6 @@ class StorageService {
   }
 
   clearUser() {
-    this.deleteLocalStorage(USER_KEY);
     this.deleteLocalStorage(TOKEN_KEY);
   }
 }

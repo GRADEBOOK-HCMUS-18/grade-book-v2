@@ -1,0 +1,17 @@
+#image-input {
+  display: none;
+}
+
+.image-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.image-picker > span {
+  margin-left: 5px;
+}

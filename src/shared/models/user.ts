@@ -1,3 +1,4 @@
+import { makeAutoObservable } from 'mobx';
 export class User {
   role: 'TEACHER' | 'STUDENT' | null = null;
   email: string = '';

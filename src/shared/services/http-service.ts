@@ -76,6 +76,27 @@ class HttpService {
         };
     return headers;
   }
+
+  async sendFile(
+    url: string,
+    method: 'POST' | 'PUT',
+    formData: any,
+    token?: string
+  ) {
+    try {
+      const response = await axios({
+        url: `${BASE_URL}${url}`,
+        method: method,
+        data: formData,
+        headers: token ? { Authorization: token } : {},
+      });
+
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+      return new HttpError(error.response);
+    }
+  }
 }
 
 export const httpService = new HttpService();

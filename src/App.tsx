@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { SideBar, NavBar } from 'layout';
-import { ClassDetail, HomePage, AuthenticationPage } from 'pages';
+import { ClassDetail, HomePage, AuthenticationPage, ProfilePage } from 'pages';
 import { PrivateRoute } from 'router';
 
 function App() {
@@ -45,6 +45,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/calendar">
           <div className="container">Lịch</div>
+        </PrivateRoute>
+        <PrivateRoute path="/profile">
+          <ProfilePage />
         </PrivateRoute>
 
         <Route>

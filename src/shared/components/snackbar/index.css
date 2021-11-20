@@ -1,0 +1,55 @@
+.success-snackbar {
+  background-color: #22bb33;
+}
+
+.error-snackbar {
+  background-color: #ff0000;
+}
+
+.warning-snackbar {
+  background-color: #f0ad4e;
+}
+
+.snackbar {
+  color: #ffff;
+  padding: 5px 30px;
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  bottom: 20px;
+  left: 20px;
+  border-radius: 10px;
+  width: 300px;
+  animation: snackbar-animation 0.5s ease-in-out;
+}
+
+.snackbar-close {
+  color: #ffff;
+  padding: 5px 30px;
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  bottom: 20px;
+  left: 20px;
+  border-radius: 10px;
+  width: 300px;
+  animation: snackbar-animation-close 0.5s ease-in-out forwards;
+}
+
+@keyframes snackbar-animation {
+  from {
+    transform: translateX(-350px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes snackbar-animation-close {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-350px);
+  }
+}

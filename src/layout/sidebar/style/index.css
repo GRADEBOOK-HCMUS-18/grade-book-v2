@@ -38,6 +38,19 @@
   align-items: center;
 }
 
+.avatar-item-selected {
+  padding: 10px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  border-bottom: 0.0625rem solid var(--light-gray);
+  background-color: var(--light-blue);
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .user-info {
   display: flex;
   flex-direction: column;

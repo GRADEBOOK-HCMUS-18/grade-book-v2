@@ -1,6 +1,7 @@
+import { HttpError } from 'shared/errors';
 import { makeObservable, observable, action } from 'mobx';
 import { TOKEN_KEY } from 'shared/constants';
-import { storageService } from 'shared/services';
+import { httpService, storageService } from 'shared/services';
 import { UserStore } from 'shared/types';
 import { User } from 'shared/models';
 export class UserViewModel {
@@ -12,6 +13,7 @@ export class UserViewModel {
       dataVersion: observable,
       updateUser: action,
       triggerChange: action,
+      changeAvatar: action,
     });
   }
 
@@ -45,6 +47,23 @@ export class UserViewModel {
       this.dataVersion--;
     } else {
       this.dataVersion++;
+    }
+  }
+
+  logout() {
+    storageService.clearUser();
+  }
+
+  async changeAvatar(data: any) {
+    const response: { profilePictureUrl: string } | HttpError =
+      await httpService.sendFile(
+        '/User/avatar',
+        'PUT',
+        data,
+        httpService.getBearerToken()
+      );
+    if (response instanceof HttpError) {
+      alert('looix');
     }
   }
 }

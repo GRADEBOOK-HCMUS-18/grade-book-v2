@@ -1,14 +1,16 @@
-import { MemoUser } from './memo-user/index';
+import { SnackBar } from './snackbar';
 import { Loading } from './loading';
 import { Avatar } from './avatar';
 import { PopupAlert } from './popup-alert';
 import { JoinClassModal, CreateClassModal } from './modal';
+import { ImagePicker } from './image-picker';
 
 export {
-  MemoUser,
   PopupAlert,
   Avatar,
   Loading,
   JoinClassModal,
   CreateClassModal,
+  ImagePicker,
+  SnackBar,
 };
