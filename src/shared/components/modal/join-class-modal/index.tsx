@@ -4,8 +4,8 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { classActionViewModel } from 'shared/view-models';
 import './style/index.css';
 
-export const JoinClassModal = observer(() => {
-  const [inviteID, setInviteID] = useState('');
+const JoinClassModal = observer(() => {
+  const [InviteID, setInviteID] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inviteID: string = event.target.value;
@@ -37,7 +37,7 @@ export const JoinClassModal = observer(() => {
               type="text"
               placeholder="Mã lớp học"
               name="inviteClassID"
-              value={inviteID}
+              value={InviteID}
               onChange={handleChange}
               aria-describedby="title-help"
               className="mt-1"
@@ -57,3 +57,5 @@ export const JoinClassModal = observer(() => {
     </Modal>
   );
 });
+
+export { JoinClassModal };

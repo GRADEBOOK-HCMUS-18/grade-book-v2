@@ -1,9 +1,9 @@
-import { observer } from 'mobx-react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { classActionViewModel } from 'shared/view-models';
+import { observer } from 'mobx-react';
 
-export const CreateJoinClassDropDownButton = observer(() => {
+const CreateJoinClassDropDownButton = observer(() => {
   return (
     <OverlayTrigger
       trigger="focus"
@@ -39,3 +39,5 @@ export const CreateJoinClassDropDownButton = observer(() => {
     </OverlayTrigger>
   );
 });
+
+export { CreateJoinClassDropDownButton };
