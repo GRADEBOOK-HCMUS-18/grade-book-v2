@@ -17,8 +17,8 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
   const [errors, setErrors] = useState<FormError[]>([]);
   const [userInfo, setUserInfo] = useState(user);
 
-  const handleChangeField = (fieldName: FieldType, value: string) => {
-    setUserInfo({ ...userInfo, [fieldName]: removeSpace(value) });
+  const handleChangeField = (fieldName: FieldType, event: any) => {
+    setUserInfo({ ...userInfo, [fieldName]: removeSpace(event.target.value) });
   };
 
   const onSubmit = (event: any) => {
@@ -38,10 +38,10 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
         <Form.Label>Email</Form.Label>
         <Form.Control
           required
-          onChange={(event) => handleChangeField('email', event.target.value)}
+          onChange={(event) => handleChangeField('email', event)}
           type="text"
+          defaultValue={user.email}
           isInvalid={!!emailError}
-          placeholder={user.email}
         />
         <Form.Control.Feedback type="invalid">
           {emailError?.errorMessage}
@@ -52,12 +52,10 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
         <Form.Label>Họ</Form.Label>
         <Form.Control
           required
-          onChange={(event) =>
-            handleChangeField('lastName', event.target.value)
-          }
+          onChange={(event) => handleChangeField('lastName', event)}
           isInvalid={!!lastNameError}
+          defaultValue={user.lastName}
           type="text"
-          placeholder={user.lastName}
         />
         <Form.Control.Feedback type="invalid">
           {lastNameError?.errorMessage}
@@ -67,12 +65,10 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
         <Form.Label>Tên</Form.Label>
         <Form.Control
           required
-          onChange={(event) =>
-            handleChangeField('firstName', event.target.value)
-          }
+          onChange={(event) => handleChangeField('firstName', event)}
           isInvalid={!!firstNameError}
           type="text"
-          placeholder={user.fistName}
+          defaultValue={user.fistName}
         />
         <Form.Control.Feedback type="invalid">
           {firstNameError?.errorMessage}

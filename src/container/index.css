@@ -13,8 +13,11 @@
 }
 
 .error-message {
-  font-weight: bold;
   color: var(--blue);
+}
+
+.error-message > h2 {
+  font-weight: bold;
 }
 
 .error-image {

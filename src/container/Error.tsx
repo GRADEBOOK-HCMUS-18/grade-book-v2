@@ -5,9 +5,10 @@ export const ErrorContainer = () => {
   return (
     <div className="error-container">
       <div className="error-inside-container">
-        <h2 className="error-message">
-          Có lỗi xảy ra :( <h3>Hiện tại không thể kết nối</h3>
-        </h2>
+        <div className="error-message">
+          <h2>Có lỗi xảy ra :(</h2>
+          <h3>Hiện tại không thể kết nối</h3>
+        </div>
 
         <img className="error-image" src={errorImg} alt=" "></img>
       </div>
