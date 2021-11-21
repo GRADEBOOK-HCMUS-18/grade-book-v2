@@ -1,5 +1,5 @@
 import { SnackBar } from './snackbar';
-import { Loading } from './loading';
+import { Loading, LineLoading } from './loading';
 import { Avatar } from './avatar';
 import { PopupAlert } from './popup-alert';
 import { JoinClassModal, CreateClassModal } from './modal';
@@ -13,4 +13,5 @@ export {
   CreateClassModal,
   ImagePicker,
   SnackBar,
+  LineLoading,
 };

@@ -1,5 +1,5 @@
 import { Spinner } from 'react-bootstrap';
-import './styles/index.css';
+import './index.css';
 
 interface IProps {
   isLoading: boolean;

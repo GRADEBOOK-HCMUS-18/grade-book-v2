@@ -1,0 +1,8 @@
+.password-modal-btn {
+  justify-content: center;
+  width: 100%;
+}
+
+.password-modal-btn:first-child button {
+  margin-right: 10px;
+}

@@ -1,3 +1,4 @@
+import { baseColors } from 'assets/color';
 import { CSSProperties } from 'react';
 import { User } from 'shared/models';
 import { DefaultAvatar } from './default-avatar';
@@ -15,6 +16,7 @@ export const Avatar = ({ user, size, onClick }: IProps) => {
     height: avatarSize,
     borderRadius: avatarSize,
     cursor: 'pointer',
+    border: `1px solid ${baseColors.lightGray}`,
   };
 
   const handleClick = (event: any) => {

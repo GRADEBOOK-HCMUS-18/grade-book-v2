@@ -8,6 +8,9 @@ import {
   PopOverProfile,
 } from './components';
 import './style/index.css';
+import { LineLoading } from 'shared/components';
+import { Observer } from 'mobx-react';
+import { lineLoadingViewModel } from 'shared/view-models';
 interface IProps {
   toggleSideBar: () => void;
 }
@@ -28,6 +31,12 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
         {!isMobile && <PopOverProfile />}
       </div>
+      <Observer>
+        {() => {
+          const loading = lineLoadingViewModel.isLoading;
+          return <LineLoading isLoading={loading} />;
+        }}
+      </Observer>
     </div>
   );
 };

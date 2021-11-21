@@ -1,11 +1,8 @@
 .profile-card {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  padding: 1rem 4rem;
+  padding: 1rem;
   width: max-content;
-  border: 1px solid var(--medium-gray);
-  border-radius: 10px;
 }
 .profile-header {
   border-bottom: 1px solid var(--medium-gray);
@@ -17,7 +14,6 @@
 
 .user-profile {
   display: flex;
-  flex-wrap: wrap-reverse;
 }
 
 .user-avatar {
@@ -31,5 +27,8 @@
   }
   .user-avatar {
     margin-left: 1rem;
+  }
+  .user-profile {
+    flex-direction: column-reverse;
   }
 }

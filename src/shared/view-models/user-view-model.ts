@@ -23,23 +23,32 @@ export class UserViewModel extends BaseViewModel {
     return storageService.getLocalStorage(TOKEN_KEY) !== null;
   }
 
+  updateUserAvatar(avatar: string) {
+    this.user.profilePictureUrl = avatar;
+    this.user = User.map(this.user);
+  }
+
   updateUser(user: UserStore) {
-    console.log(user);
     const {
       firstName,
       lastName,
       email,
       profilePictureUrl,
       defaultProfilePictureHex,
+      isPasswordNotSet,
+      displayName,
     } = user;
+
     const temp = new User();
     temp.profilePictureUrl = profilePictureUrl;
     temp.email = email;
     temp.fistName = firstName;
     temp.lastName = lastName;
     temp.defaultAvatar = defaultProfilePictureHex;
-    temp.displayName = user.displayName;
-    temp.isPasswordNotSet = user.isPasswordNotSet;
+    temp.displayName = displayName;
+    temp.isPasswordNotSet = isPasswordNotSet
+      ? isPasswordNotSet
+      : this.user.isPasswordNotSet;
     this.user = User.map(temp);
   }
 
@@ -63,9 +72,18 @@ export class UserViewModel extends BaseViewModel {
     }
   }
 
-  updateUserAvatar(avatar: string) {
-    this.user.profilePictureUrl = avatar;
-    this.user = User.map(this.user);
+  async updateNewInfo(user: User): Promise<boolean> {
+    const response: UserStore | HttpError = await httpService.sendPut(
+      '/User',
+      user,
+      httpService.getBearerToken()
+    );
+    if (response instanceof HttpError) {
+      return false;
+    } else {
+      this.updateUser(response);
+      return true;
+    }
   }
 }
 

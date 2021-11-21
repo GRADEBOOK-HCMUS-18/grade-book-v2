@@ -19,6 +19,7 @@ export class User {
     temp.email = user.email;
     temp.studentID = user.studentID;
     temp.role = user.role;
+    temp.isPasswordNotSet = user.isPasswordNotSet;
     return temp;
   }
 }

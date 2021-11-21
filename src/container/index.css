@@ -1,0 +1,30 @@
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.error-inside-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.error-message {
+  font-weight: bold;
+  color: var(--blue);
+}
+
+.error-image {
+  width: 400px;
+  height: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  .error-image {
+    width: 300px;
+    height: 300px;
+  }
+}

@@ -1,0 +1,30 @@
+:root {
+  --main-color: #111;
+  --loader-color: #3178c6;
+  --back-color: #6fa9e7;
+  --time: 3s;
+  --size: 3px;
+}
+
+.line-loader-element {
+  height: var(--size);
+  width: 100%;
+  background: var(--back-color);
+  position: absolute;
+  bottom: -1px;
+}
+
+.line-loader-element:before {
+  content: '';
+  display: block;
+  background-color: var(--loader-color);
+  height: var(--size);
+  width: 0;
+  animation: getWidth var(--time) ease-in infinite;
+}
+
+@keyframes getWidth {
+  100% {
+    width: 100%;
+  }
+}

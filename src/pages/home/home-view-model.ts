@@ -18,10 +18,6 @@ export class HomeViewModel extends BaseViewModel {
       startDate: new Date('11/11/2021'),
     };
     this.allClass.push(cur);
-    this.allClass.push(cur);
-    this.allClass.push(cur);
-    this.allClass.push(cur);
-    this.allClass.push(cur);
 
     makeObservable(this, {
       allClass: observable,
