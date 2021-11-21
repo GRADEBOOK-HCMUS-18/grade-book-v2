@@ -1,3 +1,4 @@
+import { EmptyData } from './empty-data/index';
 import { SnackBar } from './snackbar';
 import { Loading, LineLoading } from './loading';
 import { Avatar } from './avatar';
@@ -14,4 +15,5 @@ export {
   ImagePicker,
   SnackBar,
   LineLoading,
+  EmptyData,
 };

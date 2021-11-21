@@ -1,0 +1,22 @@
+.empty-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.empty-image {
+  width: 200px;
+  height: 200px;
+}
+
+.empty-container > p {
+  margin-top: 20px;
+  color: var(--blue);
+}
+@media only screen and (max-width: 600px) {
+  .empty-image {
+    width: 150px;
+    height: 150px;
+  }
+}

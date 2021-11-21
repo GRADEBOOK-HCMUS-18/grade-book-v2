@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Row } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
 import { SingleClass } from 'pages/home/models';
-import { CreateClassModal, JoinClassModal } from 'shared/components';
+import { CreateClassModal, EmptyData, JoinClassModal } from 'shared/components';
 import { Loading } from 'shared/components';
 import { ClassCard, InvitationLinkModal } from './components';
 import './style/index.css';
@@ -29,6 +29,7 @@ export const Dashboard = observer(({ allClass }: IProps) => {
             />
           );
         })}
+        {!allClass.length && <EmptyData message="Bạn chưa có lớp học nào" />}
       </Row>
       <CreateClassModal />
       <JoinClassModal />
