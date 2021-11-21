@@ -1,24 +1,27 @@
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 import { Row } from 'react-bootstrap';
+import { homeViewModel } from 'pages/home/home-view-model';
+import { SingleClass } from 'pages/home/models';
 import { CreateClassModal, JoinClassModal } from 'shared/components';
-import { ClassInfo } from 'shared/models';
-import { ClassCard } from './components';
-
+import { Loading } from 'shared/components';
+import { ClassCard, InvitationLinkModal } from './components';
+import './style/index.css';
 interface IProps {
-  userId: string;
-  allClass: ClassInfo[];
+  allClass: SingleClass[];
 }
 
-export const Dashboard = observer(({ userId, allClass }: IProps) => {
+export const Dashboard = observer(({ allClass }: IProps) => {
+  const [viewModel] = useState(homeViewModel);
   return (
-    <div className="container my-4">
-      <Row className="d-flex-block justify-content-start g-3 mx-auto">
+    <div className="container-fluid list-class-card">
+      <Loading isLoading={viewModel.loading} />
+      <Row className="d-flex-block  justify-content-start mx-auto">
         {allClass.map((item, index) => {
-          const roleInClass: string = 'student';
           return (
             <ClassCard
-              key={item.id}
-              teacherName={item.teacherName}
+              key={index}
+              mainTeacher={item.mainTeacher}
               room={item.room}
               name={item.name}
               id={item.id}
@@ -29,6 +32,7 @@ export const Dashboard = observer(({ userId, allClass }: IProps) => {
       </Row>
       <CreateClassModal />
       <JoinClassModal />
+      <InvitationLinkModal />
     </div>
   );
 });

@@ -2,6 +2,7 @@ import { makeObservable, observable, action } from 'mobx';
 export class ClassActionViewModel {
   showCreateClassModal: boolean = false;
   showJoinClassModal: boolean = false;
+  
   constructor() {
     makeObservable(this, {
       showCreateClassModal: observable,
