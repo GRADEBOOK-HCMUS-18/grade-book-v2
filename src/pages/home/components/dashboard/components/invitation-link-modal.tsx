@@ -48,9 +48,7 @@ export const InvitationLinkModal = observer(() => {
         <Form className="fill-form">
           <Modal.Body>
             <Form.Group controlId="teacherLink">
-              <Form.Label className="text-muted">
-                Link mời tham gia lớp học
-              </Form.Label>
+              <Form.Label className="text-muted">Link</Form.Label>
               <Form.Control
                 type="text"
                 name="invitationLink"
