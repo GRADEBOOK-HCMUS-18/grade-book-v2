@@ -1,11 +1,11 @@
 import { action, observable, makeObservable, computed } from 'mobx';
 import { BaseViewModel } from 'shared/view-models';
 import { SingleClass,MainTeacher } from 'pages/home/models';
-import {BASE_URL} from 'shared/constants'
+import {LOCAL_URL} from 'shared/constants'
 import { httpService } from 'shared/services';
 import { HttpError,HomepageError } from 'shared/errors';
 
-export class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel {
   allClass: SingleClass[] = [];
   invitationLink:string = ''
   classID:number = 0
@@ -67,7 +67,7 @@ export class HomeViewModel extends BaseViewModel {
         displayName: `${lastName} ${firstName}`
       }
       item.mainTeacher = newTeacher
-      newClassList.push(item)
+      newClassList.unshift(item)
       return item
     })
     this.allClass.splice(0,this.allClass.length,...newClassList)
@@ -94,9 +94,10 @@ export class HomeViewModel extends BaseViewModel {
 
   showInvitationLinkModal(){
     this.isShowInvitationModal  = true
+    console.log(this.allClass);
     const filtered= this.allClass.filter(item=>item.id===this.classID)
     const inviteStringStudent:string = (filtered.length)? filtered[0].inviteStringStudent : "";    
-    this.invitationLink = `${BASE_URL}/class/${this.classID}?invite=${inviteStringStudent}`
+    this.invitationLink = `${LOCAL_URL}/class/${this.classID}?invite=${inviteStringStudent}`
   }
 
   get getInviteStringStudent(){

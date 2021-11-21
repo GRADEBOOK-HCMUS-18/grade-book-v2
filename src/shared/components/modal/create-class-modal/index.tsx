@@ -62,11 +62,11 @@ const CreateClassModal = observer(() => {
               placeholder="Tên lớp học (bắt buộc)"
               name="name"
               value={formValue.name}
+              isInvalid={!!nameError}
               onChange={(event: any) => {
                 handleFieldChange('name', event.target.value);
               }}
               aria-describedby="title-help"
-              required
             ></Form.Control>
 
             <Form.Control.Feedback type="invalid">
@@ -84,7 +84,6 @@ const CreateClassModal = observer(() => {
               }}
               aria-describedby="title-help"
               className="mt-2"
-              required
             ></Form.Control>
           </Form.Group>
           <Form.Group>
@@ -98,7 +97,6 @@ const CreateClassModal = observer(() => {
               }}
               aria-describedby="title-help"
               className="mt-2"
-              required
             ></Form.Control>
           </Form.Group>
         </Modal.Body>
