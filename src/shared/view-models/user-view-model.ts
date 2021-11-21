@@ -5,8 +5,7 @@ import { httpService, storageService } from 'shared/services';
 import { UserStore } from 'shared/types';
 import { User } from 'shared/models';
 import { BaseViewModel } from './base-view-model';
-
-export class UserViewModel extends BaseViewModel {
+class UserViewModel extends BaseViewModel {
   user: User = new User();
   dataVersion: number = 0;
 
