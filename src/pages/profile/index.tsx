@@ -11,7 +11,7 @@ export const ProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const changeAvatar = async (image: any) => {
-    lineLoadingViewModel.makeLoading();
+    lineLoadingViewModel.startLoading();
     const result = await userViewModel.requestNewAvatar(image);
     if (result) {
       userViewModel.message = 'Cập nhật thành công';
@@ -21,8 +21,8 @@ export const ProfilePage = () => {
   };
 
   const changeInfo = async (user: User) => {
-    lineLoadingViewModel.makeLoading();
-    const result = await userViewModel.updateNewInfo(user);
+    lineLoadingViewModel.startLoading();
+    const result = await userViewModel.requestNewInfo(user);
     if (result) {
       userViewModel.message = 'Cập nhật thành công';
       setShowAlert(true);
@@ -30,7 +30,16 @@ export const ProfilePage = () => {
     lineLoadingViewModel.stopLoading();
   };
 
-  const changePassword = async (newPass: string, oldPass?: string) => {};
+  const changePassword = async (newPass: string, oldPass?: string) => {
+    lineLoadingViewModel.startLoading();
+    setShowModal(false);
+    const result = await userViewModel.updatePassword(newPass, oldPass);
+    if (result) {
+      userViewModel.message = 'Cập nhật thành công';
+      setShowAlert(true);
+    }
+    lineLoadingViewModel.stopLoading();
+  };
 
   return (
     <div className="container">
@@ -42,8 +51,6 @@ export const ProfilePage = () => {
           <Observer>
             {() => {
               const user = userViewModel.user;
-
-              console.log('profile', user);
               return (
                 <div className="user-profile">
                   <div className="user-form">
@@ -63,17 +70,20 @@ export const ProfilePage = () => {
                     onChange={changePassword}
                     onHide={() => setShowModal(false)}
                   />
+                  <PopupAlert
+                    show={showAlert || userViewModel.isError}
+                    error={userViewModel.isError}
+                    message={userViewModel.message}
+                    onHide={() => {
+                      setShowAlert(false);
+                      userViewModel.deleteError();
+                    }}
+                  />
                 </div>
               );
             }}
           </Observer>
         </div>
-        <PopupAlert
-          show={showAlert}
-          error={userViewModel.isError}
-          message={userViewModel.message}
-          onHide={() => setShowAlert(false)}
-        />
       </div>
     </div>
   );

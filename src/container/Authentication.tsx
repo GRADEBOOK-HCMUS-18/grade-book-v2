@@ -23,7 +23,6 @@ export const Authentication = observer(({ children }: any) => {
           '/User',
           httpService.getBearerToken()
         );
-
         if (response instanceof HttpError) {
           if (response.getStatusCode() === 401) {
             storageService.clearUser();

@@ -1,16 +1,17 @@
 import { useLocation } from 'react-router-dom';
+import { Observer } from 'mobx-react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { useResponsive } from 'shared/hooks';
+import { LineLoading } from 'shared/components';
+import { lineLoadingViewModel } from 'shared/view-models';
 import {
   Title,
   CreateJoinClassDropDownButton,
   PopOverProfile,
 } from './components';
 import './style/index.css';
-import { LineLoading } from 'shared/components';
-import { Observer } from 'mobx-react';
-import { lineLoadingViewModel } from 'shared/view-models';
+
 interface IProps {
   toggleSideBar: () => void;
 }

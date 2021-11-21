@@ -31,7 +31,8 @@ export const PasswordChangeModal = ({
 
   const onSubmit = (event: any) => {
     event.preventDefault();
-    const newErrors = getErrorsState(formValue);
+
+    const newErrors = getErrorsState(formValue, isPasswordNotSet);
     if (!newErrors.length) {
       onChange(formValue.newPassword, formValue.oldPassword);
     }

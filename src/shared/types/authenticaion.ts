@@ -14,6 +14,7 @@ export type UserResponse = {
   lastName: string;
   profilePictureUrl: string;
   token: string;
+  studentIdentification: string;
   isPasswordNotSet: boolean;
 };
 
@@ -25,4 +26,5 @@ export type UserStore = {
   profilePictureUrl: string;
   displayName: string;
   isPasswordNotSet: boolean;
+  studentIdentification: string;
 };

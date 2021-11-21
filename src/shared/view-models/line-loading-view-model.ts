@@ -5,7 +5,7 @@ class LineLoadingViewModel {
     makeAutoObservable(this);
   }
 
-  makeLoading() {
+  startLoading() {
     this.isLoading = true;
   }
 

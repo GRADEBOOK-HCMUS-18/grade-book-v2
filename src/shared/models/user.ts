@@ -4,7 +4,7 @@ export class User {
   fistName: string = '';
   lastName: string = '';
   displayName: string = '';
-  studentID: string = '';
+  studentIdentification: string = '';
   profilePictureUrl: string = '';
   defaultAvatar: string = '';
   isPasswordNotSet: boolean = false;
@@ -17,7 +17,7 @@ export class User {
     temp.fistName = user.fistName;
     temp.lastName = user.lastName;
     temp.email = user.email;
-    temp.studentID = user.studentID;
+    temp.studentIdentification = user.studentIdentification;
     temp.role = user.role;
     temp.isPasswordNotSet = user.isPasswordNotSet;
     return temp;

@@ -5,6 +5,7 @@ import { httpService, storageService } from 'shared/services';
 import { UserStore } from 'shared/types';
 import { User } from 'shared/models';
 import { BaseViewModel } from './base-view-model';
+
 export class UserViewModel extends BaseViewModel {
   user: User = new User();
   dataVersion: number = 0;
@@ -37,6 +38,7 @@ export class UserViewModel extends BaseViewModel {
       defaultProfilePictureHex,
       isPasswordNotSet,
       displayName,
+      studentIdentification,
     } = user;
 
     const temp = new User();
@@ -49,6 +51,7 @@ export class UserViewModel extends BaseViewModel {
     temp.isPasswordNotSet = isPasswordNotSet
       ? isPasswordNotSet
       : this.user.isPasswordNotSet;
+    temp.studentIdentification = studentIdentification;
     this.user = User.map(temp);
   }
 
@@ -72,15 +75,42 @@ export class UserViewModel extends BaseViewModel {
     }
   }
 
-  async updateNewInfo(user: User): Promise<boolean> {
+  async requestNewInfo(user: User): Promise<boolean> {
     const response: UserStore | HttpError = await httpService.sendPut(
       '/User',
       user,
       httpService.getBearerToken()
     );
+
     if (response instanceof HttpError) {
+      if (response.getStatusCode() === 400) {
+        this.makeError(`Đã có tài khoản tồn tại với email ${user.email} `);
+      }
       return false;
     } else {
+      this.updateUser(response);
+      return true;
+    }
+  }
+  async updatePassword(
+    newPassword: string,
+    oldPassword?: string
+  ): Promise<boolean> {
+    if (!oldPassword) {
+      oldPassword = '';
+    }
+    const response: UserStore | HttpError = await httpService.sendPut(
+      '/User/password',
+      { newPassword, oldPassword },
+      httpService.getBearerToken()
+    );
+    if (response instanceof HttpError) {
+      if (response.getStatusCode() === 400) {
+        this.makeError('Mật khẩu cũ không khớp');
+      }
+      return false;
+    } else {
+      this.user.isPasswordNotSet = false;
       this.updateUser(response);
       return true;
     }

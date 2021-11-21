@@ -43,6 +43,7 @@ class HttpService {
       );
       return response.data;
     } catch (error: any) {
+      console.log(error);
       return new HttpError(error.response);
     }
   }

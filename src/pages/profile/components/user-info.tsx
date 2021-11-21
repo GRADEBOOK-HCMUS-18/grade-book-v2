@@ -11,7 +11,7 @@ interface IProps {
   openPasswordModal: () => void;
 }
 
-type FieldType = 'email' | 'firstName' | 'lastName' | 'studentID';
+type FieldType = 'email' | 'firstName' | 'lastName' | 'studentIdentification';
 
 export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
   const [errors, setErrors] = useState<FormError[]>([]);
@@ -23,7 +23,7 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
 
   const onSubmit = (event: any) => {
     event.preventDefault();
-    const newErrors = getErrorsState(userInfo);
+    const newErrors = getErrorsState(userInfo, false);
     if (!newErrors.length && !isEqual(userInfo, user)) {
       onChange(userInfo);
     }
@@ -79,10 +79,10 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
         <Form.Control
           required
           onChange={(event) =>
-            handleChangeField('studentID', event.target.value)
+            handleChangeField('studentIdentification', event.target.value)
           }
           type="text"
-          placeholder={user.studentID}
+          placeholder={user.studentIdentification}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">

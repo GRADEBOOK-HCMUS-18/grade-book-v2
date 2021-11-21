@@ -37,6 +37,7 @@ export class LoginViewModel extends BaseViewModel {
       profilePictureUrl: response.profilePictureUrl,
       displayName: response.lastName + ' ' + response.firstName,
       isPasswordNotSet: response.isPasswordNotSet,
+      studentIdentification: response.studentIdentification,
     };
   }
 

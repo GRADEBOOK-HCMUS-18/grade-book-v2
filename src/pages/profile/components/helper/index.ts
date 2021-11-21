@@ -57,12 +57,13 @@ const getErrorMessage = (
   return '';
 };
 
-export const getErrorsState = (formValue: any) => {
+export const getErrorsState = (formValue: any, isPasswordNotSet: boolean) => {
   let newErrors: FormError[] = [];
   Object.keys(formValue).forEach((key: any) => {
     const errorMessage = getErrorMessage(key, formValue[key]);
     if (errorMessage !== '') {
-      newErrors.push({ errorType: key, errorMessage: errorMessage });
+      if (key === 'oldPassword' && isPasswordNotSet) {
+      } else newErrors.push({ errorType: key, errorMessage: errorMessage });
     }
   });
   return newErrors;
