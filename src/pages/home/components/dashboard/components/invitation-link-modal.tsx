@@ -23,7 +23,11 @@ export const InvitationLinkModal = observer(() => {
 
   return (
     <div>
-      <ToastContainer position="bottom-start" className="mb-5 ms-5">
+      <ToastContainer
+        style={{ zIndex: 1080 }}
+        position="bottom-start"
+        className="mb-5 ms-5"
+      >
         <Toast
           show={showToast}
           onClose={() => setShowToast(false)}
