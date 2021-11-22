@@ -6,15 +6,6 @@ import { classMemberViewModel } from './class-member-view-model';
 import './style/react-multi-email.css';
 import { PopupAlert } from 'shared/components';
 
-const styles = {
-  fontFamily: 'sans-serif',
-  width: '500px',
-  border: '1px solid #eee',
-  background: '#f3f3f3',
-  padding: '25px',
-  margin: '20px',
-};
-
 export const InsertEmailAddressModal = observer(() => {
   const [emails, setEmails] = useState<any>([]);
   const [isSuccess, setIsSuccess] = useState(false);

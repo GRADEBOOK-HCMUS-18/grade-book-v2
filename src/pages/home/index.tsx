@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react';
-import { ClassDetail } from 'pages';
 import { useEffect } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Dashboard } from './components';

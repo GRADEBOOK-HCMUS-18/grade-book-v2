@@ -5,7 +5,6 @@ import { classMemberViewModel } from './class-member-view-model';
 import { Avatar } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { NoStudent } from './no-student';
-
 import './style/index.css';
 
 interface IProps {
@@ -42,7 +41,7 @@ export const ClassMemberTeacher = observer(({ classInfo }: IProps) => {
           </span>
         </div>
         {subTeachers.map((teacher) => (
-          <div className="member-info">
+          <div key={teacher.email} className="member-info">
             <Avatar size={50} user={teacher} />
             <span>
               {teacher.lastName} {teacher.firstName}
@@ -67,7 +66,7 @@ export const ClassMemberTeacher = observer(({ classInfo }: IProps) => {
       {students.length ? (
         <div className="member-list">
           {students.map((student) => (
-            <div className="member-info">
+            <div key={student.email} className="member-info">
               <Avatar size={50} user={student} />
               <span>
                 {student.lastName} {student.firstName}

@@ -4,7 +4,6 @@ import { SingleClass } from 'pages/home/models';
 import { LOCAL_URL } from 'shared/constants';
 import { httpService } from 'shared/services';
 import { HttpError, HomepageError } from 'shared/errors';
-import { User } from 'shared/models';
 
 class HomeViewModel extends BaseViewModel {
   allClass: SingleClass[] = [];
@@ -63,7 +62,7 @@ class HomeViewModel extends BaseViewModel {
       newClassList.unshift(item);
       return item;
     });
-    this.allClass=response;
+    this.allClass = response;
     //.splice(0, this.allClass.length, ...newClassList);
     this.triggerChange();
   };
