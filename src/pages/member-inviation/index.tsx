@@ -19,9 +19,7 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
   const fn = async () => {
     const result = await viewModel.getClassInfo();
     if (result) {
-      if (viewModel.currentRoleInClass && viewModel.isAlreadyInClass) {
-        viewModel.raiseError();
-      }
+      history.push(`/class/${viewModel.classInformation.id}`);
     }
   };
 
