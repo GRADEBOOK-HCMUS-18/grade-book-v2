@@ -17,7 +17,6 @@ export class CreateClassViewModel extends BaseViewModel {
   async createClass(formValue: CreateClassForm) {
     this.startLoading();
     formValue.startDate = new Date(Date.now());
-    console.log(formValue)
     const response: SingleClass | HttpError = await httpService.sendPost(
       '/class',
       formValue,

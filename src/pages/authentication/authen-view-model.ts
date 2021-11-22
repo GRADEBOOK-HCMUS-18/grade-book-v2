@@ -17,7 +17,7 @@ export class LoginViewModel extends BaseViewModel {
       url,
       user
     );
-    console.log(response);
+
     this.stopLoading();
     if (response instanceof HttpError) {
       this.handleError(response);

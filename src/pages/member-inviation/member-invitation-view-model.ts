@@ -60,7 +60,6 @@ export class MemberInvitationViewModel extends BaseViewModel {
       httpService.getBearerToken()
     );
     this.stopLoading();
-    console.log(response);
     if (response instanceof HttpError) {
       this.handleError(response);
       return false;

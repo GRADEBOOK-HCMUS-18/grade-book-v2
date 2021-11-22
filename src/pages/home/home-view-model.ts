@@ -86,7 +86,6 @@ class HomeViewModel extends BaseViewModel {
 
   showInvitationLinkModal() {
     this.isShowInvitationModal = true;
-    console.log(this.allClass);
     const filtered = this.allClass.filter((item) => item.id === this.classID);
     const inviteStringStudent: string = filtered.length
       ? filtered[0].inviteStringStudent

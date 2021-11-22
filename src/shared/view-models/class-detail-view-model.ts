@@ -16,7 +16,6 @@ class ClassDetailViewModel {
 
   updateClassInfo(data: ClassDetailInfo) {
     this.classInfo = data;
-    console.log(this.classInfo.startDate);
   }
 
   async getClassInfo(id: string) {
