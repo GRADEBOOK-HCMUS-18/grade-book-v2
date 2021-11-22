@@ -1,5 +1,5 @@
 import { action, observable, makeObservable, computed } from 'mobx';
-import { BaseViewModel } from 'shared/view-models';
+import { BaseViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { SingleClass, MainTeacher } from 'pages/home/models';
 import { LOCAL_URL } from 'shared/constants';
 import { httpService } from 'shared/services';
@@ -34,13 +34,13 @@ class HomeViewModel extends BaseViewModel {
   }
   // Class List
   async fetchAllClasses() {
-    this.startLoading();
+    lineLoadingViewModel.startLoading();
 
     const response: SingleClass[] | HttpError = await httpService.sendGet(
       '/class',
       httpService.getBearerToken()
     );
-    this.stopLoading();
+    lineLoadingViewModel.stopLoading();
 
     if (response instanceof HttpError) {
       this.handleError(response);

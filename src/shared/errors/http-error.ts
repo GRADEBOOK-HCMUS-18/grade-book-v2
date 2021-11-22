@@ -19,6 +19,6 @@ export class HttpError {
   }
 
   getDefaultMessage() {
-    return 'Ko thể kết nối tới server';
+    return 'Có lỗi xảy ra';
   }
 }

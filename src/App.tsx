@@ -22,7 +22,6 @@ function App() {
           <SideBar show={showSidebar} toggle={toggleSideBar} />
         </>
       )}
-
       <Switch>
         <PrivateRoute exact path="/">
           <HomePage />

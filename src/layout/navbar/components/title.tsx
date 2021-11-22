@@ -17,19 +17,25 @@ export const Title = observer(({ pathName }: IProps) => {
     case '/':
       return (
         <div style={centerHorizontal}>
-          <img style={{ height: 30 }} src={logo} alt="Lớp học"></img>
+          <img
+            style={{ height: 30, marginLeft: 20 }}
+            src={logo}
+            alt="Lớp học"
+          ></img>
           <span style={{ marginLeft: 10 }}>Lớp học</span>
         </div>
       );
     case '/setting':
-      return <span>Cài đặt</span>;
+      return <span style={marginStyle}>Cài đặt</span>;
     case '/archived':
-      return <span>Lớp học đã lưu trữ</span>;
+      return <span style={marginStyle}>Lớp học đã lưu trữ</span>;
     case '/calendar':
-      return <span>Lịch</span>;
+      return <span style={marginStyle}>Lịch</span>;
     case '/profile':
-      return <span>Hồ sơ</span>;
+      return <span style={marginStyle}>Hồ sơ</span>;
     default:
-      return <span>{classDetailViewModel.classInfo.name}</span>;
+      return (
+        <span style={marginStyle}>{classDetailViewModel.classInfo.name}</span>
+      );
   }
 });
