@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { User } from 'shared/models';
@@ -24,8 +23,16 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
   const onSubmit = (event: any) => {
     event.preventDefault();
     const newErrors = getErrorsState(userInfo, false);
-    if (!newErrors.length && !isEqual(userInfo, user)) {
-      onChange(userInfo);
+    let email = userInfo.email,
+      studentId = userInfo.studentIdentification;
+    if (!newErrors.length) {
+      if (email === user.email) {
+        email = '';
+      }
+      if (studentId === user.studentIdentification) {
+        studentId = '';
+      }
+      onChange({ ...userInfo, email: email, studentIdentification: studentId });
     }
     setErrors(newErrors);
   };
@@ -68,7 +75,7 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
           onChange={(event) => handleChangeField('firstName', event)}
           isInvalid={!!firstNameError}
           type="text"
-          defaultValue={user.fistName}
+          defaultValue={user.firstName}
         />
         <Form.Control.Feedback type="invalid">
           {firstNameError?.errorMessage}
@@ -79,10 +86,10 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
         <Form.Control
           required
           onChange={(event) =>
-            handleChangeField('studentIdentification', event.target.value)
+            handleChangeField('studentIdentification', event)
           }
           type="text"
-          placeholder={user.studentIdentification}
+          defaultValue={user.studentIdentification}
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">

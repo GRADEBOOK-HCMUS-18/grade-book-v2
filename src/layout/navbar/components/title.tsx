@@ -1,13 +1,14 @@
 import { CSSProperties } from 'react';
 import { centerHorizontal } from 'shared/styles';
-import { classViewModel } from 'shared/view-models';
 import logo from 'assets/images/logo.png';
+import { classDetailViewModel } from 'shared/view-models';
+import { observer } from 'mobx-react';
 
 interface IProps {
   pathName: string;
 }
 
-export const Title = ({ pathName }: IProps) => {
+export const Title = observer(({ pathName }: IProps) => {
   const marginStyle: CSSProperties = {
     marginLeft: 20,
   };
@@ -33,6 +34,8 @@ export const Title = ({ pathName }: IProps) => {
     case '/profile':
       return <span style={marginStyle}>Hồ sơ</span>;
     default:
-      return <span style={marginStyle}>{classViewModel.getClass().name}</span>;
+      return (
+        <span style={marginStyle}>{classDetailViewModel.classInfo.name}</span>
+      );
   }
-};
+});

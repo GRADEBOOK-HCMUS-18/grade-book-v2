@@ -1,7 +1,7 @@
 export class User {
   role: 'TEACHER' | 'STUDENT' | null = null;
   email: string = '';
-  fistName: string = '';
+  firstName: string = '';
   lastName: string = '';
   displayName: string = '';
   studentIdentification: string = '';
@@ -14,7 +14,7 @@ export class User {
     temp.defaultAvatar = user.defaultAvatar;
     temp.displayName = user.displayName;
     temp.profilePictureUrl = user.profilePictureUrl;
-    temp.fistName = user.fistName;
+    temp.firstName = user.firstName;
     temp.lastName = user.lastName;
     temp.email = user.email;
     temp.studentIdentification = user.studentIdentification;

@@ -1,0 +1,10 @@
+.navigate-back {
+  width: fit-content;
+  margin: 0px 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.navigate-back:hover {
+  background-color: var(--light-gray);
+}

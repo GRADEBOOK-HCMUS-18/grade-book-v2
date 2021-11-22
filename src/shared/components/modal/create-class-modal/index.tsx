@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { getErrors, getErrorsState } from './components/helper';
 import { classActionViewModel } from 'shared/view-models';
+import { homeViewModel } from 'pages/home/home-view-model';
 import { CreateClassViewModel } from './create-class-view-model';
 import { CreateClassForm } from './models';
 import { FormError } from './components/types';
+import { getErrors, getErrorsState } from './components/helper';
 import './style/index.css';
 
 const CreateClassModal = observer(() => {
   const [errors, setErrors] = useState<FormError[]>([]);
   const [formValue, setFormValue] = useState<any>(new CreateClassForm());
   const [viewModel] = useState(new CreateClassViewModel());
-  const history = useHistory();
 
   const showModal = classActionViewModel.showCreateClassModal;
 
@@ -21,15 +20,15 @@ const CreateClassModal = observer(() => {
     classActionViewModel.setShowCreateClassModal(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newErrors = getErrorsState(formValue);
 
     if (!newErrors.length) {
-      viewModel.createClass(formValue);
-      setFormValue([]);
       classActionViewModel.setShowCreateClassModal(false);
-      history.push('/class');
+      await viewModel.createClass(formValue);
+      setFormValue([]);
+      await homeViewModel.fetchAllClasses();
     }
     setErrors(newErrors);
   };

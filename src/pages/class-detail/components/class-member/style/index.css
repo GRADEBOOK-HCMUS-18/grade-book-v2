@@ -1,0 +1,58 @@
+.member-header-container {
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-container {
+  padding: 2rem 10rem;
+}
+.add-user-btn {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.add-user-btn:hover {
+  background-color: var(--light-blue);
+}
+
+.member-list {
+  margin: 1rem 0;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+}
+
+.member-info > span {
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.no-student {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-student-image {
+  width: 200px;
+  height: 200px;
+}
+.no-student > p {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .member-container {
+    padding: 2rem 5rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { ClassInfo } from './class-info';
+import { ClassDetailInfo } from './class-detail-info';
 import { User } from './user';
 
-export { User, ClassInfo };
+export { User, ClassDetailInfo };

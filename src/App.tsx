@@ -22,7 +22,6 @@ function App() {
           <SideBar show={showSidebar} toggle={toggleSideBar} />
         </>
       )}
-
       <Switch>
         <PrivateRoute exact path="/">
           <HomePage />
@@ -33,7 +32,7 @@ function App() {
         <Route path="/register">
           <AuthenticationPage isLogin={false} />
         </Route>
-        <PrivateRoute exact path="/class/:id">
+        <PrivateRoute path="/class/:id">
           <ClassDetail />
         </PrivateRoute>
 

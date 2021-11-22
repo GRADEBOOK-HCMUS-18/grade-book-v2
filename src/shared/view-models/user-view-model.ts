@@ -1,4 +1,4 @@
-import { HttpError } from 'shared/errors';
+import { HttpError, ProfileError } from 'shared/errors';
 import { makeObservable, observable, action } from 'mobx';
 import { TOKEN_KEY } from 'shared/constants';
 import { httpService, storageService } from 'shared/services';
@@ -43,7 +43,7 @@ class UserViewModel extends BaseViewModel {
     const temp = new User();
     temp.profilePictureUrl = profilePictureUrl;
     temp.email = email;
-    temp.fistName = firstName;
+    temp.firstName = firstName;
     temp.lastName = lastName;
     temp.defaultAvatar = defaultProfilePictureHex;
     temp.displayName = displayName;
@@ -82,9 +82,9 @@ class UserViewModel extends BaseViewModel {
     );
 
     if (response instanceof HttpError) {
-      if (response.getStatusCode() === 400) {
-        this.makeError(`Đã có tài khoản tồn tại với email ${user.email} `);
-      }
+      const profileError = new ProfileError(response);
+      this.makeError(profileError.getMessage());
+
       return false;
     } else {
       this.updateUser(response);
@@ -104,9 +104,8 @@ class UserViewModel extends BaseViewModel {
       httpService.getBearerToken()
     );
     if (response instanceof HttpError) {
-      if (response.getStatusCode() === 400) {
-        this.makeError('Mật khẩu cũ không khớp');
-      }
+      const profileError = new ProfileError(response);
+      this.makeError(profileError.getMessage());
       return false;
     } else {
       this.user.isPasswordNotSet = false;

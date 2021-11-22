@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { AiOutlineFolderOpen } from 'react-icons/ai';
 import { MdAssignmentInd } from 'react-icons/md';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Card, Col, Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Card, Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
 import { MainTeacher } from 'pages/home/models/index';
 import '../style/class-card.css';
