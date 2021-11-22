@@ -10,7 +10,6 @@ class HttpService {
       const response = await axios.get(`${BASE_URL}${url}`, {
         headers: this.getHeader(token),
       });
-
       return response.data;
     } catch (error: any) {
       return new HttpError(error.response);

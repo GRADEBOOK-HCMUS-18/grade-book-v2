@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
@@ -16,17 +16,17 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
   const [viewModel] = useState(new MemberInvitationViewModel());
   const history = useHistory();
 
-  const fn = async () => {
+  const fn = useCallback(async () => {
     const result = await viewModel.getClassInfo();
     if (result) {
       history.push(`/class/${viewModel.classInformation.id}`);
     }
-  };
+  }, [history, viewModel]);
 
   useEffect(() => {
     viewModel.setInviteID(inviteID);
     fn();
-  }, [viewModel]);
+  }, [viewModel, inviteID, fn]);
 
   const user = viewModel.getUser();
   const roleName = getRoleName(viewModel.isTeacherInvitation);
