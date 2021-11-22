@@ -1,3 +1,4 @@
+import { NavigateBack } from './navigate-back/index';
 import { EmptyData } from './empty-data/index';
 import { SnackBar } from './snackbar';
 import { Loading, LineLoading } from './loading';
@@ -16,4 +17,5 @@ export {
   SnackBar,
   LineLoading,
   EmptyData,
+  NavigateBack,
 };

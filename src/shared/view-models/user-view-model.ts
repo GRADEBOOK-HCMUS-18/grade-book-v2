@@ -43,7 +43,7 @@ class UserViewModel extends BaseViewModel {
     const temp = new User();
     temp.profilePictureUrl = profilePictureUrl;
     temp.email = email;
-    temp.fistName = firstName;
+    temp.firstName = firstName;
     temp.lastName = lastName;
     temp.defaultAvatar = defaultProfilePictureHex;
     temp.displayName = displayName;

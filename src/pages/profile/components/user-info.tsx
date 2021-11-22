@@ -68,7 +68,7 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
           onChange={(event) => handleChangeField('firstName', event)}
           isInvalid={!!firstNameError}
           type="text"
-          defaultValue={user.fistName}
+          defaultValue={user.firstName}
         />
         <Form.Control.Feedback type="invalid">
           {firstNameError?.errorMessage}

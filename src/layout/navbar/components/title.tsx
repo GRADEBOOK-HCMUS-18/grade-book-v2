@@ -1,13 +1,14 @@
 import { CSSProperties } from 'react';
 import { centerHorizontal } from 'shared/styles';
-import { classViewModel } from 'shared/view-models';
 import logo from 'assets/images/logo.png';
+import { classDetailViewModel } from 'shared/view-models';
+import { observer } from 'mobx-react';
 
 interface IProps {
   pathName: string;
 }
 
-export const Title = ({ pathName }: IProps) => {
+export const Title = observer(({ pathName }: IProps) => {
   const marginStyle: CSSProperties = {
     marginLeft: 20,
   };
@@ -16,23 +17,19 @@ export const Title = ({ pathName }: IProps) => {
     case '/':
       return (
         <div style={centerHorizontal}>
-          <img
-            style={{ height: 30, marginLeft: 20 }}
-            src={logo}
-            alt="Lớp học"
-          ></img>
+          <img style={{ height: 30 }} src={logo} alt="Lớp học"></img>
           <span style={{ marginLeft: 10 }}>Lớp học</span>
         </div>
       );
     case '/setting':
-      return <span style={marginStyle}>Cài đặt</span>;
+      return <span>Cài đặt</span>;
     case '/archived':
-      return <span style={marginStyle}>Lớp học đã lưu trữ</span>;
+      return <span>Lớp học đã lưu trữ</span>;
     case '/calendar':
-      return <span style={marginStyle}>Lịch</span>;
+      return <span>Lịch</span>;
     case '/profile':
-      return <span style={marginStyle}>Hồ sơ</span>;
+      return <span>Hồ sơ</span>;
     default:
-      return <span style={marginStyle}>{classViewModel.getClass().name}</span>;
+      return <span>{classDetailViewModel.classInfo.name}</span>;
   }
-};
+});

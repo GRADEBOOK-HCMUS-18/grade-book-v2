@@ -3,7 +3,7 @@ import { Observer } from 'mobx-react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { useResponsive } from 'shared/hooks';
-import { LineLoading } from 'shared/components';
+import { LineLoading, NavigateBack } from 'shared/components';
 import { lineLoadingViewModel } from 'shared/view-models';
 import {
   Title,
@@ -24,6 +24,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
     <div className="nav-bar">
       <div className="nav-bar-left-item">
         <GiHamburgerMenu size={20} onClick={toggleSideBar} />
+        <NavigateBack />
         <Title pathName={location.pathname} />
       </div>
 

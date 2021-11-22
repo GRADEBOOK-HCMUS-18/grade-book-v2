@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const DefaultAvatar = ({ user, size, onClick }: IProps) => {
-  const { fistName, defaultAvatar } = user;
+  const { firstName, defaultAvatar } = user;
 
   const color = defaultAvatar;
 
@@ -26,7 +26,7 @@ export const DefaultAvatar = ({ user, size, onClick }: IProps) => {
   };
   return (
     <div onClick={onClick} style={style}>
-      <span>{fistName[0]}</span>
+      <span>{firstName[0]}</span>
     </div>
   );
 };
