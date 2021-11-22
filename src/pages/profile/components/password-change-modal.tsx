@@ -81,6 +81,15 @@ export const PasswordChangeModal = ({
             <Form.Control.Feedback type="invalid">
               {newPassError?.errorMessage}
             </Form.Control.Feedback>
+            {isPasswordNotSet && (
+              <>
+                <p></p>
+                <Form.Text className="text-muted">
+                  Tài khoản này chưa có mật khẩu do đăng nhập bằng google, thiết
+                  lập mật khẩu riêng của bạn
+                </Form.Text>
+              </>
+            )}
           </Form.Group>
         </Modal.Body>
       </Form>
