@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react';
 import { AiOutlineFolderOpen } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import { MdAssignmentInd } from 'react-icons/md';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Card, Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
-import { MainTeacher } from 'pages/home/models/index';
+import { MainTeacher } from 'pages/home/models';
 import '../style/class-card.css';
 
 interface IProps {
@@ -67,21 +68,14 @@ export const ClassCard = observer(
               </button>
             </OverlayTrigger>
             <div className="ps-3">
-              <a
-                className="go-to-class d-block "
-                href={
-                  roleOfCurrentUser === 'student'
-                    ? `/class/${id}`
-                    : `/t/class/${id}`
-                }
-              >
+              <Link className="go-to-class d-block " to={`/class/${id}`}>
                 <div className="class-title text-white text-truncate">
                   {name}
                 </div>
                 <div className="class-room  text-white text-truncate">
                   {room ? room : <br />}
                 </div>
-              </a>
+              </Link>
               <span className="class-teacher-name  text-white text-truncate">
                 {mainTeacher.displayName}
               </span>
