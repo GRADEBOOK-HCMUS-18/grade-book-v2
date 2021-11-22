@@ -1,17 +1,23 @@
+import { observer } from 'mobx-react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { HiOutlineUserAdd } from 'react-icons/hi';
+import { classMemberViewModel } from './class-member-view-model';
 import { Avatar } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { NoStudent } from './no-student';
+
 import './style/index.css';
 
 interface IProps {
   classInfo: ClassDetailInfo;
 }
 
-export const ClassMemberTeacher = ({ classInfo }: IProps) => {
+export const ClassMemberTeacher = observer(({ classInfo }: IProps) => {
   const { mainTeacher, subTeachers, students } = classInfo;
-
+  const showModal = (isTeacher: boolean) => {
+    classMemberViewModel.setIsEmailForInvitingTeacher(isTeacher);
+    classMemberViewModel.setShowInsertEmailModal(true);
+  };
   return (
     <>
       <div className="member-header-container">
@@ -23,7 +29,7 @@ export const ClassMemberTeacher = ({ classInfo }: IProps) => {
             <Tooltip id="tooltip-bottom">Thêm giáo viên vào lớp</Tooltip>
           }
         >
-          <div className="add-user-btn">
+          <div className="add-user-btn" onClick={() => showModal(true)}>
             <HiOutlineUserAdd size={25} />
           </div>
         </OverlayTrigger>
@@ -53,7 +59,7 @@ export const ClassMemberTeacher = ({ classInfo }: IProps) => {
             <Tooltip id="tooltip-bottom">Thêm sinh viên vào lớp</Tooltip>
           }
         >
-          <div className="add-user-btn">
+          <div className="add-user-btn" onClick={() => showModal(false)}>
             <HiOutlineUserAdd size={25} />
           </div>
         </OverlayTrigger>
@@ -74,4 +80,4 @@ export const ClassMemberTeacher = ({ classInfo }: IProps) => {
       )}
     </>
   );
-};
+});

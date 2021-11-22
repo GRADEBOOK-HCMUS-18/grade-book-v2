@@ -10,9 +10,9 @@ interface IProps {
 }
 
 export const DefaultAvatar = ({ user, size, onClick }: IProps) => {
-  const { firstName, defaultAvatar } = user;
+  const { firstName, defaultProfilePictureHex } = user;
 
-  const color = defaultAvatar;
+  const color = defaultProfilePictureHex;
 
   const style: CSSProperties = {
     ...centerHorizontal,

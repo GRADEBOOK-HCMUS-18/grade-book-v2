@@ -6,12 +6,12 @@ export class User {
   displayName: string = '';
   studentIdentification: string = '';
   profilePictureUrl: string = '';
-  defaultAvatar: string = '';
+  defaultProfilePictureHex: string = '';
   isPasswordNotSet: boolean = false;
 
   static map(user: User) {
     const temp = new User();
-    temp.defaultAvatar = user.defaultAvatar;
+    temp.defaultProfilePictureHex = user.defaultProfilePictureHex;
     temp.displayName = user.displayName;
     temp.profilePictureUrl = user.profilePictureUrl;
     temp.firstName = user.firstName;

@@ -45,7 +45,7 @@ class UserViewModel extends BaseViewModel {
     temp.email = email;
     temp.firstName = firstName;
     temp.lastName = lastName;
-    temp.defaultAvatar = defaultProfilePictureHex;
+    temp.defaultProfilePictureHex = defaultProfilePictureHex;
     temp.displayName = displayName;
     temp.isPasswordNotSet = isPasswordNotSet
       ? isPasswordNotSet

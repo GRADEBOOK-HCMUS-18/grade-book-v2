@@ -1,9 +1,10 @@
 import { action, observable, makeObservable, computed } from 'mobx';
 import { BaseViewModel, lineLoadingViewModel } from 'shared/view-models';
-import { SingleClass, MainTeacher } from 'pages/home/models';
+import { SingleClass } from 'pages/home/models';
 import { LOCAL_URL } from 'shared/constants';
 import { httpService } from 'shared/services';
 import { HttpError, HomepageError } from 'shared/errors';
+import { User } from 'shared/models';
 
 class HomeViewModel extends BaseViewModel {
   allClass: SingleClass[] = [];
@@ -59,26 +60,11 @@ class HomeViewModel extends BaseViewModel {
   updateClassList = (response: SingleClass[]) => {
     const newClassList: SingleClass[] = [];
     response.map((item) => {
-      const {
-        email,
-        firstName,
-        lastName,
-        profilePictureUrl,
-        defaultProfilePictureHex,
-      } = item.mainTeacher;
-      const newTeacher: MainTeacher = {
-        email,
-        firstName,
-        lastName,
-        profilePictureUrl,
-        defaultProfilePictureHex,
-        displayName: `${lastName} ${firstName}`,
-      };
-      item.mainTeacher = newTeacher;
       newClassList.unshift(item);
       return item;
     });
-    this.allClass.splice(0, this.allClass.length, ...newClassList);
+    this.allClass=response;
+    //.splice(0, this.allClass.length, ...newClassList);
     this.triggerChange();
   };
 

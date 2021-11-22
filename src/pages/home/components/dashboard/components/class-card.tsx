@@ -5,14 +5,14 @@ import { MdAssignmentInd } from 'react-icons/md';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Card, Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
-import { MainTeacher } from 'pages/home/models';
+import { User } from 'shared/models';
 import '../style/class-card.css';
 
 interface IProps {
   id: number;
   roleOfCurrentUser: string;
   name: string;
-  mainTeacher: MainTeacher;
+  mainTeacher: User;
   room: string;
 }
 
@@ -77,7 +77,7 @@ export const ClassCard = observer(
                 </div>
               </Link>
               <span className="class-teacher-name  text-white text-truncate">
-                {mainTeacher.displayName}
+                {mainTeacher.firstName + ' ' + mainTeacher.lastName}
               </span>
             </div>
           </Card.Title>
