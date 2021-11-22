@@ -108,11 +108,11 @@ class HomeViewModel extends BaseViewModel {
     }
     navigator.clipboard.writeText(text).then(
       () => {
-        this.makeError('Đã copy vào Clipboard thành công');
+        this.message = 'Đã copy vào Clipboard thành công';
         setTimeout(() => this.deleteError(), 4000);
       },
       (err) => {
-        this.makeError('Không thể copy vào Cliboard: ' + err);
+        this.message = 'Không thể copy vào Cliboard: ' + err;
         setTimeout(() => this.deleteError(), 4000);
       }
     );

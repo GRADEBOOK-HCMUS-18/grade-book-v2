@@ -1,6 +1,12 @@
-import { ProfilePage } from './profile/index';
+import { ProfilePage } from './profile';
 import { AuthenticationPage } from './authentication';
 import { ClassDetail } from './class-detail';
 import { HomePage } from './home';
-
-export { HomePage, ClassDetail, AuthenticationPage, ProfilePage };
+import { MemberInvitation } from './member-inviation';
+export {
+  HomePage,
+  ClassDetail,
+  AuthenticationPage,
+  MemberInvitation,
+  ProfilePage,
+};

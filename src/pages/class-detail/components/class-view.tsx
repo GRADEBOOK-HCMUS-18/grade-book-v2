@@ -1,4 +1,5 @@
 import { useQuery } from 'shared/hooks';
+import { MemberInvitation } from 'pages';
 import { ClassDetailInfo } from 'shared/models';
 import { ClassDashboard } from './class-dashboard';
 
@@ -10,8 +11,10 @@ export const ClassView = ({ classInfo }: IProps) => {
   const query = useQuery();
   const inviteId = query.get('invite');
   let viewRender;
+
+  console.log(inviteId);
   viewRender = inviteId ? (
-    <p>Moi vo lop</p>
+    <MemberInvitation inviteID={inviteId} />
   ) : (
     <ClassDashboard classInfo={classInfo} />
   );

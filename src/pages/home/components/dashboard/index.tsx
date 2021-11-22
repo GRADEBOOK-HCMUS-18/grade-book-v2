@@ -3,8 +3,13 @@ import { observer } from 'mobx-react';
 import { Row } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
 import { SingleClass } from 'pages/home/models';
-import { CreateClassModal, EmptyData, JoinClassModal } from 'shared/components';
-import { Loading } from 'shared/components';
+import {
+  CreateClassModal,
+  EmptyData,
+  JoinClassModal,
+  Loading,
+  PopupAlert,
+} from 'shared/components';
 import { ClassCard, InvitationLinkModal } from './components';
 import './style/index.css';
 interface IProps {
@@ -34,6 +39,12 @@ export const Dashboard = observer(({ allClass }: IProps) => {
       <CreateClassModal />
       <JoinClassModal />
       <InvitationLinkModal />
+      <PopupAlert
+        show={viewModel.isError}
+        error={true}
+        onHide={() => viewModel.deleteError()}
+        message={viewModel.message}
+      />
     </div>
   );
 });
