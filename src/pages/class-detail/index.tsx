@@ -6,19 +6,28 @@ import {
   Switch,
   useRouteMatch,
   useParams,
+  useHistory,
 } from 'react-router-dom';
 
 import { PrivateRoute } from 'router';
-import { classDetailViewModel } from 'shared/view-models';
+import { classDetailViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { ClassView, ClassMember } from './components';
 
 export const ClassDetail = observer(() => {
   const { path, url } = useRouteMatch();
   const { id }: any = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    classDetailViewModel.getClassInfo(id);
-  }, [id]);
+    const waitForData = async () => {
+      const result = await classDetailViewModel.getClassInfo(id);
+      if (!result) {
+        history.goBack();
+        lineLoadingViewModel.stopLoading();
+      }
+    };
+    waitForData();
+  }, [id, history]);
 
   return (
     <Switch>

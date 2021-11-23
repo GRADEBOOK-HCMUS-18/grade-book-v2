@@ -18,17 +18,19 @@ class ClassDetailViewModel {
     this.classInfo = data;
   }
 
-  async getClassInfo(id: string) {
+  async getClassInfo(id: string): Promise<boolean> {
     lineLoadingViewModel.startLoading();
     const response: ClassDetailInfo | HttpError = await httpService.sendGet(
       `/Class/${id}`,
       httpService.getBearerToken()
     );
     if (response instanceof HttpError) {
+      return false;
     } else {
       this.updateClassInfo(response);
+      lineLoadingViewModel.stopLoading();
+      return true;
     }
-    lineLoadingViewModel.stopLoading();
   }
 }
 

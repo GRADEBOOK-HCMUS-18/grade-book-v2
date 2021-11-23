@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Dashboard } from './components';
 import { homeViewModel } from './home-view-model';
@@ -7,7 +7,7 @@ import { homeViewModel } from './home-view-model';
 export const HomePage = observer(() => {
   const { path } = useRouteMatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     homeViewModel.fetchAllClasses();
   }, []);
 
