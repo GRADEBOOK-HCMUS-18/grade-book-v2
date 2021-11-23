@@ -40,13 +40,14 @@ class HomeViewModel extends BaseViewModel {
       '/class',
       httpService.getBearerToken()
     );
-    lineLoadingViewModel.stopLoading();
 
     if (response instanceof HttpError) {
       this.handleError(response);
+      lineLoadingViewModel.stopLoading();
       return false;
     } else {
       this.updateClassList(response);
+      lineLoadingViewModel.stopLoading();
       return true;
     }
   }
