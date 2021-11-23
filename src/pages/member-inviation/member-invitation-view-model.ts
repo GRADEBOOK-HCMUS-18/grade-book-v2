@@ -1,10 +1,14 @@
 import { observable, makeObservable, action, computed } from 'mobx';
-import { BaseViewModel, userViewModel } from 'shared/view-models';
+import {
+  BaseViewModel,
+  lineLoadingViewModel,
+  userViewModel,
+} from 'shared/view-models';
 import { User } from 'shared/models';
-import { InvitationResponse } from './models';
 import { SingleClass } from 'pages/home/models';
 import { httpService } from 'shared/services';
 import { HttpError, InvitationError } from 'shared/errors';
+import { InvitationResponse } from './models';
 
 export class MemberInvitationViewModel extends BaseViewModel {
   user: User = new User();
@@ -106,13 +110,13 @@ export class MemberInvitationViewModel extends BaseViewModel {
   //join class
 
   async joinClass() {
-    this.startLoading();
+    lineLoadingViewModel.startLoading();
     const response: string | HttpError = await httpService.sendPost(
       `/invite/${this.inviteID}`,
       '',
       httpService.getBearerToken()
     );
-    this.stopLoading();
+    lineLoadingViewModel.stopLoading();
     if (response instanceof HttpError) {
       const message: string = "This user don't allow to join this class";
       const error: InvitationError = new InvitationError(

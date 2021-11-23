@@ -10,8 +10,15 @@ interface IProps {
   type: FeedBack;
 }
 
-export const SnackBar = ({ show, duration, message, type ,onClose}: IProps) => {
+export const SnackBar = ({
+  show,
+  duration,
+  message,
+  type,
+  onClose,
+}: IProps) => {
   const [baseClassName, setBaseClassName] = useState('snackbar');
+  const [count, setCount] = useState(0);
   let className = 'success-snackbar';
 
   switch (type) {
@@ -25,24 +32,30 @@ export const SnackBar = ({ show, duration, message, type ,onClose}: IProps) => {
   useEffect(() => {
     if (show) {
       setBaseClassName('snackbar');
+      setCount(count + 1);
     } else {
       setBaseClassName('snackbar-close');
     }
-  }, [show]);
+  }, [show, count]);
 
   useEffect(() => {
     let timeout: any;
-    if (duration)
-      timeout = setTimeout(() => onClose(), duration);
+    if (duration) timeout = setTimeout(() => onClose(), duration);
     else timeout = setTimeout(() => onClose(), 3000);
     return () => {
       clearTimeout(timeout);
     };
-  }, [duration,onClose]);
+  }, [duration, onClose]);
 
   return (
-    <div className={`${baseClassName} ${className}`}>
-      <span>{message}</span>
-    </div>
+    <>
+      {count ? (
+        <div className={`${baseClassName} ${className}`}>
+          <span>{message}</span>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { ReactMultiEmail } from 'react-multi-email';
-import { PopupAlert } from 'shared/components';
+import { PopupAlert, SnackBar } from 'shared/components';
 import { classMemberViewModel } from './class-member-view-model';
 import './style/react-multi-email.css';
 
@@ -17,6 +17,7 @@ export const InsertEmailAddressModal = observer(() => {
   };
 
   const sendEmailsList = async () => {
+    hideModal();
     const result = await classMemberViewModel.sendEmailList(emails);
     if (result) {
       classMemberViewModel.message = 'Đã gửi thành công';
@@ -30,14 +31,19 @@ export const InsertEmailAddressModal = observer(() => {
   return (
     <>
       <PopupAlert
-        show={classMemberViewModel.isError || isSuccess}
-        error={!isSuccess}
+        show={classMemberViewModel.isError}
+        error={classMemberViewModel.isError}
         message={classMemberViewModel.message}
         onHide={() => {
-          setIsSuccess(false);
           classMemberViewModel.deleteError();
         }}
       ></PopupAlert>
+      <SnackBar
+        show={isSuccess}
+        type="success"
+        message="Đã gửi email"
+        onClose={() => setIsSuccess(false)}
+      />
       <Modal
         show={showModal}
         onHide={hideModal}

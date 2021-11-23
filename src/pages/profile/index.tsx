@@ -1,21 +1,22 @@
 import { Observer } from 'mobx-react';
 import { useState } from 'react';
-import { PopupAlert } from 'shared/components';
+import { PopupAlert, SnackBar } from 'shared/components';
 import { User } from 'shared/models';
 import { userViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { UserAvatar, UserInfo, PasswordChangeModal } from './components';
 import './style/index.css';
 
+const successMessage = 'Cập nhật thành công';
+
 export const ProfilePage = () => {
-  const [showAlert, setShowAlert] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const changeAvatar = async (image: any) => {
     lineLoadingViewModel.startLoading();
     const result = await userViewModel.requestNewAvatar(image);
     if (result) {
-      userViewModel.message = 'Cập nhật thành công';
-      setShowAlert(true);
+      setIsSuccess(true);
     }
     lineLoadingViewModel.stopLoading();
   };
@@ -24,8 +25,7 @@ export const ProfilePage = () => {
     lineLoadingViewModel.startLoading();
     const result = await userViewModel.requestNewInfo(user);
     if (result) {
-      userViewModel.message = 'Cập nhật thành công';
-      setShowAlert(true);
+      setIsSuccess(true);
     }
     lineLoadingViewModel.stopLoading();
   };
@@ -35,8 +35,7 @@ export const ProfilePage = () => {
     setShowModal(false);
     const result = await userViewModel.updatePassword(newPass, oldPass);
     if (result) {
-      userViewModel.message = 'Cập nhật thành công';
-      setShowAlert(true);
+      setIsSuccess(true);
     }
     lineLoadingViewModel.stopLoading();
   };
@@ -71,13 +70,18 @@ export const ProfilePage = () => {
                     onHide={() => setShowModal(false)}
                   />
                   <PopupAlert
-                    show={showAlert || userViewModel.isError}
+                    show={userViewModel.isError}
                     error={userViewModel.isError}
                     message={userViewModel.message}
                     onHide={() => {
-                      setShowAlert(false);
                       userViewModel.deleteError();
                     }}
+                  />
+                  <SnackBar
+                    show={isSuccess}
+                    type="success"
+                    message={successMessage}
+                    onClose={() => setIsSuccess(false)}
                   />
                 </div>
               );
