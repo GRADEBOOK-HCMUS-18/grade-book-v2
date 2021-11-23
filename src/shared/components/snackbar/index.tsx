@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FeedBack } from 'shared/types';
 import './index.css';
 
@@ -18,7 +18,7 @@ export const SnackBar = ({
   onClose,
 }: IProps) => {
   const [baseClassName, setBaseClassName] = useState('snackbar');
-  const [count, setCount] = useState(0);
+  const mounted = useRef(0);
   let className = 'success-snackbar';
 
   switch (type) {
@@ -32,11 +32,11 @@ export const SnackBar = ({
   useEffect(() => {
     if (show) {
       setBaseClassName('snackbar');
-      setCount(count + 1);
+      mounted.current = 1;
     } else {
       setBaseClassName('snackbar-close');
     }
-  }, [show, count]);
+  }, [show]);
 
   useEffect(() => {
     let timeout: any;
@@ -49,7 +49,7 @@ export const SnackBar = ({
 
   return (
     <>
-      {count ? (
+      {mounted.current ? (
         <div className={`${baseClassName} ${className}`}>
           <span>{message}</span>
         </div>
