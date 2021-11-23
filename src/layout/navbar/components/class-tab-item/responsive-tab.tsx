@@ -23,7 +23,7 @@ export const ResponsiveTab = observer(() => {
       <Dropdown.Menu>
         {Items.map((item) => {
           return (
-            <Dropdown.Item key={item.id}>
+            <Dropdown.Item as="div" key={item.id}>
               <div>
                 <Link
                   style={{ display: 'flex', padding: 5 }}

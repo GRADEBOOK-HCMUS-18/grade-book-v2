@@ -17,7 +17,10 @@ export const ClassDetail = observer(() => {
   const { id }: any = useParams();
 
   useEffect(() => {
-    classDetailViewModel.getClassInfo(id);
+    const waitForData = async () => {
+      await classDetailViewModel.getClassInfo(id);
+    };
+    waitForData();
   }, [id]);
 
   return (

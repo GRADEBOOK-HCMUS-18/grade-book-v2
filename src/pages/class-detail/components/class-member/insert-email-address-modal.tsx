@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { ReactMultiEmail } from 'react-multi-email';
+import { PopupAlert } from 'shared/components';
 import { classMemberViewModel } from './class-member-view-model';
 import './style/react-multi-email.css';
-import { PopupAlert } from 'shared/components';
 
 export const InsertEmailAddressModal = observer(() => {
   const [emails, setEmails] = useState<any>([]);
@@ -35,7 +35,6 @@ export const InsertEmailAddressModal = observer(() => {
         message={classMemberViewModel.message}
         onHide={() => {
           setIsSuccess(false);
-
           classMemberViewModel.deleteError();
         }}
       ></PopupAlert>

@@ -7,7 +7,7 @@
 }
 
 .member-container {
-  padding: 2rem 10rem;
+  padding: 2rem 0;
 }
 .add-user-btn {
   display: flex;
@@ -29,6 +29,7 @@
 .member-info {
   display: flex;
   align-items: center;
+  padding: 1rem 0;
 }
 
 .member-info > span {
@@ -53,6 +54,6 @@
 
 @media only screen and (max-width: 600px) {
   .member-container {
-    padding: 2rem 5rem;
+    padding: 2rem 0;
   }
 }

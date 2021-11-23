@@ -7,6 +7,7 @@ import { Avatar, PopupAlert } from 'shared/components';
 import { getRoleName } from './components';
 import logo from 'assets/images/logo.png';
 import './style/index.css';
+import { LOCAL_URL } from 'shared/constants';
 
 interface IProps {
   inviteID: string | null;
@@ -39,7 +40,9 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
 
   const joinClass = async () => {
     const result = await viewModel.joinClass();
-    if (result) history.push(viewModel.getClassDetailUrl);
+    if (result) {
+      window.location.href = `${LOCAL_URL}${viewModel.getClassDetailUrl}`;
+    }
   };
 
   return (
@@ -60,7 +63,7 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
               <strong>{viewModel.classInformation.name}</strong>
             </span>
           </div>
-          <div className="pt-4 pb-3 text-center ">
+          <div className="center">
             <Avatar user={user} size={80}></Avatar>
             <p className="text-email">{user.email}</p>
             <p className="text-display-name">{user.displayName}</p>
