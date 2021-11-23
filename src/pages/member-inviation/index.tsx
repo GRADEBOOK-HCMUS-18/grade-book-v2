@@ -18,8 +18,8 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
   const history = useHistory();
 
   const fn = useCallback(async () => {
-    const result = await viewModel.getClassInfo();
-    if (result) {
+    const { isError, isAlreadyInClass } = await viewModel.getClassInfo();
+    if (!isError && isAlreadyInClass) {
       history.push(`/class/${viewModel.classInformation.id}`);
     }
   }, [history, viewModel]);

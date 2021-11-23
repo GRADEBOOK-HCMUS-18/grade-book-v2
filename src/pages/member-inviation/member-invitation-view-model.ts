@@ -67,10 +67,10 @@ export class MemberInvitationViewModel extends BaseViewModel {
 
     if (response instanceof HttpError) {
       this.handleError(response);
-      return false;
+      return { isError: true, isAlreadyInClass: false };
     } else {
       this.updateInfo(response);
-      return response.isAlreadyInClass;
+      return { isError: false, isAlreadyInClass: response.isAlreadyInClass };
     }
   }
 

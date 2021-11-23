@@ -10,6 +10,7 @@ interface IProps {
 export const ClassView = ({ classInfo }: IProps) => {
   const query = useQuery();
   const inviteId = query.get('invite');
+
   let viewRender;
   viewRender = inviteId ? (
     <MemberInvitation inviteID={inviteId} />

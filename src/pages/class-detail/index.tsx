@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 
 import { PrivateRoute } from 'router';
+import { useQuery } from 'shared/hooks';
 import { classDetailViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { ClassView, ClassMember } from './components';
 
@@ -17,17 +18,19 @@ export const ClassDetail = observer(() => {
   const { path, url } = useRouteMatch();
   const { id }: any = useParams();
   const history = useHistory();
+  const query = useQuery();
+  const inviteId = query.get('invite');
 
   useEffect(() => {
     const waitForData = async () => {
       const result = await classDetailViewModel.getClassInfo(id);
-      if (!result) {
-        history.goBack();
-        lineLoadingViewModel.stopLoading();
+      lineLoadingViewModel.stopLoading();
+      if (!result && !inviteId) {
+        history.push('/class');
       }
     };
     waitForData();
-  }, [id, history]);
+  }, [id, history, inviteId]);
 
   return (
     <Switch>
