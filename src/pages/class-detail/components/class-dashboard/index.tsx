@@ -1,24 +1,64 @@
 import { observer } from 'mobx-react';
-import { ClassDetailInfo } from 'shared/models';
-import { lineLoadingViewModel } from 'shared/view-models';
+import { useEffect } from 'react';
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom';
+import { PrivateRoute } from 'router';
+import { classDetailViewModel, lineLoadingViewModel } from 'shared/view-models';
+import { ClassMember } from './components';
 import './style/index.css';
 
-interface IProps {
-  classInfo: ClassDetailInfo;
-}
+export const ClassDashboard = observer(() => {
+  const { path, url } = useRouteMatch();
+  const { id }: any = useParams();
+  const history = useHistory();
+  const { classInfo } = classDetailViewModel;
 
-export const ClassDashboard = observer(({ classInfo }: IProps) => {
+  useEffect(() => {
+    const waitForData = async () => {
+      const result = await classDetailViewModel.getClassInfo(id);
+      lineLoadingViewModel.stopLoading();
+      if (!result) {
+        history.push('/class');
+      }
+    };
+    waitForData();
+  }, [id, history]);
+
   return (
-    <>
-      {lineLoadingViewModel.isLoading ? (
-        <></>
-      ) : (
-        <div className="class-info">
-          <h3>{classInfo.name}</h3>
-          <p>{classInfo.description}</p>
-          <p>{classInfo.room}</p>
+    <Switch>
+      <PrivateRoute exact path={path}>
+        <div className="container">
+          {lineLoadingViewModel.isLoading ? (
+            <></>
+          ) : (
+            <div className="class-info">
+              <h3>{classInfo.name}</h3>
+              <p>{classInfo.description}</p>
+              <p>{classInfo.room}</p>
+            </div>
+          )}
         </div>
-      )}
-    </>
+      </PrivateRoute>
+      <PrivateRoute path={`${url}/homework`}>
+        <div className="container">Bai tap</div>
+      </PrivateRoute>
+      <PrivateRoute path={`${url}/people`}>
+        <div className="container">
+          <ClassMember
+            backUrl={url}
+            classInfo={classDetailViewModel.classInfo}
+          />
+        </div>
+      </PrivateRoute>
+      <Route>
+        <Redirect to={url} />
+      </Route>
+    </Switch>
   );
 });
