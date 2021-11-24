@@ -11,8 +11,6 @@
 # production
 /build
 
-/src/shared/constants
-
 # misc
 .DS_Store
 
