@@ -7,10 +7,10 @@ import { LineLoading } from 'shared/components';
 import { lineLoadingViewModel } from 'shared/view-models';
 import {
   Title,
-  CreateJoinClassDropDownButton,
   PopOverProfile,
   TabItem,
   ResponsiveTab,
+  CreateClassButton,
 } from './components';
 import './style/index.css';
 
@@ -34,7 +34,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       </div>
       {match && !isMobile && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
-        {location.pathname === '/' && <CreateJoinClassDropDownButton />}
+        {location.pathname === '/' && <CreateClassButton />}
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
         {!isMobile && <PopOverProfile />}
       </div>

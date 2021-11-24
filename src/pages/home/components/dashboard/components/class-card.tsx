@@ -1,11 +1,14 @@
 import { observer } from 'mobx-react';
-import { AiOutlineFolderOpen } from 'react-icons/ai';
+import { useState } from 'react';
+import { AiOutlineFolderOpen, AiOutlineLink } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { MdAssignmentInd } from 'react-icons/md';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Card, Popover, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { BsSave, BsThreeDotsVertical } from 'react-icons/bs';
+import { TiCancel } from 'react-icons/ti';
+import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { homeViewModel } from 'pages/home/home-view-model';
 import { User } from 'shared/models';
+import { PopUp } from 'shared/components';
 import '../style/class-card.css';
 
 interface IProps {
@@ -23,50 +26,11 @@ export const ClassCard = observer(
       homeViewModel.showInvitationLinkModal();
     };
 
+    const [showPopUp, setShowPopUp] = useState(false);
     return (
       <Card className="class-card border-1 p-0 mx-2 my-3">
         <Card.Header className="class-header px-0 py-3">
           <Card.Title className="d-flex">
-            <OverlayTrigger
-              trigger="focus"
-              placement="bottom-end"
-              overlay={
-                <Popover>
-                  <Popover.Body className="p-0">
-                    <div className="list-group">
-                      {roleOfCurrentUser === 'student' ? (
-                        <button
-                          type="button"
-                          className="list-group-item list-group-item-action"
-                        >
-                          Hủy đăng ký
-                        </button>
-                      ) : (
-                        <div>
-                          <button
-                            type="button"
-                            className="list-group-item list-group-item-action"
-                            onClick={() => openInvitationModal()}
-                          >
-                            Link mời vào lớp
-                          </button>
-                          <button
-                            type="button"
-                            className="list-group-item list-group-item-action"
-                          >
-                            Lưu trữ
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </Popover.Body>
-                </Popover>
-              }
-            >
-              <button className="btn-three-dot">
-                <BsThreeDotsVertical></BsThreeDotsVertical>
-              </button>
-            </OverlayTrigger>
             <div className="ps-3">
               <Link className="go-to-class d-block " to={`/class/${id}`}>
                 <div className="class-title text-white text-truncate">
@@ -80,6 +44,57 @@ export const ClassCard = observer(
                 {mainTeacher.firstName + ' ' + mainTeacher.lastName}
               </span>
             </div>
+            <PopUp
+              show={showPopUp}
+              onHide={() => setShowPopUp(false)}
+              placement="bottom-left"
+              overlay={
+                <div className="center-vertical">
+                  {roleOfCurrentUser === 'student' ? (
+                    <button
+                      onClick={() => setShowPopUp(false)}
+                      type="button"
+                      className="pop-up-item"
+                    >
+                      <TiCancel style={{ marginRight: 10 }} size={20} />
+                      <span> Hủy đăng kí</span>
+                    </button>
+                  ) : (
+                    <div className="center-vertical">
+                      <button
+                        type="button"
+                        className="pop-up-item"
+                        onClick={() => {
+                          setShowPopUp(false);
+                          openInvitationModal();
+                        }}
+                      >
+                        <AiOutlineLink style={{ marginRight: 10 }} size={20} />
+                        <span> Link mời vào lớp</span>
+                      </button>
+                      <button
+                        onClick={() => setShowPopUp(false)}
+                        type="button"
+                        className="pop-up-item"
+                      >
+                        <BsSave
+                          style={{ marginRight: 13, marginLeft: 3 }}
+                          scale={20}
+                        />
+                        <span>Lưu trữ</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              }
+            >
+              <button
+                onClick={() => setShowPopUp(!showPopUp)}
+                className="class-card-btn"
+              >
+                <BsThreeDotsVertical></BsThreeDotsVertical>
+              </button>
+            </PopUp>
           </Card.Title>
         </Card.Header>
         <Card.Body className="card-body" />

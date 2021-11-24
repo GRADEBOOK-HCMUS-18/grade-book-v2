@@ -8,6 +8,10 @@
   height: 90px;
   justify-content: space-between;
 }
+.pop-over-profile {
+  width: 250px;
+  padding: 25px 10px;
+}
 
 .button-content {
   font-size: 0.9rem;

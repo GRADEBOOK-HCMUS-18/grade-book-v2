@@ -1,84 +1,88 @@
+.class-card {
+  background: white;
+  width: 20rem !important;
+  transition: all 0.5s linear;
+}
 
-  .class-card{
-    background: white;
-    width: 20rem!important;
-    transition: all 0.5s linear;
-  }
+.class-card:hover {
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+}
 
-  .class-card:hover{
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2)
-  }
+.class-header {
+  background-color: #0d6efd !important;
+}
 
-  .class-header{
-    background-color: #0d6efd!important;
-  }
+.card-body {
+  height: 7rem !important;
+}
 
-  .card-body
-  {
-    height: 7rem!important;
-  }
+.card-footer {
+  padding: 0.2rem 0 0.2rem 0 !important;
+}
 
-  .card-footer{
-    padding:  0.2rem 0 0.2rem 0!important;
-  }
+.class-room {
+  font-size: 1rem;
+}
 
-  .class-room{
-    font-size: 1rem;
-  }
+.class-title {
+  font-size: 1.4rem;
+}
 
-  .class-title{
-    font-size: 1.4rem;
-    
-  }
+.class-teacher-name {
+  font-size: 1rem;
+}
 
-  .class-teacher-name{
-    font-size: 1rem;
-  }
+.btn-floating {
+  color: rgba((0), 0, 0, 0.3);
+  border-radius: 50%;
+  background-color: transparent;
+  width: 3rem;
+  height: 3rem;
+  border: 0px solid transparent;
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}
 
-  .btn-floating{
-    color: rgba((0), 0, 0, 0.3);
-    border-radius: 50%;
-    background-color: transparent;
-    width: 3rem;
-    height: 3rem;
-    border: 0px solid transparent;
-    margin-right: 0.5rem;
-    font-size: 1.5rem;
-  }
+.btn-floating:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
-  .btn-floating:hover{
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  
-  .btn-three-dot{
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.3);
-    border: 0px solid transparent;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.5rem;
-    position:absolute;
-    top:0.5rem;
-    right: 0.1rem;
-  }
+.btn-three-dot {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.3);
+  border: 0px solid transparent;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.1rem;
+}
 
-  .btn-three-dot:hover{
-    background-color: rgba(0, 0, 0, 0.1);
+.btn-three-dot:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.go-to-class {
+  width: 16rem;
+}
 
-  }
-  .go-to-class{
-    width:16rem;
-  }
+.go-to-class:hover .class-title {
+  text-decoration: solid white underline;
+}
 
-  .go-to-class:hover .class-title{
-    text-decoration: solid white underline;
-  }
+.go-to-class:hover .class-room {
+  text-decoration: solid white underline;
+}
 
-  .go-to-class:hover .class-room{
-    text-decoration: solid white underline;
-  }
+.class-card-btn {
+  border: none;
+  background: none;
+  color: #ffff;
+  border-radius: 2px;
+  padding: 5px;
+}
 
-  .pop-up-list li:hover{
-    
-  }
+.class-card-btn:hover {
+  background: var(--loading-background);
+}

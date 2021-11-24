@@ -1,3 +1,4 @@
+import { PopUp } from './pop-up/index';
 import { NavigateBack } from './navigate-back/index';
 import { EmptyData } from './empty-data/index';
 import { SnackBar } from './snackbar';
@@ -18,4 +19,5 @@ export {
   LineLoading,
   EmptyData,
   NavigateBack,
+  PopUp,
 };
