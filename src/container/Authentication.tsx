@@ -27,7 +27,6 @@ export const Authentication = observer(({ children }: any) => {
           if (response.getStatusCode() === 401) {
             storageService.clearUser();
             setIsFinish(true);
-            history.push('/login');
           } else {
             setIsError(true);
           }
@@ -37,7 +36,6 @@ export const Authentication = observer(({ children }: any) => {
         }
       } else {
         setIsFinish(true);
-        history.push('/login');
       }
       userViewModel.stopLoading();
     };

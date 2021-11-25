@@ -14,6 +14,7 @@ function App() {
   const toggleSideBar = () => {
     setShowSidebar(!showSidebar);
   };
+
   return (
     <>
       {isInAuthenPage && (
