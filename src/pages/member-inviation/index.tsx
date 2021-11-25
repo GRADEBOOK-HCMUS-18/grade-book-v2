@@ -22,7 +22,6 @@ export const MemberInvitation = observer(({ inviteID }: IProps) => {
     const { isError, isAlreadyInClass } = await viewModel.getClassInfo();
     if (!isError && isAlreadyInClass) {
       history.push(`/class/${viewModel.classInformation.id}`);
-      lineLoadingViewModel.stopLoading();
       return;
     }
     lineLoadingViewModel.stopLoading();

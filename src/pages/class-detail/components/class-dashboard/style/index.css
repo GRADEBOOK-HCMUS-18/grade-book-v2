@@ -5,9 +5,7 @@
   border-radius: 10px;
   margin-top: 20px;
   position: relative;
-}
-
-.class-member-info {
+  height: 12rem;
 }
 
 .see-member-btn {

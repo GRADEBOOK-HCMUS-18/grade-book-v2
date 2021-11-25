@@ -10,7 +10,6 @@ class HomeViewModel extends BaseViewModel {
   invitationLink: string = '';
   classID: number = 0;
   isShowInvitationModal = false;
-  dataVersion: number = 0;
 
   constructor() {
     super();
@@ -19,11 +18,8 @@ class HomeViewModel extends BaseViewModel {
       classID: observable,
       invitationLink: observable,
       isShowInvitationModal: observable,
-      dataVersion: observable,
-
       updateClassList: action,
       fetchAllClasses: action,
-      triggerChange: action,
       handleError: action,
       setShowInvitationModal: action,
       setClassID: action,
@@ -64,19 +60,8 @@ class HomeViewModel extends BaseViewModel {
       return item;
     });
     this.allClass = response;
-    //.splice(0, this.allClass.length, ...newClassList);
-    this.triggerChange();
   };
 
-  triggerChange() {
-    if (this.dataVersion > 1) {
-      this.dataVersion--;
-    } else {
-      this.dataVersion++;
-    }
-  }
-
-  //Invitation link Modal
   setShowInvitationModal(value: boolean) {
     this.isShowInvitationModal = value;
   }

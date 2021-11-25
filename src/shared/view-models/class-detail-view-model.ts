@@ -24,7 +24,9 @@ class ClassDetailViewModel {
       `/Class/${id}`,
       httpService.getBearerToken()
     );
+
     if (response instanceof HttpError) {
+      lineLoadingViewModel.stopLoading();
       return false;
     } else {
       this.updateClassInfo(response);

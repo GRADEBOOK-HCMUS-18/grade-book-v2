@@ -22,7 +22,7 @@ export const ClassDashboard = observer(() => {
   useEffect(() => {
     const waitForData = async () => {
       const result = await classDetailViewModel.getClassInfo(id);
-      lineLoadingViewModel.stopLoading();
+
       if (!result) {
         history.push('/class');
       }
@@ -34,15 +34,11 @@ export const ClassDashboard = observer(() => {
     <Switch>
       <PrivateRoute exact path={path}>
         <div className="container">
-          {lineLoadingViewModel.isLoading ? (
-            <></>
-          ) : (
-            <div className="class-info">
-              <h3>{classInfo.name}</h3>
-              <p>{classInfo.description}</p>
-              <p>{classInfo.room}</p>
-            </div>
-          )}
+          <div className="class-info">
+            <h3>{classInfo.name}</h3>
+            <p>{classInfo.description}</p>
+            <p>{classInfo.room}</p>
+          </div>
         </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/homework`}>
