@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { IoConstructOutline } from 'react-icons/io5';
 import { User } from 'shared/models';
 import { removeSpace } from 'utils/string';
 import { FormError, getErrors, getErrorsState } from './helper';
