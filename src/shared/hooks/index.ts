@@ -17,7 +17,7 @@ export function useQuery() {
 
 export function usePreviousPath() {
   const history: any = useHistory();
-  console.log(history.location);
+
   let previousPath = null;
   if (!history.location.state) {
     return { previousPath };

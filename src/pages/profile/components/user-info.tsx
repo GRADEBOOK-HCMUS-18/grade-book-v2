@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { IoConstructOutline } from 'react-icons/io5';
 import { User } from 'shared/models';
 import { removeSpace } from 'utils/string';
 import { FormError, getErrors, getErrorsState } from './helper';
@@ -84,13 +85,20 @@ export const UserInfo = ({ user, onChange, openPasswordModal }: IProps) => {
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Mã số sinh viên</Form.Label>
         <Form.Control
+          disabled={user.studentIdentification !== null}
           required
           onChange={(event) =>
             handleChangeField('studentIdentification', event)
           }
           type="text"
-          defaultValue={user.studentIdentification}
+          defaultValue={
+            user.studentIdentification ? user.studentIdentification : ''
+          }
         />
+        <Form.Text className="text-muted">
+          Bạn chỉ có thể cập nhật MSSV 1 lần duy nhất nếu muốn thay đổi hãy liên
+          lạc với quản trị viên của trang web
+        </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Button variant="success" type="submit">

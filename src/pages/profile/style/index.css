@@ -10,6 +10,7 @@
 }
 .user-form {
   margin-top: 1rem;
+  max-width: 300px;
 }
 
 .user-profile {
@@ -30,5 +31,11 @@
   }
   .user-profile {
     flex-direction: column-reverse;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .user-profile {
+    max-width: 250px;
   }
 }

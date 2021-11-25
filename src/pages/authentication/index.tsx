@@ -36,7 +36,6 @@ export const AuthenticationPage = observer(({ isLogin }: IProps) => {
   };
 
   const onLogin = async (user: UserAuthen) => {
-    console.log(previousPath);
     const result = await viewModel.authenUser(user, 'login');
     if (result) {
       previousPath ? history.push(previousPath) : history.push('/');
