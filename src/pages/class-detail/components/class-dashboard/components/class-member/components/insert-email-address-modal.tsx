@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 import { ReactMultiEmail } from 'react-multi-email';
 import { PopupAlert, SnackBar } from 'shared/components';
 import { classMemberViewModel } from './class-member-view-model';
-import './style/react-multi-email.css';
 
 export const InsertEmailAddressModal = observer(() => {
   const [emails, setEmails] = useState<any>([]);

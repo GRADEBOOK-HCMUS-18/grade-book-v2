@@ -5,7 +5,6 @@ import { classMemberViewModel } from './class-member-view-model';
 import { Avatar } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { NoStudent } from './no-student';
-import './style/index.css';
 
 interface IProps {
   classInfo: ClassDetailInfo;

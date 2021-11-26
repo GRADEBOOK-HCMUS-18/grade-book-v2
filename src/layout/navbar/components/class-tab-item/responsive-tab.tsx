@@ -1,3 +1,4 @@
+import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useLocation, Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -11,6 +12,7 @@ export const ResponsiveTab = observer(() => {
   const url = `/class/${id}`;
   const tokens = location.pathname.split('/');
   const currentLocation = tokens[tokens.length - 1];
+  const isTeacher = classDetailViewModel.classInfo.isTeacher;
   let selectedContent = getContent(currentLocation);
 
   if (selectedContent === '') {
@@ -22,6 +24,10 @@ export const ResponsiveTab = observer(() => {
       <Dropdown.Toggle>{selectedContent}</Dropdown.Toggle>
       <Dropdown.Menu>
         {Items.map((item) => {
+          if (item.path === 'grade' && !isTeacher) {
+            //Warning key props?
+            return <React.Fragment key={10}></React.Fragment>;
+          }
           return (
             <Dropdown.Item as="div" key={item.id}>
               <div>
@@ -44,10 +50,10 @@ const getContent = (path: string): string => {
   switch (path) {
     case 'homework':
       return 'Bài tập';
-
     case 'people':
       return 'Mọi người';
-
+    case 'grade':
+      return 'Điểm số';
     default:
       return '';
   }

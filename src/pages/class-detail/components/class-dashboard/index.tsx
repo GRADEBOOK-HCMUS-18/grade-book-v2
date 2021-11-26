@@ -9,8 +9,13 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import { PrivateRoute } from 'router';
-import { classDetailViewModel, lineLoadingViewModel } from 'shared/view-models';
-import { ClassMember } from './components';
+import { classDetailViewModel } from 'shared/view-models';
+import {
+  ClassGradeManagement,
+  ClassHomeWork,
+  ClassMember,
+  ClassPost,
+} from './components';
 import './style/index.css';
 
 export const ClassDashboard = observer(() => {
@@ -39,17 +44,24 @@ export const ClassDashboard = observer(() => {
             <p>{classInfo.description}</p>
             <p>{classInfo.room}</p>
           </div>
+          <div className="class-post">
+            <ClassPost />
+          </div>
         </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/homework`}>
-        <div className="container">Bai tap</div>
+        <div className="container">
+          <ClassHomeWork />
+        </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/people`}>
         <div className="container">
-          <ClassMember
-            backUrl={url}
-            classInfo={classDetailViewModel.classInfo}
-          />
+          <ClassMember classInfo={classDetailViewModel.classInfo} />
+        </div>
+      </PrivateRoute>
+      <PrivateRoute path={`${url}/grade`}>
+        <div className="container">
+          <ClassGradeManagement />
         </div>
       </PrivateRoute>
       <Route>

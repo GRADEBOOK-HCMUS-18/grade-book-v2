@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import { MemberInvitationViewModel } from './member-invitation-view-model';
 import { Avatar, PopupAlert } from 'shared/components';
-import { getRoleName } from './components';
+import { getRoleName } from './helper';
 import logo from 'assets/images/logo.png';
 import './style/index.css';
 import { LOCAL_URL } from 'shared/constants';

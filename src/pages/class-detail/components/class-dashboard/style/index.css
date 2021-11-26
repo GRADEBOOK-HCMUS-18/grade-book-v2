@@ -19,3 +19,8 @@
   border-radius: 0.5rem;
   color: var(--blue);
 }
+
+.class-post {
+  display: flex;
+  padding: 20px 0px;
+}

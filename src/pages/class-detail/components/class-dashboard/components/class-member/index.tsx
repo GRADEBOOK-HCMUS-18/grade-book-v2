@@ -1,15 +1,17 @@
 import { ClassDetailInfo } from 'shared/models';
-import { ClassMemberStudent } from './class-member-student';
-import { ClassMemberTeacher } from './class-member-teacher';
-import { InsertEmailAddressModal } from './insert-email-address-modal';
+import {
+  ClassMemberStudent,
+  ClassMemberTeacher,
+  InsertEmailAddressModal,
+} from './components';
 import './style/index.css';
+import './style/react-multi-email.css';
 
 interface IProps {
   classInfo: ClassDetailInfo;
-  backUrl: string;
 }
 
-export const ClassMember = ({ classInfo, backUrl }: IProps) => {
+export const ClassMember = ({ classInfo }: IProps) => {
   return (
     <div>
       <div className="member-container">
