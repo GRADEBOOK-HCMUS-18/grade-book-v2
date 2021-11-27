@@ -12,7 +12,8 @@
   border: 1px solid var(--medium-gray);
   border-radius: 0.8rem;
   width: 100%;
-  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+  box-shadow: var(--box-shadow-value);
+  height: max-content;
 }
 
 .post-editor-btn:hover {

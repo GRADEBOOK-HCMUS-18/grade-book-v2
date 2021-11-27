@@ -1,0 +1,27 @@
+.class-post-left-item > div {
+  border: 1px solid var(--medium-gray);
+  box-shadow: var(--box-shadow-value);
+  border-radius: 0.8rem;
+  padding: 10px 20px;
+  width: 200px;
+  margin-right: 1rem;
+  height: max-content;
+  margin-bottom: 20px;
+}
+.class-left-title {
+  font-weight: bold;
+}
+.class-id-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dot-btn {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dot-btn:hover {
+  background-color: var(--light-gray);
+}

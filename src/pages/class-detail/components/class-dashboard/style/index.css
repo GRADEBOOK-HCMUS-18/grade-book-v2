@@ -24,3 +24,13 @@
   display: flex;
   padding: 20px 0px;
 }
+.class-info-btn {
+  width: max-content;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.class-info-btn:hover {
+  color: var(--light-gray);
+}
