@@ -19,6 +19,7 @@ class ClassDetailViewModel {
   }
 
   async getClassInfo(id: string): Promise<boolean> {
+    this.classInfo = new ClassDetailInfo();
     lineLoadingViewModel.startLoading();
     const response: ClassDetailInfo | HttpError = await httpService.sendGet(
       `/Class/${id}`,

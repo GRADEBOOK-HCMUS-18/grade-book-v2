@@ -43,3 +43,15 @@
     width: 250px !important;
   }
 }
+
+.overflow-text {
+  width: 240px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
