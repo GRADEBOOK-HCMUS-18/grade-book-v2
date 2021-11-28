@@ -1,5 +1,5 @@
 export type FormError = {
-    errorType: 'title' | 'grade' ;
+    errorType: 'name' | 'point' ;
     errorMessage: string;
   };
   

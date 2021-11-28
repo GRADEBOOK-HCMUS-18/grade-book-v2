@@ -10,8 +10,8 @@ type FormType = 'create' | 'edit';
 
 type FormValue = {
   id: any;
-  title: any;
-  grade: any;
+  name: any;
+  point: any;
 };
 
 interface IProps {
@@ -34,8 +34,8 @@ export const GradeStructureForm = ({
 
   const [formValue, setFormValue] = useState<FormValue>({
     id: value?.id,
-    title: value?.title,
-    grade: value?.grade,
+    name: value?.name,
+    point: value?.point,
   });
 
   const handleFieldChange = (fieldName: string, newValue: any) => {
@@ -47,8 +47,8 @@ export const GradeStructureForm = ({
     if (!newErrors.length) {
       const newValue: GradeCategory = {
         id: formValue.id,
-        title: formValue.title,
-        grade: formValue.grade,
+        name: formValue.name,
+        point: formValue.point,
       };
       handleUpdate(formValue.id, newValue);
       setIsEdit(false);
@@ -64,7 +64,7 @@ export const GradeStructureForm = ({
     handleDelete(formValue.id);
   };
 
-  const { titleError, gradeError } = getErrors(errors);
+  const { nameError, pointError } = getErrors(errors);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,11 +73,11 @@ export const GradeStructureForm = ({
     if (!newErrors.length) {
       const newValue: GradeCategory = {
         id: formValue.id,
-        title: formValue.title,
-        grade: formValue.grade,
+        name: formValue.name,
+        point: formValue.point,
       };
       handleCreateNew(newValue);
-      setFormValue({ id: null, title: '', grade: '' });
+      setFormValue({ id: null, name: '', point: '' });
     }
     setErrors(newErrors);
   };
@@ -90,7 +90,7 @@ export const GradeStructureForm = ({
             <Form onSubmit={(e) => handleSubmit(e)}>
               <Form.Group>
                 <div className="m-0 d-flex">
-                  <span className="text-grade-title pt-2">Tiêu đề</span>
+                  <span className="text-grade-name pt-2">Tiêu đề</span>
 
                   {formType === 'edit' ? (
                     <div className="ms-auto">
@@ -131,17 +131,17 @@ export const GradeStructureForm = ({
                 <Form.Control
                   type="text"
                   placeholder="Nhập nội dung"
-                  name="title"
-                  value={formValue.title}
+                  name="name"
+                  value={formValue.name}
                   onChange={(event: any) => {
-                    handleFieldChange('title', event.target.value);
+                    handleFieldChange('name', event.target.value);
                   }}
-                  isInvalid={!!titleError}
-                  aria-describedby="title-help"
+                  isInvalid={!!nameError}
+                  aria-describedby="name-help"
                   readOnly={!isEdit && formType === 'edit'}
                 ></Form.Control>
                 <Form.Control.Feedback type="invalid" className="my-0">
-                  {titleError?.errorMessage}
+                  {nameError?.errorMessage}
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
@@ -151,17 +151,17 @@ export const GradeStructureForm = ({
                 <Form.Control
                   type="text"
                   placeholder="Nhập điểm số"
-                  name="grade"
-                  value={formValue.grade}
+                  name="point"
+                  value={formValue.point}
                   onChange={(event: any) => {
-                    handleFieldChange('grade', event.target.value);
+                    handleFieldChange('point', event.target.value);
                   }}
-                  isInvalid={!!gradeError}
+                  isInvalid={!!pointError}
                   readOnly={!isEdit && formType === 'edit'}
-                  aria-describedby="title-help"
+                  aria-describedby="name-help"
                 ></Form.Control>
                 <Form.Control.Feedback type="invalid" className="my-0">
-                  {gradeError?.errorMessage}
+                  {pointError?.errorMessage}
                 </Form.Control.Feedback>
               </Form.Group>
             </Form>

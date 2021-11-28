@@ -16,6 +16,6 @@ export class ClassDetailInfo {
 
 export class GradeCategory {
   id: number=0;
-  title: string = '';
-  grade: string = '';
+  name: string = '';
+  point: string = '';
 }

@@ -3,11 +3,11 @@ import { FormError } from '../types';
 import { isNumeric } from 'utils/number';
 
 export const getErrors = (errors: FormError[]) => {
-  const titleError = find(errors, { errorType: 'title' });
-  const gradeError = find(errors, { errorType: 'grade' });
+  const nameError = find(errors, { errorType: 'name' });
+  const pointError = find(errors, { errorType: 'point' });
   return {
-    titleError,
-    gradeError
+    nameError,
+    pointError
   };
 };
 
@@ -17,11 +17,11 @@ const getErrorMessage = (
     value: string
   ): string => {
     switch (errorType) {
-      case 'title':
+      case 'name':
         if (value === '' )
           return 'Bạn chưa nhập nội dung';
         break;
-      case 'grade':
+      case 'point':
         if(value === '')
           return 'Bạn chưa nhập điểm'
         else if(!isNumeric(value)&& !(Number(value)>0))

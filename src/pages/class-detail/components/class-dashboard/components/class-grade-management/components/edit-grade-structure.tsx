@@ -14,7 +14,7 @@ import { GradeStructureForm } from 'shared/components/form';
 export const EditGradeStructure = observer(() => {
   useEffect(() => {
     classGradeViewModel.fetchGradeStructure();
-  }, [classGradeViewModel]);
+  }, []);
 
   const items = classGradeViewModel.gradeStructureList;
 
@@ -40,7 +40,7 @@ export const EditGradeStructure = observer(() => {
   };
 
   return (
-    <div className="container p-0 d-flex-block">
+    <div className="container p-0 mt-5 d-flex-block">
       <div className="row d-flex justify-content-center">
         <div className="col-9 col-lg-6">
           <Card className="p-0" style={{ background: 'white' }}>
@@ -93,7 +93,7 @@ export const EditGradeStructure = observer(() => {
         </DragDropContext>
       </div>
       <GradeStructureForm
-        value={{ id: 0, title: '', grade: '' }}
+        value={{ id: 0, name: '', point: '' }}
         formType="create"
         handleCreateNew={handleCreateNew}
         handleDelete={handleDelete}
