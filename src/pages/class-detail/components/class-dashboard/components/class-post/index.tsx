@@ -46,11 +46,18 @@ export const ClassPost = () => {
               >
                 Hủy
               </Button>
-              <Button disabled={value === ''}>Đăng</Button>
+              <Button disabled={isEmpty(value)}>Đăng</Button>
             </div>
           </div>
         )}
       </Suspense>
     </div>
   );
+};
+
+const isEmpty = (data: string) => {
+  if (data.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
+    return true;
+  }
+  return false;
 };

@@ -47,8 +47,16 @@ export const ClassLeftItem = ({ classInfo }: IProps) => {
       )}
       <div>
         <p className="class-left-title">Cấu trúc điểm</p>
-        <p>Cuối kì: 70</p>
-        <p>Giữa kì: 30</p>
+        <ul>
+          {classInfo.assignments.map((assignment) => (
+            <li key={assignment.id}>
+              {assignment.name}: {assignment.point} điểm
+            </li>
+          ))}
+        </ul>
+        {!classInfo.assignments.length && (
+          <p>Lớp học này chưa có cấu trúc điểm</p>
+        )}
       </div>
     </div>
   );

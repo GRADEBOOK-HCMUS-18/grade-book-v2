@@ -38,9 +38,15 @@ export const ClassInfoModal = ({ show, onHide, classInfo }: IProps) => {
         <div>
           <b> Cấu trúc điểm:</b>
           <ul>
-            <li>Cuối kì:7</li>
-            <li>Giữa kì:6</li>
+            {classInfo.assignments.map((assignment) => (
+              <li key={assignment.id}>
+                {assignment.name}: {assignment.point} điểm
+              </li>
+            ))}
           </ul>
+          {!classInfo.assignments.length && (
+            <p>Lớp học này chưa có cấu trúc điểm</p>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>
