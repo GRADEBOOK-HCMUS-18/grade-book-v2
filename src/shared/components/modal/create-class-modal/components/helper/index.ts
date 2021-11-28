@@ -24,12 +24,12 @@ const getErrorMessage = (
   };
   
 export const getErrorsState = (formValue: any) => {
-let newErrors: FormError[] = [];
-Object.keys(formValue).forEach((key: any) => {
-    const errorMessage = getErrorMessage(key, formValue[key]);
-    if (errorMessage !== '') {
-    newErrors.push({ errorType: key, errorMessage: errorMessage });
-    }
-});
-return newErrors;
+  let newErrors: FormError[] = [];
+  Object.keys(formValue).forEach((key: any) => {
+      const errorMessage = getErrorMessage(key, formValue[key]);
+      if (errorMessage !== '') {
+      newErrors.push({ errorType: key, errorMessage: errorMessage });
+      }
+  });
+  return newErrors;
 };

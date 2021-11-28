@@ -1,0 +1,83 @@
+.card-detail{
+    transition: all 0.5s linear;
+    height: 11.5rem;
+    border-radius: 1rem;
+}
+
+.card:hover{
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+}
+
+.text-grade-title{
+    font-size:1.1rem;
+}
+
+.text-grade-point{
+    font-size:1.1rem;
+}
+
+.btn-create-new{
+    font-size:0.8rem;
+    background-color:rgba(13, 58, 220, 0.7);
+    border: transparent;
+    padding:0.25rem 1rem 0.2rem 1rem;
+    border-radius: 0.8rem;
+    font-weight: bold;
+    color:white;
+    transition: 0.7s ease-in-out;
+
+}
+
+.btn-create-new:hover{
+    background-color:rgb(13, 58, 220,1);
+}
+
+.btn-circle{
+    margin-bottom:0.1rem;
+    margin-right:0.1rem;
+    border-radius:1rem;
+    width:1.8rem;
+    height:1.8rem;
+    transition: 0.8s ease-in-out;
+    background-color: white;
+    border:transparent
+}
+
+.btn-warning{
+    border:transparent;
+    color:orange;
+}
+
+.btn-warning:hover{
+    background: #ffcc00;
+    color:white;
+    border:transparent;
+}
+
+.btn-success{
+    border:transparent;
+    color:green;
+}
+
+.btn-success:focus{
+    background:green;
+    color:white;
+    border:transparent;
+
+}
+
+.btn-danger{
+    border:transparent;
+    color:red;
+}
+
+.btn-danger:hover{
+    background:red;
+    color:white;
+    border:transparent;
+
+}
+
+.AiOutlinePlusSquare{
+    width: 2rem;
+}
