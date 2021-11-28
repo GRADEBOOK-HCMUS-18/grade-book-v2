@@ -13,3 +13,9 @@ export class ClassDetailInfo {
   inviteStringStudent: string = '';
   inviteStringTeacher: string = '';
 }
+
+export class GradeCategory {
+  id: number=0;
+  title: string = '';
+  grade: string = '';
+}

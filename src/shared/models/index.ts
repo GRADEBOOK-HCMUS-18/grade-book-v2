@@ -1,4 +1,4 @@
-import { ClassDetailInfo } from './class-detail-info';
+import { ClassDetailInfo, GradeCategory } from './class-detail-info';
 import { User } from './user';
 
-export { User, ClassDetailInfo };
+export { User, ClassDetailInfo ,GradeCategory};
