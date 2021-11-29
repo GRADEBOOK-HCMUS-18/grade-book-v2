@@ -6,6 +6,7 @@
   margin-top: 20px;
   position: relative;
   height: 12rem;
+  background: url('../../../../../assets/images/class-bg.jpg');
 }
 
 .see-member-btn {
