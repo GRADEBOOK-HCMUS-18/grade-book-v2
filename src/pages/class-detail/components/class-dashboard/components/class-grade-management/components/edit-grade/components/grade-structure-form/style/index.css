@@ -1,21 +1,21 @@
-.card-detail{
+.card-detail-edit-grade{
     height: 11.5rem;
     border-radius: 1rem;
 }
 
-.card:hover{
+.card-edit-grade:hover{
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
 }
 
-.text-grade-title{
+.text-grade-title-edit-grade{
     font-size:1.1rem;
 }
 
-.text-grade-point{
+.text-grade-point-edit-grade{
     font-size:1.1rem;
 }
 
-.btn-create-new{
+.btn-create-new-edit-grade{
     font-size:0.8rem;
     background-color:rgba(13, 58, 220, 0.7);
     border: transparent;
@@ -27,11 +27,11 @@
 
 }
 
-.btn-create-new:hover{
+.btn-create-new-edit-grade:hover{
     background-color:rgb(13, 58, 220,1);
 }
 
-.btn-circle{
+.btn-circle-edit-grade{
     margin-bottom:0.1rem;
     margin-right:0.1rem;
     border-radius:1rem;
@@ -42,35 +42,35 @@
     border:transparent
 }
 
-.btn-warning{
+.btn-warning-edit-grade{
     border:transparent;
     color:orange;
 }
 
-.btn-warning:hover{
+.btn-warning-edit-grade:hover{
     background: #ffcc00;
     color:white;
     border:transparent;
 }
 
-.btn-success{
+.btn-success-edit-grade{
     border:transparent;
     color:green;
 }
 
-.btn-success:focus{
+.btn-success-edit-grade:hover{
     background:green;
     color:white;
     border:transparent;
 
 }
 
-.btn-danger{
+.btn-danger-edit-grade{
     border:transparent;
     color:red;
 }
 
-.btn-danger:hover{
+.btn-danger-edit-grade:hover{
     background:red;
     color:white;
     border:transparent;

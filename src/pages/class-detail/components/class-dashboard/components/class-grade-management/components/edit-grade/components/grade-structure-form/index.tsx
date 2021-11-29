@@ -85,19 +85,21 @@ export const GradeStructureForm = ({
   return (
     <div className="row my-3 d-flex justify-content-center">
       <div className="col-9 col-lg-6">
-        <div className="card card-detail">
+        <div className="card-edit-grade card-detail-edit-grade">
           <div className="card-body pt-1">
             <Form onSubmit={(e) => handleSubmit(e)}>
               <Form.Group>
                 <div className="m-0 d-flex">
-                  <span className="text-grade-name pt-2">Tiêu đề</span>
+                  <span className="text-grade-name-edit-grade pt-2">
+                    Tiêu đề
+                  </span>
 
                   {formType === 'edit' ? (
                     <div className="ms-auto">
                       {isEdit ? (
                         <button
                           type="button"
-                          className="btn-circle btn-success p-0"
+                          className="btn-circle-edit-grade btn-success-edit-grade p-0"
                           onClick={handleSaveItem}
                         >
                           <AiFillSave size={18} />
@@ -105,7 +107,7 @@ export const GradeStructureForm = ({
                       ) : (
                         <button
                           type="button"
-                          className="btn-circle btn-warning p-0"
+                          className="btn-circle-edit-grade btn-warning-edit-grade p-0"
                           onClick={handleEditItem}
                         >
                           <AiFillEdit size={18} />
@@ -114,7 +116,7 @@ export const GradeStructureForm = ({
 
                       <button
                         type="button"
-                        className="btn-circle btn-danger p-0"
+                        className="btn-circle-edit-grade btn-danger-edit-grade p-0"
                         onClick={handleDeleteItem}
                       >
                         <AiFillDelete size={18} />
@@ -122,7 +124,10 @@ export const GradeStructureForm = ({
                     </div>
                   ) : (
                     <div className="ms-auto mt-1">
-                      <button className="btn-create-new " type="submit">
+                      <button
+                        className="btn-create-new-edit-grade "
+                        type="submit"
+                      >
                         <span className="text-uppercase">tạo mới</span>
                       </button>
                     </div>
@@ -145,7 +150,7 @@ export const GradeStructureForm = ({
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
-                <Form.Label className="text-grade-point my-0">
+                <Form.Label className="text-grade-point-edit-grade my-0">
                   Điểm số
                 </Form.Label>
                 <Form.Control
