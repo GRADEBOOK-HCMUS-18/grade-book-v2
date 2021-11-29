@@ -1,0 +1,12 @@
+.card{
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.3);
+}
+
+.card-title{
+    background:white;
+    border: transparent !important;
+}
+
+.card-title-header{
+    background: blue; height: 0.5rem; 
+}

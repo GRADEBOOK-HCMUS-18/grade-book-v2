@@ -10,6 +10,7 @@ import { Card } from 'react-bootstrap';
 import { classGradeViewModel } from './class-grade-view-model';
 import { GradeCategory } from 'shared/models';
 import { GradeStructureForm } from 'shared/components/form';
+import '../style/edit-grade-structure.css';
 
 export const EditGradeStructure = observer(() => {
   useEffect(() => {
@@ -43,11 +44,8 @@ export const EditGradeStructure = observer(() => {
     <div className="container p-0 mt-5 d-flex-block">
       <div className="row d-flex justify-content-center">
         <div className="col-9 col-lg-6">
-          <Card className="p-0" style={{ background: 'white' }}>
-            <Card.Header
-              className="m-0"
-              style={{ background: 'blue', height: '0.5rem' }}
-            ></Card.Header>
+          <Card className="card-title p-0">
+            <Card.Header className="card-title-header m-0"></Card.Header>
             <Card.Body className="pt-3 px-3 pb-0 my-0">
               <h3>
                 <strong className="text-uppercase">Cấu trúc điểm</strong>

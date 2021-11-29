@@ -1,11 +1,10 @@
 .card-detail{
-    transition: all 0.5s linear;
     height: 11.5rem;
     border-radius: 1rem;
 }
 
 .card:hover{
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
 }
 
 .text-grade-title{
