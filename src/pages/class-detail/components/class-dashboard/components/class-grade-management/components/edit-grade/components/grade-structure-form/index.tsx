@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit, AiFillSave } from 'react-icons/ai';
-import { GradeCategory } from 'shared/models';
-import { FormError } from './components/types';
-import { getErrorsState, getErrors } from './components/helper';
+import { Assignment } from 'shared/models';
+import { FormError } from './types';
+import { getErrorsState, getErrors } from './helper';
 import './style/index.css';
 
 type FormType = 'create' | 'edit';
@@ -45,7 +45,7 @@ export const GradeStructureForm = ({
   const handleSaveItem = () => {
     const newErrors = getErrorsState(formValue);
     if (!newErrors.length) {
-      const newValue: GradeCategory = {
+      const newValue: Assignment = {
         id: formValue.id,
         name: formValue.name,
         point: formValue.point,
@@ -71,7 +71,7 @@ export const GradeStructureForm = ({
 
     const newErrors = getErrorsState(formValue);
     if (!newErrors.length) {
-      const newValue: GradeCategory = {
+      const newValue: Assignment = {
         id: formValue.id,
         name: formValue.name,
         point: formValue.point,

@@ -1,6 +1,7 @@
+import { Assignment } from './../models/class-detail-info';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { httpService } from 'shared/services';
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action, computed } from 'mobx';
 import { ClassDetailInfo } from 'shared/models';
 import { HttpError } from 'shared/errors';
 
@@ -11,11 +12,17 @@ class ClassDetailViewModel {
     makeObservable(this, {
       classInfo: observable,
       updateClassInfo: action,
+      updateAssignment: action,
+      getAssignMent: computed,
     });
   }
 
   updateClassInfo(data: ClassDetailInfo) {
     this.classInfo = data;
+  }
+
+  get getAssignMent() {
+    return this.classInfo.assignments;
   }
 
   async getClassInfo(id: string): Promise<boolean> {
@@ -33,6 +40,10 @@ class ClassDetailViewModel {
       lineLoadingViewModel.stopLoading();
       return true;
     }
+  }
+
+  updateAssignment(assignments: Assignment[]) {
+    this.classInfo.assignments = assignments;
   }
 }
 

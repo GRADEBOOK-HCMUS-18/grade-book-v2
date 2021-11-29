@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { observer } from 'mobx-react';
 import {
   DragDropContext,
   Draggable,
@@ -7,45 +5,52 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 import { Card } from 'react-bootstrap';
-import { classGradeViewModel } from './class-grade-view-model';
-import { GradeCategory } from 'shared/models';
-import { GradeStructureForm } from 'shared/components/form';
-import '../style/edit-grade-structure.css';
+import { Assignment } from 'shared/models';
+import { GradeStructureForm } from './components';
+import './style/index.css';
 
-export const EditGradeStructure = observer(() => {
-  useEffect(() => {
-    classGradeViewModel.fetchGradeStructure();
-  }, []);
+interface IProps {
+  gradeStructure: Assignment[];
+  reorderStructure: (startIndex: number, finishIndex: number) => void;
+  addAssignment: (value: Assignment) => void;
+  deleteAssignment: (id: number) => void;
+  updateAssignment: (id: number, value: Assignment) => void;
+}
 
-  const items = classGradeViewModel.gradeStructureList;
-
+export const EditGradeStructure = ({
+  gradeStructure,
+  reorderStructure,
+  addAssignment,
+  updateAssignment,
+  deleteAssignment,
+}: IProps) => {
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination || result.destination === result.source) {
       return;
     }
     const startIndex = result.source.index;
     const finishIndex = result.destination.index;
-    classGradeViewModel.reorderGradeStructure(startIndex, finishIndex);
+    reorderStructure(startIndex, finishIndex);
   };
 
-  const handleCreateNew = (value: GradeCategory) => {
-    classGradeViewModel.addGradeCategory(value);
+  const handleCreateNew = (value: Assignment) => {
+    addAssignment(value);
   };
 
   const handleDelete = (id: number) => {
-    classGradeViewModel.deleteGradeCategory(id);
+    deleteAssignment(id);
   };
 
-  const handleUpdate = (id: number, value: GradeCategory) => {
-    classGradeViewModel.updateGradeCategory(id, value);
+  const handleUpdate = (id: number, value: Assignment) => {
+    updateAssignment(id, value);
   };
 
   return (
     <div className="container p-0 mt-5 d-flex-block">
       <div className="row d-flex justify-content-center">
-        <div className="col-9 col-lg-6">
-          <Card className="card-title p-0">
-            <Card.Header className="card-title-header m-0"></Card.Header>
+        <div className="col-9  col-lg-6">
+          <Card className="card-edit-grade p-0">
+            <Card.Header className="card-title-header-edit-grade m-0"></Card.Header>
             <Card.Body className="pt-3 px-3 pb-0 my-0">
               <h3>
                 <strong className="text-uppercase">Cấu trúc điểm</strong>
@@ -55,12 +60,19 @@ export const EditGradeStructure = observer(() => {
           </Card>
         </div>
       </div>
+      <GradeStructureForm
+        value={{ id: 0, name: '', point: '' }}
+        formType="create"
+        handleCreateNew={handleCreateNew}
+        handleDelete={handleDelete}
+        handleUpdate={handleDelete}
+      />
       <div className="row">
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="gradeStructure">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {items.map((item, index) => (
+                {gradeStructure.map((item, index) => (
                   <Draggable
                     key={item.id}
                     draggableId={`${item.id}`}
@@ -90,13 +102,6 @@ export const EditGradeStructure = observer(() => {
           </Droppable>
         </DragDropContext>
       </div>
-      <GradeStructureForm
-        value={{ id: 0, name: '', point: '' }}
-        formType="create"
-        handleCreateNew={handleCreateNew}
-        handleDelete={handleDelete}
-        handleUpdate={handleDelete}
-      />
     </div>
   );
-});
+};

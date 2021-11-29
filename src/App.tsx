@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { SideBar, NavBar } from 'layout';
 import { ClassDetail, HomePage, AuthenticationPage, ProfilePage } from 'pages';
 import { PrivateRoute } from 'router';
+import 'shared/styles/common.css';
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);

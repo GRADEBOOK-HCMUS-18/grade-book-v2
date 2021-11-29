@@ -1,0 +1,13 @@
+.card-edit-grade {
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-title-edit-grade {
+  background: white;
+  border: transparent !important;
+}
+
+.card-title-header-edit-grade {
+  background: blue;
+  height: 0.5rem;
+}
