@@ -18,10 +18,9 @@ interface IProps {
 }
 
 export const Dashboard = observer(({ allClass }: IProps) => {
-  const [viewModel] = useState(homeViewModel);
   return (
     <div className="container-fluid list-class-card">
-      {lineLoadingViewModel.isLoading ? (
+      {lineLoadingViewModel.isLoading && allClass.length === 0 ? (
         <></>
       ) : (
         <Row className="d-flex-block  justify-content-start mx-auto">
@@ -45,10 +44,10 @@ export const Dashboard = observer(({ allClass }: IProps) => {
       <JoinClassModal />
       <InvitationLinkModal />
       <PopupAlert
-        show={viewModel.isError}
+        show={homeViewModel.isError}
         error={true}
-        onHide={() => viewModel.deleteError()}
-        message={viewModel.message}
+        onHide={() => homeViewModel.deleteError()}
+        message={homeViewModel.message}
       />
     </div>
   );
