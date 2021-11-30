@@ -1,4 +1,4 @@
-export const  isNumeric = (val:string) =>{
+export const  isPositiveNumber = (val:string) =>{
     const re =  /^-?\d+$/;
     return re.test(val);
   }

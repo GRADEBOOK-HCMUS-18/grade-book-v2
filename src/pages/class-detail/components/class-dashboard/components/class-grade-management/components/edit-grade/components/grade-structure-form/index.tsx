@@ -74,7 +74,7 @@ export const GradeStructureForm = ({
       const newValue: Assignment = {
         id: formValue.id,
         name: formValue.name,
-        point: formValue.point,
+        point: parseInt(formValue.point),
       };
       handleCreateNew(newValue);
       setFormValue({ id: null, name: '', point: '' });
