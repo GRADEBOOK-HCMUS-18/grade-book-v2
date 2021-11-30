@@ -28,6 +28,7 @@ export class BaseViewModel {
     this.message = message;
   }
   deleteError() {
+    debugger;
     this.isError = false;
     this.message = '';
   }

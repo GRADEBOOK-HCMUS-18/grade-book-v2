@@ -90,7 +90,7 @@ export const ClassDashboard = observer(() => {
       </PrivateRoute>
       <PrivateRoute path={`${url}/people`}>
         <div className="container">
-          <ClassMember classInfo={classDetailViewModel.classInfo} />
+          <ClassMember classInfo={classInfo} />
         </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/grade`}>

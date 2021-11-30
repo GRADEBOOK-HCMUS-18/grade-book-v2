@@ -1,25 +1,15 @@
-import {
-  BaseViewModel,
-  lineLoadingViewModel,
-  classDetailViewModel,
-} from 'shared/view-models';
+import { lineLoadingViewModel, classDetailViewModel } from 'shared/view-models';
 import { HttpError } from 'shared/errors';
 import { httpService } from 'shared/services';
 import { Assignment } from 'shared/models';
 
-export class ClassGradeViewModel extends BaseViewModel {
-  async reorderGradeStructure(startIndex: number, finishIndex: number) {
+class ClassGradeViewModel {
+  async reorderGradeStructure(order: number[]) {
+    lineLoadingViewModel.startLoading();
     const { id } = classDetailViewModel.classInfo;
 
-    const newArray = Array.from(classDetailViewModel.getAssignMent);
-    const temp: Assignment = newArray[startIndex];
-
-    newArray.splice(startIndex, 1);
-    newArray.splice(finishIndex, 0, temp);
-
-    const orderArray: number[] = newArray.map((item) => item.id);
     const body = {
-      assignmentIdPriorityOrder: orderArray,
+      assignmentIdPriorityOrder: order,
     };
     const response: Assignment[] | HttpError = await httpService.sendPut(
       `/class/${id}/assignment/priority`,
@@ -28,10 +18,14 @@ export class ClassGradeViewModel extends BaseViewModel {
     );
 
     if (response instanceof HttpError) {
-      this.makeError('Đổi thứ tự không thành công, vui lòng thử lại sau');
+      classDetailViewModel.makeError(
+        'Đổi thứ tự không thành công, vui lòng thử lại sau'
+      );
+      lineLoadingViewModel.stopLoading();
       return false;
     } else {
-      classDetailViewModel.updateAssignment(newArray);
+      classDetailViewModel.updateAssignment(response);
+      lineLoadingViewModel.stopLoading();
       return true;
     }
   }
@@ -50,7 +44,9 @@ export class ClassGradeViewModel extends BaseViewModel {
       httpService.getBearerToken()
     );
     if (response instanceof HttpError) {
-      this.makeError('Không thể tạo bài tập mới, vui lòng thử lại sau');
+      classDetailViewModel.makeError(
+        'Không thể tạo bài tập mới, vui lòng thử lại sau'
+      );
       lineLoadingViewModel.stopLoading();
       return false;
     } else {
@@ -75,7 +71,9 @@ export class ClassGradeViewModel extends BaseViewModel {
         httpService.getBearerToken()
       );
       if (response instanceof HttpError) {
-        this.makeError('Không thể xóa bài tập, vui lòng thử lại sau');
+        classDetailViewModel.makeError(
+          'Không thể xóa bài tập, vui lòng thử lại sau'
+        );
         lineLoadingViewModel.stopLoading();
         return false;
       } else {
@@ -106,7 +104,9 @@ export class ClassGradeViewModel extends BaseViewModel {
       );
 
       if (response instanceof HttpError) {
-        this.makeError('Không thể thay đổi nội dung, vui lòng thử lại sau');
+        classDetailViewModel.makeError(
+          'Không thể thay đổi nội dung, vui lòng thử lại sau'
+        );
         lineLoadingViewModel.stopLoading();
       } else {
         temp.name = updateValue.name;

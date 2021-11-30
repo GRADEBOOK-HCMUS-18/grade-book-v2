@@ -1,2 +1,2 @@
-import { EditGradeStructure } from './edit-grade/index';
+import { EditGradeStructure } from './edit-grade';
 export { EditGradeStructure };

@@ -1,14 +1,16 @@
-import { Assignment } from './../models/class-detail-info';
+import { BaseViewModel } from './base-view-model';
+import { Assignment } from 'shared/models';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { httpService } from 'shared/services';
 import { makeObservable, observable, action, computed } from 'mobx';
 import { ClassDetailInfo } from 'shared/models';
 import { HttpError } from 'shared/errors';
 
-class ClassDetailViewModel {
+class ClassDetailViewModel extends BaseViewModel {
   classInfo: ClassDetailInfo = new ClassDetailInfo();
 
   constructor() {
+    super();
     makeObservable(this, {
       classInfo: observable,
       updateClassInfo: action,

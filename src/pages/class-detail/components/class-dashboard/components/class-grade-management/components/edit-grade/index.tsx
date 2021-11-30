@@ -69,7 +69,7 @@ export const EditGradeStructure = ({
       />
       <div className="row">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="gradeStructure">
+          <Droppable droppableId="droppable">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {gradeStructure.map((item, index) => (
