@@ -28,3 +28,5 @@ A single page contain:
 #### Note for mobx
 
 - For mobxjs use makeObservable if you want extends from BaseViewModel
+
+- Because we only use functional component only import from "mobx-react-lite" to reduce bundle size
