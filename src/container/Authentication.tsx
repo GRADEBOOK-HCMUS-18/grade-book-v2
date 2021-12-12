@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Loading } from 'shared/components';

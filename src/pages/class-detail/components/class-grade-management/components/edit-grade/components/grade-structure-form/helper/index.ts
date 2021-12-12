@@ -1,6 +1,5 @@
 import { find } from 'lodash';
 import { FormError } from '../types';
-import { isPositiveNumber } from 'utils/number';
 
 export const getErrors = (errors: FormError[]) => {
   const nameError = find(errors, { errorType: 'name' });
@@ -21,10 +20,8 @@ const getErrorMessage = (
       break;
     case 'point':
       if (value === '') return 'Bạn chưa nhập điểm';
-      else if (isNaN(Number.parseInt(value)))
-        return 'Vui lòng chỉ nhập số';
-      else if(Number.parseInt(value)<0)
-        return 'Vui lòng nhập số > 0'
+      else if (isNaN(Number.parseInt(value))) return 'Vui lòng chỉ nhập số';
+      else if (Number.parseInt(value) < 0) return 'Vui lòng nhập số > 0';
       break;
     default:
       return '';

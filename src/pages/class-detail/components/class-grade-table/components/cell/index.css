@@ -1,0 +1,32 @@
+.cell-input {
+  border: transparent;
+  outline: none;
+  transition: 0.3s ease-in all;
+  padding-bottom: 0.5rem;
+}
+
+.cell-input:focus-visible {
+  border-bottom-width: 10px;
+  border-bottom: 2px solid var(--blue) !important;
+}
+.cell-input:focus {
+  border-bottom: 2px solid var(--blue) !important;
+}
+
+.cell-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem;
+}
+.cell-spinner-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.712);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

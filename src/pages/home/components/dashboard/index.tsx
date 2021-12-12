@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { Row } from 'react-bootstrap';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { homeViewModel } from 'pages/home/home-view-model';

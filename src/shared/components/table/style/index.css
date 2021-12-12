@@ -1,0 +1,5 @@
+td,
+th {
+  border: 0.5px solid var(--light-gray) !important;
+  font-weight: normal !important;
+}

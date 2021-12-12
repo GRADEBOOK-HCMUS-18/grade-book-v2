@@ -47,6 +47,16 @@
   white-space: nowrap;
 }
 
+.three-dot-btn {
+  display: flex;
+  padding: 5px !important;
+  border-radius: 5px;
+}
+
+.three-dot-btn:hover {
+  background-color: var(--medium-gray);
+}
+
 @media only screen and (max-width: 600px) {
   html {
     font-size: 13px;

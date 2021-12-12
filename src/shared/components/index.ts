@@ -1,6 +1,7 @@
-import { PopUp } from './pop-up/index';
-import { NavigateBack } from './navigate-back/index';
-import { EmptyData } from './empty-data/index';
+import { Table } from './table';
+import { PopUp } from './pop-up';
+import { NavigateBack } from './navigate-back';
+import { EmptyData } from './empty-data';
 import { SnackBar } from './snackbar';
 import { Loading, LineLoading } from './loading';
 import { Avatar } from './avatar';
@@ -20,4 +21,5 @@ export {
   EmptyData,
   NavigateBack,
   PopUp,
+  Table
 };
