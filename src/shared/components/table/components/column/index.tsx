@@ -1,5 +1,5 @@
 export interface ColumnProps {
-  id: number;
+  id: number | string;
   content: string | number | JSX.Element;
 }
 

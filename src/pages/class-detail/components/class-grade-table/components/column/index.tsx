@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { PopUp } from 'shared/components';
+import './index.css';
 
 interface ColProps {
   content: string;
@@ -38,8 +39,11 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
         </div>
       }
     >
-      <div onClick={() => setShow(true)} className="three-dot-btn">
-        <BsThreeDotsVertical />
+      <div className="center-horizontal table-col">
+        <span>{content}</span>
+        <div onClick={() => setShow(true)} className="three-dot-btn">
+          <BsThreeDotsVertical />
+        </div>
       </div>
     </PopUp>
   );
