@@ -5,6 +5,7 @@ import { httpService } from 'shared/services';
 import { makeObservable, observable, action, computed } from 'mobx';
 import { ClassDetailInfo } from 'shared/models';
 import { HttpError } from 'shared/errors';
+import { StudentGradeInfo } from 'shared/models/class-detail-info';
 
 class ClassDetailViewModel extends BaseViewModel {
   classInfo: ClassDetailInfo = new ClassDetailInfo();
@@ -27,6 +28,10 @@ class ClassDetailViewModel extends BaseViewModel {
     return this.classInfo.assignments;
   }
 
+  get getStudentGrades (){
+    return this.classInfo.studentGrades;
+  }
+
   async getClassInfo(id: string): Promise<boolean> {
     lineLoadingViewModel.startLoading();
     const response: ClassDetailInfo | HttpError = await httpService.sendGet(
@@ -46,6 +51,10 @@ class ClassDetailViewModel extends BaseViewModel {
 
   updateAssignment(assignments: Assignment[]) {
     this.classInfo.assignments = assignments;
+  }
+
+  updateStudentGrade(studentGrades: StudentGradeInfo[]){
+    this.classInfo.studentGrades = studentGrades;
   }
 }
 

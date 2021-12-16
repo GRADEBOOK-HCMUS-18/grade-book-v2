@@ -1,3 +1,3 @@
-import { ClassDetailInfo, Assignment } from './class-detail-info';
+import { ClassDetailInfo, Assignment,StudentGradeInfo, GradeInfo } from './class-detail-info';
 import { User } from './user';
-export { User, ClassDetailInfo, Assignment };
+export { User, ClassDetailInfo, Assignment,StudentGradeInfo, GradeInfo  };
