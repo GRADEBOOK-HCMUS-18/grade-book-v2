@@ -1,6 +1,7 @@
 import { Avatar } from 'shared/components';
 import { Assignment, StudentGradeInfo } from 'shared/models';
 import { TableCell, TableColumn, TableRow } from 'shared/types';
+import { fileService } from 'shared/services';
 import { Cell, Column } from '../components';
 
 export const buildRows = (
@@ -61,7 +62,7 @@ export const buildRows = (
 
 export const buildCols = (
   assignments: Assignment[],
-  colEvent: (params: any) => void
+  colEvent: (todo: string, content: string, id: number) => void
 ): TableColumn[] => {
   const cols: TableColumn[] = [];
 
@@ -90,4 +91,29 @@ export const buildCols = (
   });
 
   return cols;
+};
+
+export const exportGradeCols = (
+  studentGradesInfo: StudentGradeInfo[],
+  assignmentName: string,
+  assignmentId: number,
+  defaultFileType: string
+) => {
+  const output = studentGradesInfo.reduce(function (
+    obj: Array<Array<string>>,
+    curVal: StudentGradeInfo,
+    index: number
+  ) {
+    const point: string | undefined = curVal.grades
+      .find((item) => item.assignmentId === assignmentId)
+      ?.point.toString();
+    const row: Array<string> = [curVal.studentId.toString()];
+    if (point !== undefined) row.push(point);
+    obj.push(row);
+    return obj;
+  },
+  []);
+  const headers: string[] = ['StudentId', assignmentName];
+
+  fileService.writeFile(headers, output, assignmentName, defaultFileType);
 };

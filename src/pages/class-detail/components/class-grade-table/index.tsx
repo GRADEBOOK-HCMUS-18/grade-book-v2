@@ -4,7 +4,7 @@ import { Table } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { StudentGradeInfo } from 'shared/models';
 import { fileService } from 'shared/services';
-import { buildCols, buildRows } from './helper';
+import { buildCols, buildRows, exportGradeCols } from './helper';
 import 'bootstrap/dist/css/bootstrap.min.css';
 interface IProps {
   classInfo: ClassDetailInfo;
@@ -22,12 +22,31 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
   const { assignments, studentGrades } = classInfo;
   const fileTypes: string[] = ['xlsx', 'csv'];
 
-  const handleColEvent = useCallback((param: any) => {
-    //const output = prepareData()
-    //const assignmentName = getAssignmentName();
-    //const headers = ['studentId', assignementName],
-    //fileService.writeFile(headers, content, assignementName , defaultFileType);
-  }, []);
+  const handleColEvent = useCallback(
+    (todo: string, assignmentName: string, assignmentId: number) => {
+      switch (todo) {
+        case 'export':
+          exportGradeCols(
+            studentGradesInfo,
+            assignmentName,
+            assignmentId,
+            defaultFileType
+          );
+          break;
+        case 'import':
+          //create input element, type = 'file'
+          //trigger input click, (type = 'file')
+          //const output = fileService.readFile(event);
+          //console.log(output);
+          break;
+        case 'finalize':
+          break;
+        default:
+          break;
+      }
+    },
+    []
+  );
 
   const handleCellEvent = useCallback((params: any) => {
     console.log(params);

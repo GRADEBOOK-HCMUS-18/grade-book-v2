@@ -6,7 +6,7 @@ import './index.css';
 interface ColProps {
   content: string;
   id: number;
-  onColClick: (content: string, id: number) => void;
+  onColClick: (todo: string, content: string, id: number) => void;
 }
 export const Column = ({ content, id, onColClick }: ColProps) => {
   const [show, setShow] = useState(false);
@@ -21,7 +21,7 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
           <div
             onClick={() => {
               setShow(false);
-              onColClick(content, id);
+              onColClick('export', content, id);
             }}
             className="pop-up-item "
           >
@@ -30,7 +30,7 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
           <div
             onClick={() => {
               setShow(false);
-              onColClick(content, id);
+              onColClick('import', content, id);
             }}
             className="pop-up-item "
           >
