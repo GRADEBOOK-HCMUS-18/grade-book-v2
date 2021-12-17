@@ -55,7 +55,7 @@ const ClassRoute = observer(() => {
     <Switch>
       <PrivateRoute exact path={path}>
         <div className="container">
-          <ClassDashboard />
+          <ClassDashboard classInfo={classInfo} />
         </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/homework`}>

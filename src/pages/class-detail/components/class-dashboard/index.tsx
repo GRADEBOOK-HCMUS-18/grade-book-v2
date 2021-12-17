@@ -1,31 +1,18 @@
-import { observer } from 'mobx-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { AiFillInfoCircle } from 'react-icons/ai';
-import { useHistory, useParams } from 'react-router-dom';
 import { useResponsive } from 'shared/hooks';
-import { classDetailViewModel } from 'shared/view-models';
+import { ClassDetailInfo } from 'shared/models';
 import { ClassInfoModal, ClassLeftItem, ClassPost } from './components';
 import './style/index.css';
 
-export const ClassDashboard = observer(() => {
+interface IProps {
+  classInfo: ClassDetailInfo;
+}
+
+export const ClassDashboard = ({ classInfo }: IProps) => {
   const [showInfoModal, setShowInfoModal] = useState(false);
-
-  const { id }: any = useParams();
-  const history = useHistory();
-
   const { isTablet } = useResponsive();
-  const { classInfo } = classDetailViewModel;
-
-  useEffect(() => {
-    const waitForData = async () => {
-      const result = await classDetailViewModel.getClassInfo(id);
-      if (!result) {
-        history.push('/class');
-      }
-    };
-    waitForData();
-  }, [id, history]);
 
   return (
     <>
@@ -65,4 +52,4 @@ export const ClassDashboard = observer(() => {
       </div>
     </>
   );
-});
+};
