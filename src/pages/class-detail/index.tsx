@@ -58,7 +58,7 @@ const ClassRoute = observer(() => {
           <ClassDashboard classInfo={classInfo} />
         </div>
       </PrivateRoute>
-      <PrivateRoute path={`${url}/homework`}>
+      <PrivateRoute path={`${url}/grade-table`}>
         <div className="container">
           <ClassGradeTable classInfo={classInfo} />
         </div>

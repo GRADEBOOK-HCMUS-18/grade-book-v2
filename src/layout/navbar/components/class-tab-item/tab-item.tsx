@@ -50,9 +50,9 @@ export const Items: ItemArr = [
   },
   {
     id: 1,
-    content: 'Bài tập',
+    content: 'Bảng điểm',
 
-    path: 'homework',
+    path: 'grade-table',
   },
   {
     id: 3,
