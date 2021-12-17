@@ -23,6 +23,7 @@ export class LoginViewModel extends BaseViewModel {
       this.handleError(response);
       return false;
     } else {
+      console.log(response.token);
       this.storeUser(response);
       return true;
     }

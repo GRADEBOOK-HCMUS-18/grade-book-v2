@@ -13,6 +13,7 @@ interface IProps {
 export const FilePicker = ({ content, onFinish, acceptTypes }: IProps) => {
   const [isError, setIsError] = useState(false);
   const handleChange = async (event: any) => {
+    console.log('file picker clicked');
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
     const file: any = formData.get('file');

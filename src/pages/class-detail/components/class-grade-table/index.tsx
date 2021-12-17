@@ -1,6 +1,7 @@
-import { memo, useCallback, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useCallback, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { FilePicker, Table } from 'shared/components';
+import { FilePicker, PopupAlert, SnackBar, Table } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { StudentGradeInfo } from 'shared/models';
 import { fileService } from 'shared/services';
@@ -11,9 +12,10 @@ interface IProps {
   classInfo: ClassDetailInfo;
 }
 
-export const ClassGradeTable = memo(({ classInfo }: IProps) => {
+export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   const [defaultFileType, setFileType] = useState<any>('xlsx');
   const [viewModel] = useState(new GradeTableViewModel());
+  const [success, setSuccess] = useState(false);
 
   const { assignments, studentGrades } = classInfo;
   const fileTypes: string[] = ['xlsx', 'csv'];
@@ -62,8 +64,12 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
     fileService.writeFile(headers, content, 'sample_file', defaultFileType);
   };
 
-  const uploadStudentList = (data: any) => {
-    console.log(data);
+  const uploadStudentList = async (data: any) => {
+    const result = await viewModel.importStudentList(data, classInfo.id);
+    if (result) {
+      console.log(result);
+      setSuccess(true);
+    }
   };
 
   return (
@@ -108,6 +114,18 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
         columns={buildCols(assignments, handleColEvent)}
         rows={buildRows(assignments, studentGradesInfo, handleCellEvent)}
       ></Table>
+      <SnackBar
+        show={success}
+        type="success"
+        message="Thanh cong"
+        onClose={() => setSuccess(false)}
+      />
+      <PopupAlert
+        show={viewModel.isError}
+        error={viewModel.isError}
+        message={viewModel.message}
+        onHide={() => viewModel.deleteError()}
+      />
     </>
   );
 });
