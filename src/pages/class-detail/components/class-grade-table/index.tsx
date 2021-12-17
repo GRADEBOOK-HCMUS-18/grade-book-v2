@@ -1,43 +1,36 @@
-import { memo, useCallback, useState, useEffect, useRef } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { Table } from 'shared/components';
+import { FilePicker, Table } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
 import { StudentGradeInfo } from 'shared/models';
 import { fileService } from 'shared/services';
-import { buildCols, buildRows, exportGradeCols } from './helper';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { GradeTableViewModel } from './grade-table-view-model';
+import { buildCols, buildRows } from './helper';
+
 interface IProps {
   classInfo: ClassDetailInfo;
 }
 
 export const ClassGradeTable = memo(({ classInfo }: IProps) => {
   const [defaultFileType, setFileType] = useState<any>('xlsx');
-
-  useEffect(() => {
-    console.log('');
-  }, [classInfo]);
-
-  let dofileUpload = useRef<HTMLInputElement | null>(null);
+  const [viewModel] = useState(new GradeTableViewModel());
 
   const { assignments, studentGrades } = classInfo;
   const fileTypes: string[] = ['xlsx', 'csv'];
 
   const handleColEvent = useCallback(
-    (todo: string, assignmentName: string, assignmentId: number) => {
-      switch (todo) {
+    (action: string, params: any) => {
+      switch (action) {
         case 'export':
-          exportGradeCols(
+          viewModel.exportGradeCols(
             studentGradesInfo,
-            assignmentName,
-            assignmentId,
+            params.name,
+            params.id,
             defaultFileType
           );
           break;
         case 'import':
-          //create input element, type = 'file'
-          //trigger input click, (type = 'file')
-          //const output = fileService.readFile(event);
-          //console.log(output);
+          console.log(action, params);
           break;
         case 'finalize':
           break;
@@ -45,11 +38,11 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
           break;
       }
     },
-    []
+    [defaultFileType, viewModel]
   );
 
-  const handleCellEvent = useCallback((params: any) => {
-    console.log(params);
+  const handleCellEvent = useCallback((action: string, params: any) => {
+    console.log(action, params);
   }, []);
 
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -69,14 +62,8 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
     fileService.writeFile(headers, content, 'sample_file', defaultFileType);
   };
 
-  const uploadStudentList = (event: any) => {
-    event.preventDefault();
-    dofileUpload.current?.click();
-  };
-  const openFile = async (event: any) => {
-    const output = await fileService.readFile(event);
-    console.log(output);
-    //updateStudentGradesInfo(output);
+  const uploadStudentList = (data: any) => {
+    console.log(data);
   };
 
   return (
@@ -106,19 +93,14 @@ export const ClassGradeTable = memo(({ classInfo }: IProps) => {
                 Tải xuống danh sách
               </Dropdown.Item>
               <Dropdown.Divider></Dropdown.Divider>
-              <Dropdown.Item onClick={uploadStudentList}>
-                Tải lên danh sách
-              </Dropdown.Item>
+
+              <FilePicker
+                content="Tải lên danh sách"
+                onFinish={uploadStudentList}
+                acceptTypes={['xlsx', 'csv', 'xls']}
+              />
             </Dropdown.Menu>
           </Dropdown>
-          <input
-            type="file"
-            style={{ display: 'none' }}
-            multiple={false}
-            accept=".csv,.xlsx,.xls"
-            onChange={openFile}
-            ref={dofileUpload}
-          />
         </div>
       </div>
 
@@ -140,7 +122,7 @@ const studentGradesInfo: StudentGradeInfo[] = [
       {
         assignmentId: 1,
         point: 10,
-        isFinal: true,
+        isFinal: false,
       },
       {
         assignmentId: 2,

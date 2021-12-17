@@ -1,13 +1,11 @@
-import { Avatar } from 'shared/components';
 import { Assignment, StudentGradeInfo } from 'shared/models';
 import { TableCell, TableColumn, TableRow } from 'shared/types';
-import { fileService } from 'shared/services';
 import { Cell, Column } from '../components';
 
 export const buildRows = (
   assignments: Assignment[],
   students: StudentGradeInfo[],
-  cellEvent: (params: any) => void
+  cellEvent: (action: string, params: any) => void
 ): TableRow[] => {
   const rows: TableRow[] = [];
   students.forEach((student, idx) => {
@@ -30,7 +28,6 @@ export const buildRows = (
               style={{ padding: '1rem 0.5rem' }}
               className="center-horizontal"
             >
-              {/* <Avatar user={student} /> */}
               <span>
                 {student.firstName} {student.lastName}
               </span>
@@ -62,7 +59,7 @@ export const buildRows = (
 
 export const buildCols = (
   assignments: Assignment[],
-  colEvent: (todo: string, content: string, id: number) => void
+  colEvent: (action: string, params: any) => void
 ): TableColumn[] => {
   const cols: TableColumn[] = [];
 
@@ -91,29 +88,4 @@ export const buildCols = (
   });
 
   return cols;
-};
-
-export const exportGradeCols = (
-  studentGradesInfo: StudentGradeInfo[],
-  assignmentName: string,
-  assignmentId: number,
-  defaultFileType: string
-) => {
-  const output = studentGradesInfo.reduce(function (
-    obj: Array<Array<string>>,
-    curVal: StudentGradeInfo,
-    index: number
-  ) {
-    const point: string | undefined = curVal.grades
-      .find((item) => item.assignmentId === assignmentId)
-      ?.point.toString();
-    const row: Array<string> = [curVal.studentId.toString()];
-    if (point !== undefined) row.push(point);
-    obj.push(row);
-    return obj;
-  },
-  []);
-  const headers: string[] = ['StudentId', assignmentName];
-
-  fileService.writeFile(headers, output, assignmentName, defaultFileType);
 };

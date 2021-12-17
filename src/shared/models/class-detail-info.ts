@@ -1,4 +1,3 @@
-import { NumberFormat } from 'xlsx';
 import { User } from './user';
 
 export class Assignment {
@@ -7,18 +6,17 @@ export class Assignment {
   point: number = 0;
 }
 
-export class GradeInfo{
-  assignmentId:number = 0
+export class GradeInfo {
+  assignmentId: number = 0;
   point: number = 0;
   isFinal: boolean = false;
 }
 
-export class StudentGradeInfo
-{
-  studentId:string|number = '';
-  firstName:string = '';
-  lastName:string = '';
-  accountId:string|null='';
+export class StudentGradeInfo {
+  studentId: string | number = '';
+  firstName: string = '';
+  lastName: string = '';
+  accountId: string | null = '';
   grades: GradeInfo[] = [];
 }
 
@@ -37,4 +35,3 @@ export class ClassDetailInfo {
   assignments: Assignment[] = [];
   studentGrades: StudentGradeInfo[] = [];
 }
-

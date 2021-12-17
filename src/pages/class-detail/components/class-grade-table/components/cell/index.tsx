@@ -7,7 +7,7 @@ interface CellProps {
   rowId: number | string;
   content: string | number | null;
   isEditAble?: boolean;
-  cellEvent: (params: any) => void;
+  cellEvent: (action: string, params: any) => void;
 }
 
 export const Cell = ({
@@ -27,7 +27,11 @@ export const Cell = ({
     if (event.key === 'Enter') {
       setIsLoading(true);
       inputRef.blur();
-      cellEvent({ colId: columnId, rowId: rowId, value: event.target.value });
+      cellEvent('edit', {
+        colId: columnId,
+        rowId: rowId,
+        value: event.target.value,
+      });
       setTimeout(() => setIsLoading(false), 1000);
     }
   };

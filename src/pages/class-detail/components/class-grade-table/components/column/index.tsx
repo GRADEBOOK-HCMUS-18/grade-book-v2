@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { PopUp } from 'shared/components';
+import { FilePicker, PopUp } from 'shared/components';
 import './index.css';
 
 interface ColProps {
   content: string;
   id: number;
-  onColClick: (todo: string, content: string, id: number) => void;
+  onColClick: (action: string, params: any) => void;
 }
 export const Column = ({ content, id, onColClick }: ColProps) => {
   const [show, setShow] = useState(false);
+
+  const handleImport = (data: any) => {
+    onColClick('import', { data: data });
+  };
 
   return (
     <PopUp
@@ -21,21 +25,17 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
           <div
             onClick={() => {
               setShow(false);
-              onColClick('export', content, id);
+              onColClick('export', { name: content, id: id });
             }}
             className="pop-up-item "
           >
             <span>Export</span>
           </div>
-          <div
-            onClick={() => {
-              setShow(false);
-              onColClick('import', content, id);
-            }}
-            className="pop-up-item "
-          >
-            <span>Import</span>
-          </div>
+          <FilePicker
+            content="Import"
+            onFinish={handleImport}
+            acceptTypes={['xlsx', 'csv', 'xls']}
+          />
         </div>
       }
     >
