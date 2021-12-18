@@ -12,13 +12,25 @@ interface IProps {
   classInfo: ClassDetailInfo;
 }
 
+const fileTypes: string[] = ['xlsx', 'csv'];
+
 export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   const [defaultFileType, setFileType] = useState<any>('xlsx');
   const [viewModel] = useState(new GradeTableViewModel());
   const [success, setSuccess] = useState(false);
 
-  const { assignments, studentGrades } = classInfo;
-  const fileTypes: string[] = ['xlsx', 'csv'];
+  const { assignments } = classInfo;
+
+  const uploadGradeList = useCallback(
+    async (data: any, id: number) => {
+      const result = await viewModel.importStudentGrade(data, classInfo.id, id);
+      if (result) {
+        console.log(result);
+        setSuccess(true);
+      }
+    },
+    [viewModel, classInfo.id]
+  );
 
   const handleColEvent = useCallback(
     (action: string, params: any) => {
@@ -32,7 +44,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           );
           break;
         case 'import':
-          console.log(action, params);
+          uploadGradeList(params.data, params.id);
           break;
         case 'finalize':
           break;
@@ -40,7 +52,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           break;
       }
     },
-    [defaultFileType, viewModel]
+    [defaultFileType, uploadGradeList, viewModel]
   );
 
   const handleCellEvent = useCallback((action: string, params: any) => {
@@ -138,17 +150,17 @@ const studentGradesInfo: StudentGradeInfo[] = [
     accountId: '123',
     grades: [
       {
-        assignmentId: 1,
+        assignmentId: 14,
         point: 10,
         isFinal: false,
       },
       {
-        assignmentId: 2,
+        assignmentId: 15,
         point: 10,
         isFinal: true,
       },
       {
-        assignmentId: 3,
+        assignmentId: 16,
         point: 10,
         isFinal: true,
       },
@@ -161,17 +173,17 @@ const studentGradesInfo: StudentGradeInfo[] = [
     accountId: '1234',
     grades: [
       {
-        assignmentId: 1,
+        assignmentId: 14,
         point: 10,
         isFinal: true,
       },
       {
-        assignmentId: 2,
+        assignmentId: 15,
         point: 10,
         isFinal: true,
       },
       {
-        assignmentId: 3,
+        assignmentId: 16,
         point: 10,
         isFinal: true,
       },
@@ -184,17 +196,17 @@ const studentGradesInfo: StudentGradeInfo[] = [
     accountId: '443',
     grades: [
       {
-        assignmentId: 1,
+        assignmentId: 14,
         point: 10,
         isFinal: true,
       },
       {
-        assignmentId: 2,
+        assignmentId: 15,
         point: 10,
         isFinal: true,
       },
       {
-        assignmentId: 3,
+        assignmentId: 16,
         point: 10,
         isFinal: true,
       },

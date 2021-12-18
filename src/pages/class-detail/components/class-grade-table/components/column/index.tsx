@@ -12,7 +12,8 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
   const [show, setShow] = useState(false);
 
   const handleImport = (data: any) => {
-    onColClick('import', { data: data });
+    setShow(false);
+    onColClick('import', { data: data, id: id });
   };
 
   return (

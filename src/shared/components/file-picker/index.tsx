@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fileService } from 'shared/services';
-import { PopupAlert } from '..';
+import { PopupAlert } from '../popup-alert';
 import './style/index.css';
 
 interface IProps {

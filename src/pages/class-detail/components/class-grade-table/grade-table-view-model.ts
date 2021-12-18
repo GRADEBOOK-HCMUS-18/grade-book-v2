@@ -1,8 +1,8 @@
-import { HttpError } from './../../../../shared/errors/http-error';
-import { lineLoadingViewModel } from './../../../../shared/view-models/line-loading-view-model';
-import { httpService } from './../../../../shared/services/http-service';
-import { StudentGradeInfo } from 'shared/models/class-detail-info';
-import { makeObservable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
+import { HttpError } from 'shared/errors';
+import { lineLoadingViewModel } from 'shared/view-models';
+import { httpService } from 'shared/services';
+import { StudentGradeInfo } from 'shared/models';
 import { BaseViewModel } from 'shared/view-models';
 import { fileService } from 'shared/services';
 
@@ -11,7 +11,9 @@ export class GradeTableViewModel extends BaseViewModel {
 
   constructor() {
     super();
-    makeObservable(this, {});
+    makeObservable(this, {
+      studentGradeList: observable,
+    });
   }
 
   downloadTemplateFile(fileType: string): string {
@@ -39,15 +41,17 @@ export class GradeTableViewModel extends BaseViewModel {
   ) {
     const output = studentGradesInfo.reduce(function (
       obj: Array<Array<string>>,
-      curVal: StudentGradeInfo,
-      index: number
+      curVal: StudentGradeInfo
     ) {
       const point: string | undefined = curVal.grades
         .find((item) => item.assignmentId === assignmentId)
         ?.point.toString();
+      console.log(point);
       const row: Array<string> = [curVal.studentId.toString()];
       if (point !== undefined) row.push(point);
+
       obj.push(row);
+
       return obj;
     },
     []);
@@ -55,6 +59,8 @@ export class GradeTableViewModel extends BaseViewModel {
 
     fileService.writeFile(headers, output, assignmentName, defaultFileType);
   }
+
+  exportTable() {}
 
   async importStudentList(data: Array<Array<string>>, classId: number) {
     const body = this.prepareUploadStudentData(data);
@@ -75,9 +81,30 @@ export class GradeTableViewModel extends BaseViewModel {
     }
   }
 
-  async importStudentGrade(fileType: string, file: File) {}
+  async importStudentGrade(
+    data: Array<Array<string>>,
+    classId: number,
+    assignmentId: number
+  ) {
+    const body = this.prepareUploadGradeData(data);
+    lineLoadingViewModel.startLoading();
 
-  prepareUploadStudentData(data: Array<Array<string>>) {
+    const response: any = await httpService.sendPost(
+      `/Class/${classId}/assignment/${assignmentId}/grades`,
+      { grades: body },
+      httpService.getBearerToken()
+    );
+
+    lineLoadingViewModel.stopLoading();
+    if (response instanceof HttpError) {
+      this.makeError('Loi roi');
+      return null;
+    } else {
+      return response;
+    }
+  }
+
+  private prepareUploadStudentData(data: Array<Array<string>>) {
     const students: Array<{ studentId: string; fullName: string }> = [];
     data.forEach((element) =>
       students.push({
@@ -86,5 +113,17 @@ export class GradeTableViewModel extends BaseViewModel {
       })
     );
     return students;
+  }
+
+  private prepareUploadGradeData(data: Array<Array<string>>) {
+    const grades: Array<{ studentId: string; grade: number }> = [];
+    data.forEach((element) =>
+      grades.push({
+        studentId: element[0],
+        grade: parseInt(element[1]),
+      })
+    );
+
+    return grades;
   }
 }
