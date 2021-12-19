@@ -2,7 +2,7 @@ import { action, makeObservable, observable, computed } from 'mobx';
 import { HttpError } from 'shared/errors';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { httpService } from 'shared/services';
-import { StudentGradeInfo } from 'shared/models';
+import { StudentGradeInfo,Assignment } from 'shared/models';
 import { BaseViewModel } from 'shared/view-models';
 import { fileService } from 'shared/services';
 
@@ -62,7 +62,22 @@ class GradeTableViewModel extends BaseViewModel {
     fileService.writeFile(headers, output, assignmentName, defaultFileType);
   }
 
-  exportTable() {}
+  exportGradeTable(studentGradeInfo:StudentGradeInfo[], assignments:Assignment[],defaultFileType:string) {
+    const headers = ['MSSV', 'Họ tên'];
+
+    headers.push(...assignments.map((item) => item.name));
+
+      const content = studentGradeInfo.map((item): Array<string> => {
+        const data: Array<string> = [
+          item.student.studentId.toString(),
+          item.student.fullName,
+        ];
+        data.push(...item.grades.map(value =>value.studentPoint?value.studentPoint.toString():''));
+        return data;
+      });
+
+      fileService.writeFile(headers, content, 'grade_table', defaultFileType);
+  }
 
   get studentGrades() {
     return this.studentGradeList;
@@ -86,6 +101,7 @@ class GradeTableViewModel extends BaseViewModel {
         this.makeError('Loi roi');
         return null;
       } else {
+        console.log(response);
         this.setStudentGrade(response);
       }
     }

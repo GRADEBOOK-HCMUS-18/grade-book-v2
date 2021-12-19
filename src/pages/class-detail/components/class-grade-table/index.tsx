@@ -70,6 +70,14 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
     setFileType(value);
   };
 
+  const exportGradeTable = () => {
+    gradeTableViewModel.exportGradeTable(
+      studentGrades,
+      assignments,
+      defaultFileType
+    );
+  };
+
   const downloadTemplateFile = (type: 'student' | 'grade') => {
     const headers = type === 'student' ? ['MSSV', 'Họ tên'] : ['MSSV', 'Điểm'];
     fileService.writeFile(headers, Array(0), 'sample_file', defaultFileType);
@@ -107,7 +115,9 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item>Tải xuống toàn bộ bảng điểm</Dropdown.Item>
+              <Dropdown.Item onClick={() => exportGradeTable()}>
+                Tải xuống toàn bộ bảng điểm
+              </Dropdown.Item>
 
               <Dropdown.Item onClick={() => downloadTemplateFile('student')}>
                 Tải xuống template danh sách sinh viên
