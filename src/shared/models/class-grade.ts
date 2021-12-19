@@ -1,13 +1,20 @@
+interface StudentInfo {
+  studentId: string;
+  fullName: string;
+}
+
 export class GradeInfo {
   assignmentId: number = 0;
-  point: number = 0;
+  assignmentName: string = '';
+  assignmentWeight: number = 0;
+  studentPoint: number | null = null;
   isFinal: boolean = false;
 }
 
 export class StudentGradeInfo {
-  studentId: string | number = '';
-  firstName: string = '';
-  lastName: string = '';
-  accountId: string | null = '';
+  student: StudentInfo = {
+    studentId: '0',
+    fullName: '',
+  };
   grades: GradeInfo[] = [];
 }

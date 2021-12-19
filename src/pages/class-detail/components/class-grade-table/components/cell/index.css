@@ -1,8 +1,9 @@
 .cell-input {
   border: transparent;
   outline: none;
+  width: 3rem;
   transition: 0.3s ease-in all;
-  padding-bottom: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .cell-input:focus-visible {
@@ -29,4 +30,11 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.missing-grade {
+  color: red;
+  position: absolute;
+
+  left: 1rem;
 }

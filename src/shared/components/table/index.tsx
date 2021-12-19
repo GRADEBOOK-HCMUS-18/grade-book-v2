@@ -21,8 +21,8 @@ export const Table = memo(({ columns, rows }: IProps) => {
       <tbody>
         {rows.map((row) => (
           <tr key={row.id}>
-            {row.cells.map((cell) => (
-              <td key={`${cell.rowId}/${cell.columnId}`}>{cell.content}</td>
+            {row.cells.map((cell, index) => (
+              <td key={`${cell.rowId}/${index}`}>{cell.content}</td>
             ))}
           </tr>
         ))}

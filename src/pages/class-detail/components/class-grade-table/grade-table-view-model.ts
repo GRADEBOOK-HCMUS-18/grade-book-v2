@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, computed } from 'mobx';
 import { HttpError } from 'shared/errors';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { httpService } from 'shared/services';
@@ -6,13 +6,15 @@ import { StudentGradeInfo } from 'shared/models';
 import { BaseViewModel } from 'shared/view-models';
 import { fileService } from 'shared/services';
 
-export class GradeTableViewModel extends BaseViewModel {
+class GradeTableViewModel extends BaseViewModel {
   studentGradeList: StudentGradeInfo[] = [];
 
   constructor() {
     super();
     makeObservable(this, {
       studentGradeList: observable,
+      setStudentGrade: action,
+      studentGrades: computed,
     });
   }
 
@@ -45,9 +47,9 @@ export class GradeTableViewModel extends BaseViewModel {
     ) {
       const point: string | undefined = curVal.grades
         .find((item) => item.assignmentId === assignmentId)
-        ?.point.toString();
-      console.log(point);
-      const row: Array<string> = [curVal.studentId.toString()];
+        ?.studentPoint?.toString();
+
+      const row: Array<string> = [curVal.student.studentId.toString()];
       if (point !== undefined) row.push(point);
 
       obj.push(row);
@@ -61,6 +63,33 @@ export class GradeTableViewModel extends BaseViewModel {
   }
 
   exportTable() {}
+
+  get studentGrades() {
+    return this.studentGradeList;
+  }
+  setStudentGrade(gradeList: StudentGradeInfo[]) {
+    console.log(gradeList);
+    this.studentGradeList = gradeList;
+  }
+
+  async getGradeTable(classId: number) {
+    if (classId) {
+      lineLoadingViewModel.startLoading();
+      const response: StudentGradeInfo[] | HttpError =
+        await httpService.sendGet(
+          `/Class/${classId}/grade`,
+          httpService.getBearerToken()
+        );
+
+      lineLoadingViewModel.stopLoading();
+      if (response instanceof HttpError) {
+        this.makeError('Loi roi');
+        return null;
+      } else {
+        this.setStudentGrade(response);
+      }
+    }
+  }
 
   async importStudentList(data: Array<Array<string>>, classId: number) {
     const body = this.prepareUploadStudentData(data);
@@ -77,6 +106,7 @@ export class GradeTableViewModel extends BaseViewModel {
       this.makeError('Loi roi');
       return null;
     } else {
+      await this.getGradeTable(classId);
       return response;
     }
   }
@@ -97,9 +127,10 @@ export class GradeTableViewModel extends BaseViewModel {
 
     lineLoadingViewModel.stopLoading();
     if (response instanceof HttpError) {
-      this.makeError('Loi roi');
+      this.makeError('Có lỗi xảy ra vui lòng thử lại sau');
       return null;
     } else {
+      await this.getGradeTable(classId);
       return response;
     }
   }
@@ -127,3 +158,5 @@ export class GradeTableViewModel extends BaseViewModel {
     return grades;
   }
 }
+
+export const gradeTableViewModel = new GradeTableViewModel();

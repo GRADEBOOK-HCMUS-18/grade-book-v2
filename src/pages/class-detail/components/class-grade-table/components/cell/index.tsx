@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import './index.css';
 
@@ -18,32 +18,57 @@ export const Cell = ({
   isEditAble,
 }: CellProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+
   let inputRef: any = useRef(null);
+
+  useEffect(() => {
+    if (content === null) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+  }, [content]);
   let editAble = true;
   if (isEditAble !== undefined) {
     editAble = isEditAble;
   }
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
-      setIsLoading(true);
       inputRef.blur();
-      cellEvent('edit', {
-        colId: columnId,
-        rowId: rowId,
-        value: event.target.value,
-      });
-      setTimeout(() => setIsLoading(false), 1000);
     }
+  };
+
+  const handleOnBlur = (event: any) => {
+    if (event.target.value === '') {
+      setIsEmpty(true);
+      return;
+    }
+    setIsLoading(true);
+    cellEvent('edit', {
+      colId: columnId,
+      rowId: rowId,
+      value: event.target.value,
+    });
+    setTimeout(() => setIsLoading(false), 1000);
   };
   return (
     <div className="cell-container">
       <input
         disabled={!editAble}
+        onFocus={() => setIsEmpty(false)}
+        onBlur={handleOnBlur}
+        type="text"
         ref={(e) => (inputRef = e)}
         onKeyDown={handleKeyDown}
         className="cell-input"
-        defaultValue={content ? content : ''}
+        defaultValue={content !== null ? content : ''}
       ></input>
+      {isEmpty && (
+        <span onClick={() => inputRef.focus()} className="missing-grade">
+          Trống
+        </span>
+      )}
       {isLoading && (
         <div className="cell-spinner-container">
           <Spinner size="sm" animation="border" variant="primary" />

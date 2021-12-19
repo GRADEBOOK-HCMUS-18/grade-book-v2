@@ -3,57 +3,49 @@ import { TableCell, TableColumn, TableRow } from 'shared/types';
 import { Cell, Column } from '../components';
 
 export const buildRows = (
-  assignments: Assignment[],
-  students: StudentGradeInfo[],
+  studentGrades: StudentGradeInfo[],
   cellEvent: (action: string, params: any) => void
 ): TableRow[] => {
+  console.log('build row');
   const rows: TableRow[] = [];
-  students.forEach((student, idx) => {
-    const rowId = student.studentId ? student.studentId : `null${idx}`;
-    let content: TableRow = {
-      id: rowId,
-      cells: [
-        {
-          rowId: rowId,
-          columnId: 'id',
-          content: (
-            <span style={{ padding: '1rem 0.5rem' }}>{student.studentId}</span>
-          ),
-        },
-        {
-          rowId: rowId,
-          columnId: 'name',
-          content: (
-            <div
-              style={{ padding: '1rem 0.5rem' }}
-              className="center-horizontal"
-            >
-              <span>
-                {student.firstName} {student.lastName}
-              </span>
-            </div>
-          ),
-        },
-      ],
-    };
-    const gradeCells: TableCell[] = student.grades.map((grade): TableCell => {
-      return {
+  studentGrades.forEach((gradeItem) => {
+    const cells: TableCell[] = [];
+    const { student } = gradeItem;
+    cells.push(
+      {
+        rowId: student.studentId,
+        columnId: 'MSSV',
+        content: <span style={{ padding: '1rem' }}>{student.studentId}</span>,
+      },
+      {
+        rowId: student.studentId,
+        columnId: 'Ho ten',
+        content: <span style={{ padding: '1rem' }}>{student.fullName}</span>,
+      }
+    );
+
+    gradeItem.grades.forEach((grade) => {
+      cells.push({
+        rowId: student.studentId,
         columnId: grade.assignmentId,
-        rowId: rowId,
         content: (
           <Cell
+            content={grade.studentPoint}
             columnId={grade.assignmentId}
-            rowId={rowId}
-            content={`${grade.point}/100`}
+            rowId={student.studentId}
             isEditAble={!grade.isFinal}
             cellEvent={cellEvent}
           />
         ),
-      };
+      });
     });
-    content.cells.push(...gradeCells);
-    rows.push(content);
+
+    rows.push({
+      id: student.studentId,
+      cells: cells,
+    });
   });
+  console.log(rows);
   return rows;
 };
 
@@ -80,7 +72,7 @@ export const buildCols = (
       content: (
         <Column
           id={assignment.id}
-          content={assignment.name}
+          content={`${assignment.name} (${assignment.point})`}
           onColClick={colEvent}
         />
       ),

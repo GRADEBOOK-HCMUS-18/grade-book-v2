@@ -48,7 +48,7 @@ const JoinClassModal = observer(() => {
       </Form>
       <Modal.Footer>
         <Button variant="secondary" onClick={hideDialog}>
-          Cancel
+          Hủy
         </Button>
         <Button variant="primary" type="submit">
           Tham gia
