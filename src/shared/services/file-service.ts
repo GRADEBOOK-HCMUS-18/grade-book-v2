@@ -65,6 +65,7 @@ class ExcelFileService {
         const csv_data = XLSX.utils.sheet_to_csv(ws);
         const array_data: Array<Array<string>> =
           CSVService.csvToArray(csv_data);
+      
         resolve(array_data);
       };
     });
@@ -139,13 +140,16 @@ class CSVService {
         header: string,
         index: number
       ): string[] {
-        object.push(values[index]);
+        if(values[index]!==''&& values[index].trim()!=='' && values[index]!==null)
+          object.push(values[index].trim());
         return object;
       },
       []);
-      return el;
+        return el;
     });
-    return arr;
+    const filtered =arr.filter(item=>item.length!==0);
+
+    return filtered;
   }
 }
 
