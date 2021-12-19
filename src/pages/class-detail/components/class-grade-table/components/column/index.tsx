@@ -32,11 +32,13 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
           >
             <span>Export</span>
           </div>
-          <FilePicker
-            content="Import"
-            onFinish={handleImport}
-            acceptTypes={['xlsx', 'csv', 'xls']}
-          />
+          <div className="pop-up-item ">
+            <FilePicker
+              content="Import"
+              onFinish={handleImport}
+              acceptTypes={['xlsx', 'csv', 'xls']}
+            />
+          </div>
         </div>
       }
     >

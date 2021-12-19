@@ -29,9 +29,7 @@ export const FilePicker = ({ content, onFinish, acceptTypes }: IProps) => {
   return (
     <>
       <label htmlFor="file-input">
-        <div className="pop-up-item ">
-          <span>{content}</span>
-        </div>
+        <span>{content}</span>
       </label>
       <input type="file" id="file-input" onChange={handleChange} />
       <PopupAlert

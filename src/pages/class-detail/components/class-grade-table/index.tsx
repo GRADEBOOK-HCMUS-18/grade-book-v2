@@ -32,7 +32,6 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
         id
       );
       if (result) {
-        console.log(result);
         setSuccess(true);
       }
     },
@@ -71,16 +70,9 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
     setFileType(value);
   };
 
-  const downloadTemplateFile = (event: any) => {
-    event.preventDefault();
-    const headers = ['StudentId', 'Fullname'];
-    const content = studentGrades.map(
-      (item): Array<string> => [
-        item.student.studentId.toString(),
-        `${item.student.fullName} `,
-      ]
-    );
-    fileService.writeFile(headers, content, 'sample_file', defaultFileType);
+  const downloadTemplateFile = (type: 'student' | 'grade') => {
+    const headers = type === 'student' ? ['MSSV', 'Họ tên'] : ['MSSV', 'Điểm'];
+    fileService.writeFile(headers, Array(0), 'sample_file', defaultFileType);
   };
 
   const uploadStudentList = async (data: any) => {
@@ -89,7 +81,6 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
       classInfo.id
     );
     if (result) {
-      console.log(result);
       setSuccess(true);
     }
   };
@@ -116,17 +107,23 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item>Tải xuống toàn bộ</Dropdown.Item>
-              <Dropdown.Item onClick={downloadTemplateFile}>
-                Tải xuống danh sách
-              </Dropdown.Item>
-              <Dropdown.Divider></Dropdown.Divider>
+              <Dropdown.Item>Tải xuống toàn bộ bảng điểm</Dropdown.Item>
 
-              <FilePicker
-                content="Tải lên danh sách"
-                onFinish={uploadStudentList}
-                acceptTypes={['xlsx', 'csv', 'xls']}
-              />
+              <Dropdown.Item onClick={() => downloadTemplateFile('student')}>
+                Tải xuống template danh sách sinh viên
+              </Dropdown.Item>
+
+              <Dropdown.Item onClick={() => downloadTemplateFile('grade')}>
+                Tải xuống template cột điểm
+              </Dropdown.Item>
+
+              <Dropdown.Item as="div">
+                <FilePicker
+                  content="Tải lên danh sách sinh viển"
+                  onFinish={uploadStudentList}
+                  acceptTypes={['xlsx', 'csv', 'xls']}
+                />
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>

@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import './index.css';
@@ -19,7 +20,6 @@ export const Cell = ({
 }: CellProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
-
   let inputRef: any = useRef(null);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const Cell = ({
         ref={(e) => (inputRef = e)}
         onKeyDown={handleKeyDown}
         className="cell-input"
-        defaultValue={content !== null ? content : ''}
+        value={content ? content : ''}
       ></input>
       {isEmpty && (
         <span onClick={() => inputRef.focus()} className="missing-grade">
