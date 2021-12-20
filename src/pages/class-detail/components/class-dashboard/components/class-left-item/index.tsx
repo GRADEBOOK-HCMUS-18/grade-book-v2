@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { AiOutlineRedo } from 'react-icons/ai';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdContentCopy } from 'react-icons/md';
@@ -12,6 +12,14 @@ interface IProps {
 
 export const ClassLeftItem = ({ classInfo }: IProps) => {
   const [showPopUp, setShowPopUp] = useState(false);
+
+  const total = useMemo(() => {
+    let sum = 0;
+    classInfo.assignments.forEach((assignment) => {
+      sum += assignment.point;
+    });
+    return sum;
+  }, [classInfo.assignments]);
   return (
     <div className="class-post-left-item">
       {classInfo.isTeacher && (
@@ -54,6 +62,7 @@ export const ClassLeftItem = ({ classInfo }: IProps) => {
             </li>
           ))}
         </ul>
+        <b key="total">Tổng điểm: {total}</b>
         {!classInfo.assignments.length && (
           <p>Lớp học này chưa có cấu trúc điểm</p>
         )}
