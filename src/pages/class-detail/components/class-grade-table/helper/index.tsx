@@ -30,11 +30,11 @@ export const buildCols = (
   cols.push(
     {
       id: 'id',
-      content: <span style={{ padding: '1rem 0.5rem' }}>MSSV</span>,
+      content: <span className="table-col">MSSV</span>,
     },
     {
       id: 'name',
-      content: <span style={{ padding: '1rem 0.5rem' }}>Họ và tên</span>,
+      content: <span className="table-col">Họ và tên</span>,
     }
   );
 
