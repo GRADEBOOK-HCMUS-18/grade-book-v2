@@ -103,7 +103,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
               ))}
             </select>
             <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
                 File
               </Dropdown.Toggle>
 

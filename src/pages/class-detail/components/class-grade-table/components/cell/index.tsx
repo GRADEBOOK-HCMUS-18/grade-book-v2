@@ -1,6 +1,6 @@
-import { AnyARecord } from 'dns';
 import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
+import { CellPopUp } from './components';
 import './index.css';
 
 interface CellProps {
@@ -20,6 +20,7 @@ export const Cell = ({
 }: CellProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [showAction, setShowAction] = useState(false);
   const [value, setValue] = useState<any>('');
   let inputRef: any = useRef(null);
 
@@ -64,8 +65,13 @@ export const Cell = ({
     const value: string = event.target.value.trim();
     setValue(value);
   };
+  const handlePopUpAction = (type: string, data: any) => {};
   return (
-    <div className="cell-container">
+    <div
+      onMouseOver={() => setShowAction(true)}
+      onMouseLeave={() => setShowAction(false)}
+      className="cell-container"
+    >
       <input
         disabled={!editAble}
         onFocus={() => setIsEmpty(false)}
@@ -86,6 +92,13 @@ export const Cell = ({
         <div className="cell-spinner-container">
           <Spinner size="sm" animation="border" variant="primary" />
         </div>
+      )}
+      {content && showAction && (
+        <CellPopUp
+          columnId={columnId}
+          rowId={rowId}
+          action={handlePopUpAction}
+        />
       )}
     </div>
   );
