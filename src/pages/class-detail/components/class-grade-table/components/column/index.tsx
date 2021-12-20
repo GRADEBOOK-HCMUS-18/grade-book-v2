@@ -6,16 +6,34 @@ import './index.css';
 interface ColProps {
   content: string;
   id: number;
-  onColClick: (action: string, params: any) => void;
+  onColClick?: (action: string, params: any) => void;
 }
+
+interface ColPopUpProps {
+  content: string;
+  id: number;
+  action: (type: 'import' | 'export' | 'markFinal', data: any) => void;
+}
+
 export const Column = ({ content, id, onColClick }: ColProps) => {
-  const [show, setShow] = useState(false);
-
-  const handleImport = (data: any) => {
-    setShow(false);
-    onColClick('import', { data: data, id: id });
+  const handleAction = (type: 'import' | 'export' | 'markFinal', data: any) => {
+    if (onColClick) {
+      onColClick(type, { data: data, id: id, name: content });
+    }
   };
+  return (
+    <>
+      {onColClick ? (
+        <ColPopUp content={content} id={id} action={handleAction} />
+      ) : (
+        <div style={{ padding: '1rem' }}>{content}</div>
+      )}
+    </>
+  );
+};
 
+const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
+  const [show, setShow] = useState(false);
   return (
     <PopUp
       show={show}
@@ -26,18 +44,30 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
           <div
             onClick={() => {
               setShow(false);
-              onColClick('export', { name: content, id: id });
+              action('export', { name: content, id: id });
             }}
             className="pop-up-item "
           >
-            <span>Export</span>
+            <span>Export cột điểm ra file</span>
           </div>
           <div className="pop-up-item ">
             <FilePicker
-              content="Import"
-              onFinish={handleImport}
+              content="Import cột điểm từ file"
+              onFinish={(data) => {
+                setShow(false);
+                action('import', data);
+              }}
               acceptTypes={['xlsx', 'csv', 'xls']}
             />
+          </div>
+          <div
+            onClick={() => {
+              setShow(false);
+              action('export', { name: content, id: id });
+            }}
+            className="pop-up-item "
+          >
+            <span>Đánh dấu là hoàn thành</span>
           </div>
         </div>
       }

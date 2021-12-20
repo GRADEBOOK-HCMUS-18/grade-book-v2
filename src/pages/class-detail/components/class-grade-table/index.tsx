@@ -87,51 +87,53 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
 
   return (
     <>
-      <div className="d-flex justify-content-start ">
-        <div className="d-flex flex-row mr-auto my-4">
-          <select
-            className="form-select mx-2"
-            onChange={changeFileType}
-            aria-label="Default select example"
-            value={defaultFileType}
-          >
-            {fileTypes.map((item, index) => (
-              <option key={`${item}${index}`} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              File
-            </Dropdown.Toggle>
+      {classInfo.isTeacher && (
+        <div className="d-flex justify-content-start ">
+          <div className="d-flex flex-row mr-auto my-4">
+            <select
+              className="form-select mx-2"
+              onChange={changeFileType}
+              aria-label="Default select example"
+              value={defaultFileType}
+            >
+              {fileTypes.map((item, index) => (
+                <option key={`${item}${index}`} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                File
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item>Tải xuống toàn bộ bảng điểm</Dropdown.Item>
+              <Dropdown.Menu>
+                <Dropdown.Item>Tải xuống toàn bộ bảng điểm</Dropdown.Item>
 
-              <Dropdown.Item onClick={() => downloadTemplateFile('student')}>
-                Tải xuống template danh sách sinh viên
-              </Dropdown.Item>
+                <Dropdown.Item onClick={() => downloadTemplateFile('student')}>
+                  Tải xuống template danh sách sinh viên
+                </Dropdown.Item>
 
-              <Dropdown.Item onClick={() => downloadTemplateFile('grade')}>
-                Tải xuống template cột điểm
-              </Dropdown.Item>
+                <Dropdown.Item onClick={() => downloadTemplateFile('grade')}>
+                  Tải xuống template cột điểm
+                </Dropdown.Item>
 
-              <Dropdown.Item as="div">
-                <FilePicker
-                  content="Tải lên danh sách sinh viển"
-                  onFinish={uploadStudentList}
-                  acceptTypes={['xlsx', 'csv', 'xls']}
-                />
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <Dropdown.Item as="div">
+                  <FilePicker
+                    content="Tải lên danh sách sinh viển"
+                    onFinish={uploadStudentList}
+                    acceptTypes={['xlsx', 'csv', 'xls']}
+                  />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
-      </div>
+      )}
 
       <Table
-        columns={buildCols(assignments, handleColEvent)}
-        rows={buildRows(studentGrades, handleCellEvent)}
+        columns={buildCols(assignments, handleColEvent, classInfo.isTeacher)}
+        rows={buildRows(studentGrades, handleCellEvent, classInfo.isTeacher)}
       ></Table>
       <SnackBar
         show={success}

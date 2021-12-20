@@ -4,9 +4,65 @@ import { Cell, Column } from '../components';
 
 export const buildRows = (
   studentGrades: StudentGradeInfo[],
-  cellEvent: (action: string, params: any) => void
+  cellEvent: (action: string, params: any) => void,
+  isClassOwner: boolean
 ): TableRow[] => {
-  console.log('build row');
+  let rows: TableRow[] = [];
+
+  if (isClassOwner) {
+    rows = buildRowForTeacher(studentGrades, cellEvent);
+  } else {
+    if (studentGrades.length) {
+      rows = buildRowForStudent(studentGrades[0]);
+    }
+  }
+
+  return rows;
+};
+
+export const buildCols = (
+  assignments: Assignment[],
+  colEvent: (action: string, params: any) => void,
+  isOwner: boolean
+): TableColumn[] => {
+  const cols: TableColumn[] = [];
+
+  cols.push(
+    {
+      id: 'id',
+      content: <span style={{ padding: '1rem 0.5rem' }}>MSSV</span>,
+    },
+    {
+      id: 'name',
+      content: <span style={{ padding: '1rem 0.5rem' }}>Họ và tên</span>,
+    }
+  );
+
+  assignments.forEach((assignment) => {
+    cols.push({
+      id: assignment.id,
+      content: isOwner ? (
+        <Column
+          id={assignment.id}
+          content={`${assignment.name} (${assignment.point})`}
+          onColClick={colEvent}
+        />
+      ) : (
+        <Column
+          id={assignment.id}
+          content={`${assignment.name} (${assignment.point})`}
+        />
+      ),
+    });
+  });
+
+  return cols;
+};
+
+const buildRowForTeacher = (
+  studentGrades: StudentGradeInfo[],
+  cellEvent: (action: string, params: any) => void
+) => {
   const rows: TableRow[] = [];
   studentGrades.forEach((gradeItem) => {
     const cells: TableCell[] = [];
@@ -45,39 +101,47 @@ export const buildRows = (
       cells: cells,
     });
   });
-  console.log(rows);
+
   return rows;
 };
 
-export const buildCols = (
-  assignments: Assignment[],
-  colEvent: (action: string, params: any) => void
-): TableColumn[] => {
-  const cols: TableColumn[] = [];
+const buildRowForStudent = (studentGrade: StudentGradeInfo) => {
+  const rows: TableRow[] = [];
+  const cells: TableCell[] = [];
+  const { student } = studentGrade;
 
-  cols.push(
+  cells.push(
     {
-      id: 'id',
-      content: <span style={{ padding: '1rem 0.5rem' }}>MSSV</span>,
+      rowId: student.studentId,
+      columnId: 'MSSV',
+      content: <span style={{ padding: '1rem' }}>{student.studentId}</span>,
     },
     {
-      id: 'name',
-      content: <span style={{ padding: '1rem 0.5rem' }}>Họ và tên</span>,
+      rowId: student.studentId,
+      columnId: 'Ho ten',
+      content: <span style={{ padding: '1rem' }}>{student.fullName}</span>,
     }
   );
 
-  assignments.forEach((assignment) => {
-    cols.push({
-      id: assignment.id,
+  studentGrade.grades.forEach((grade) => {
+    cells.push({
+      rowId: student.studentId,
+      columnId: grade.assignmentId,
       content: (
-        <Column
-          id={assignment.id}
-          content={`${assignment.name} (${assignment.point})`}
-          onColClick={colEvent}
+        <Cell
+          content={grade.studentPoint}
+          columnId={grade.assignmentId}
+          rowId={student.studentId}
+          isEditAble={false}
         />
       ),
     });
   });
 
-  return cols;
+  rows.push({
+    id: student.studentId,
+    cells: cells,
+  });
+
+  return rows;
 };

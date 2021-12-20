@@ -67,15 +67,15 @@ class GradeTableViewModel extends BaseViewModel {
   get studentGrades() {
     return this.studentGradeList;
   }
-  setStudentGrade(gradeList: StudentGradeInfo[]) {
-    console.log(gradeList);
-    this.studentGradeList = gradeList;
+  setStudentGrade(gradeList: StudentGradeInfo[] | StudentGradeInfo) {
+    if (Array.isArray(gradeList)) this.studentGradeList = gradeList;
+    else this.studentGradeList.push(gradeList);
   }
 
   async getGradeTable(classId: number) {
     if (classId) {
       lineLoadingViewModel.startLoading();
-      const response: StudentGradeInfo[] | HttpError =
+      const response: StudentGradeInfo[] | StudentGradeInfo | HttpError =
         await httpService.sendGet(
           `/Class/${classId}/grade`,
           httpService.getBearerToken()

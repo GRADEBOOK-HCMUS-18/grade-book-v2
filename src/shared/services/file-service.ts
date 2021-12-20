@@ -65,7 +65,7 @@ class ExcelFileService {
         const csv_data = XLSX.utils.sheet_to_csv(ws);
         const array_data: Array<Array<string>> =
           CSVService.csvToArray(csv_data);
-      
+
         resolve(array_data);
       };
     });
@@ -94,7 +94,7 @@ class CSVFileService {
     return new Promise((resolve, reject) => {
       reader.onload = (event: any) => {
         const data: any = event.target?.result;
-        console.log('csv', data);
+
         const array_data: Array<Array<string>> = CSVService.csvToArray(data);
         return resolve(array_data);
       };
@@ -140,14 +140,18 @@ class CSVService {
         header: string,
         index: number
       ): string[] {
-        if(values[index]!==''&& values[index].trim()!=='' && values[index]!==null)
+        if (
+          values[index] !== '' &&
+          values[index].trim() !== '' &&
+          values[index] !== null
+        )
           object.push(values[index].trim());
         return object;
       },
       []);
-        return el;
+      return el;
     });
-    const filtered =arr.filter(item=>item.length!==0);
+    const filtered = arr.filter((item) => item.length !== 0);
 
     return filtered;
   }

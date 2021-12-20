@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import './index.css';
@@ -8,7 +7,7 @@ interface CellProps {
   rowId: number | string;
   content: string | number | null;
   isEditAble?: boolean;
-  cellEvent: (action: string, params: any) => void;
+  cellEvent?: (action: string, params: any) => void;
 }
 
 export const Cell = ({
@@ -20,6 +19,7 @@ export const Cell = ({
 }: CellProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [value, setValue] = useState(content);
   let inputRef: any = useRef(null);
 
   useEffect(() => {
@@ -40,17 +40,27 @@ export const Cell = ({
   };
 
   const handleOnBlur = (event: any) => {
-    if (event.target.value === '') {
+    if (value === '' || value === null) {
       setIsEmpty(true);
       return;
     }
-    setIsLoading(true);
-    cellEvent('edit', {
-      colId: columnId,
-      rowId: rowId,
-      value: event.target.value,
-    });
-    setTimeout(() => setIsLoading(false), 1000);
+
+    if (value !== content?.toString()) {
+      setIsLoading(true);
+      if (cellEvent) {
+        cellEvent('edit', {
+          colId: columnId,
+          rowId: rowId,
+          value: event.target.value,
+        });
+      }
+      setTimeout(() => setIsLoading(false), 1000);
+    }
+  };
+
+  const handleOnChange = (event: any) => {
+    const value: string = event.target.value.trim();
+    setValue(value);
   };
   return (
     <div className="cell-container">
@@ -58,11 +68,12 @@ export const Cell = ({
         disabled={!editAble}
         onFocus={() => setIsEmpty(false)}
         onBlur={handleOnBlur}
+        onChange={handleOnChange}
         type="text"
         ref={(e) => (inputRef = e)}
         onKeyDown={handleKeyDown}
         className="cell-input"
-        value={content ? content : ''}
+        value={value ? value : ''}
       ></input>
       {isEmpty && (
         <span onClick={() => inputRef.focus()} className="missing-grade">
