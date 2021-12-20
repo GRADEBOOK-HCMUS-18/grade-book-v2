@@ -1,3 +1,4 @@
+import { AnyARecord } from 'dns';
 import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import './index.css';
@@ -19,13 +20,14 @@ export const Cell = ({
 }: CellProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
-  const [value, setValue] = useState(content);
+  const [value, setValue] = useState<any>('');
   let inputRef: any = useRef(null);
 
   useEffect(() => {
     if (content === null) {
       setIsEmpty(true);
     } else {
+      setValue(content);
       setIsEmpty(false);
     }
   }, [content]);
@@ -45,7 +47,7 @@ export const Cell = ({
       return;
     }
 
-    if (value !== content?.toString()) {
+    if (value.toString() !== content?.toString()) {
       setIsLoading(true);
       if (cellEvent) {
         cellEvent('edit', {
