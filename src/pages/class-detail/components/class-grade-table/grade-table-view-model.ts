@@ -181,72 +181,82 @@ class GradeTableViewModel extends BaseViewModel {
     return grades;
   }
 
-  async updateTableStatus(newStatus:boolean, classId:number)
-  {
+  async updateTableStatus(newStatus: boolean, classId: number) {
     lineLoadingViewModel.startLoading();
-    
+
     const body = {
-      "newStatus": newStatus,
-    }
-    const response:any =await  httpService.sendPut(`/Class/${classId}/finalization`,body,httpService.getBearerToken())
+      newStatus: newStatus,
+    };
+    const response: any = await httpService.sendPut(
+      `/Class/${classId}/finalization`,
+      body,
+      httpService.getBearerToken()
+    );
 
     lineLoadingViewModel.stopLoading();
 
-    if(response instanceof HttpError)
-    {
+    if (response instanceof HttpError) {
       this.makeError('Có lỗi xảy ra vui lòng thử lại sau');
       return null;
-    }
-    else
-    {
+    } else {
       await this.getGradeTable(classId);
       return response;
     }
   }
 
-  async updateGradeColStatus(newStatus:boolean,classId:number,assignmentId:number)
-  {
+  async updateGradeColStatus(
+    newStatus: boolean,
+    classId: number,
+    assignmentId: number
+  ) {
     lineLoadingViewModel.startLoading();
-    
+
     const body = {
-      "newStatus": newStatus,
-    }
-    const response:any =await  httpService.sendPut(`/Class/${classId}/assignment/${assignmentId}/finalization`,body,httpService.getBearerToken())
+      newStatus: newStatus,
+    };
+    const response: any = await httpService.sendPut(
+      `/Class/${classId}/assignment/${assignmentId}/finalization`,
+      body,
+      httpService.getBearerToken()
+    );
 
     lineLoadingViewModel.stopLoading();
 
-    if(response instanceof HttpError)
-    {
+    if (response instanceof HttpError) {
       this.makeError('Có lỗi xảy ra vui lòng thử lại sau');
       return null;
-    }
-    else
-    {
+    } else {
       await this.getGradeTable(classId);
       return response;
     }
   }
 
-  async updateSingleStudentGrade(grade:number, newStatus:boolean, classId:number,assignmentId:number,studentId:number)
-  {
+  async updateSingleStudentGrade(
+    grade: number,
+    newStatus: boolean,
+    classId: number,
+    assignmentId: number,
+    studentId: number
+  ) {
     lineLoadingViewModel.startLoading();
     const body = {
-      "studentId": studentId,
-      "newPoint": grade,
-      "newStatus": newStatus,
-    }
-    console.log(grade+' '+classId+' '+assignmentId+' '+studentId);
-    const response:any = await httpService.sendPut(`/Class/${classId}/assignment/${assignmentId}/grade`,body,httpService.getBearerToken())
+      studentId: studentId,
+      newPoint: grade,
+      newStatus: newStatus,
+    };
+
+    const response: any = await httpService.sendPut(
+      `/Class/${classId}/assignment/${assignmentId}/grade`,
+      body,
+      httpService.getBearerToken()
+    );
 
     lineLoadingViewModel.stopLoading();
 
-    if(response instanceof HttpError)
-    {
+    if (response instanceof HttpError) {
       this.makeError('Có lỗi xảy ra vui lòng thử lại sau');
       return null;
-    }
-    else
-    {
+    } else {
       await this.getGradeTable(classId);
       return response;
     }

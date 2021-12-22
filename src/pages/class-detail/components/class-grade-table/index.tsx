@@ -114,7 +114,6 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   };
 
   const uploadStudentList = async (data: any) => {
-    console.log(data);
     const result = await gradeTableViewModel.importStudentList(
       data,
       classInfo.id
