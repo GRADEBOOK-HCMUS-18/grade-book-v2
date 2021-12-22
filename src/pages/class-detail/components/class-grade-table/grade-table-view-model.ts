@@ -135,7 +135,7 @@ class GradeTableViewModel extends BaseViewModel {
     lineLoadingViewModel.startLoading();
 
     const response: any = await httpService.sendPost(
-      `/Class/${classId}/assignment/${assignmentId}/grades`,
+      `/Class/${classId}/assignment/${assignmentId}/grade`,
       { grades: body },
       httpService.getBearerToken()
     );

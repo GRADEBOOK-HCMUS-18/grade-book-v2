@@ -54,7 +54,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           break;
         case 'markFinal':
           gradeTableViewModel.updateGradeColStatus(
-            params.newStatus,
+            true,
             classInfo.id,
             params.id
           );
@@ -70,10 +70,10 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           break;
       }
     },
-    [defaultFileType, uploadGradeList, studentGrades]
+    [defaultFileType, studentGrades]
   );
 
-  const handleCellEvent = useCallback((action: string, params: any) => {
+  const handleCellEvent = (action: string, params: any) => {
     switch (action) {
       case 'edit':
         gradeTableViewModel.updateSingleStudentGrade(
@@ -86,19 +86,18 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
         break;
       case 'markFinal':
         gradeTableViewModel.updateSingleStudentGrade(
-          params.newStaus,
           params.value,
+          params.newStatus,
           classInfo.id,
-          params.assignmentId,
-          params.studentId
+          params.colId,
+          params.rowId
         );
         break;
 
       default:
         break;
     }
-  }, []);
-
+  };
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setFileType(value);
@@ -118,6 +117,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   };
 
   const uploadStudentList = async (data: any) => {
+    console.log(data);
     const result = await gradeTableViewModel.importStudentList(
       data,
       classInfo.id
@@ -168,7 +168,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
 
                 <Dropdown.Item as="div">
                   <FilePicker
-                    content="Tải lên danh sách sinh viển"
+                    content="Tải lên danh sách sinh viên"
                     onFinish={uploadStudentList}
                     acceptTypes={['xlsx', 'csv', 'xls']}
                   />

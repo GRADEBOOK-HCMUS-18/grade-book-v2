@@ -85,7 +85,6 @@ export const Cell = ({
       className="cell-container"
     >
       <input
-        disabled={!editAble}
         onFocus={() => setIsEmpty(false)}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
@@ -105,7 +104,7 @@ export const Cell = ({
           <Spinner size="sm" animation="border" variant="primary" />
         </div>
       )}
-      {content && showAction && (
+      {content && showAction && isEditAble && (
         <CellPopUp
           columnId={columnId}
           rowId={rowId}
