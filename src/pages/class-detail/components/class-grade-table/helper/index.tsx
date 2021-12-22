@@ -13,6 +13,7 @@ export const buildRows = (
     rows = buildRowForTeacher(studentGrades, cellEvent);
   } else {
     if (studentGrades.length) {
+      if (studentGrades[0].student === null) return rows;
       rows = buildRowForStudent(studentGrades[0]);
     }
   }
