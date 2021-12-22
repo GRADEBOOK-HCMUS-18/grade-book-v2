@@ -55,6 +55,7 @@ export const Cell = ({
           colId: columnId,
           rowId: rowId,
           value: event.target.value,
+          newStatus: false,
         });
       }
       setTimeout(() => setIsLoading(false), 1000);
@@ -65,7 +66,18 @@ export const Cell = ({
     const value: string = event.target.value.trim();
     setValue(value);
   };
-  const handlePopUpAction = (type: string, data: any) => {};
+  const handlePopUpAction = (type: string, data: any) => {
+    setIsLoading(true);
+    if (cellEvent) {
+      cellEvent('markFinal', {
+        colId: columnId,
+        rowId: rowId,
+        value: value,
+        newStatus: true,
+      });
+    }
+    setTimeout(() => setIsLoading(false), 1000);
+  };
   return (
     <div
       onMouseOver={() => setShowAction(true)}
@@ -73,7 +85,6 @@ export const Cell = ({
       className="cell-container"
     >
       <input
-        disabled={!editAble}
         onFocus={() => setIsEmpty(false)}
         onBlur={handleOnBlur}
         onChange={handleOnChange}
@@ -93,7 +104,7 @@ export const Cell = ({
           <Spinner size="sm" animation="border" variant="primary" />
         </div>
       )}
-      {content && showAction && (
+      {content && showAction && isEditAble && (
         <CellPopUp
           columnId={columnId}
           rowId={rowId}

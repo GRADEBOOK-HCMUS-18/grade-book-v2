@@ -6,7 +6,10 @@ import { GradeFilePicker } from './grade-file-picker';
 interface ColPopUpProps {
   content: string;
   id: number;
-  action: (type: 'import' | 'export' | 'markFinal', data: any) => void;
+  action: (
+    type: 'import' | 'export' | 'markFinal' | 'markUnfinished',
+    data: any
+  ) => void;
 }
 
 export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
@@ -41,11 +44,24 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
           <div
             onClick={() => {
               setShow(false);
-              action('markFinal', { name: content, id: id });
+              action('markFinal', { newStatus: true, name: content, id: id });
             }}
             className="pop-up-item "
           >
-            <span>Đánh dấu là hoàn thành</span>
+            <span>Đánh dấu đã hoàn thành</span>
+          </div>
+          <div
+            onClick={() => {
+              setShow(false);
+              action('markUnfinished', {
+                newStatus: false,
+                name: content,
+                id: id,
+              });
+            }}
+            className="pop-up-item "
+          >
+            <span>Thu hồi bảng điểm</span>
           </div>
         </div>
       }

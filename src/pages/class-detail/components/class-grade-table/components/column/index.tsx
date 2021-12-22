@@ -8,7 +8,10 @@ interface ColProps {
 }
 
 export const Column = ({ content, id, onColClick }: ColProps) => {
-  const handleAction = (type: 'import' | 'export' | 'markFinal', data: any) => {
+  const handleAction = (
+    type: 'import' | 'export' | 'markFinal' | 'markUnfinished',
+    data: any
+  ) => {
     if (onColClick) {
       onColClick(type, { data: data, id: id, name: content });
     }

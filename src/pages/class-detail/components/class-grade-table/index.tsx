@@ -35,30 +35,66 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
     }
   };
 
-  const handleColEvent = (action: string, params: any) => {
+  const handleColEvent = useCallback(
+    (action: string, params: any) => {
+      switch (action) {
+        case 'export':
+          gradeTableViewModel.exportGradeCols(
+            studentGrades,
+            params.name,
+            params.id,
+            defaultFileType
+          );
+          break;
+        case 'import':
+          uploadGradeList(params.data, params.id);
+          break;
+        case 'markFinal':
+          gradeTableViewModel.updateGradeColStatus(
+            true,
+            classInfo.id,
+            params.id
+          );
+          break;
+        case 'markUnfinished':
+          gradeTableViewModel.updateGradeColStatus(
+            params.newStatus,
+            classInfo.id,
+            params.id
+          );
+          break;
+        default:
+          break;
+      }
+    },
+    [defaultFileType, studentGrades]
+  );
+
+  const handleCellEvent = (action: string, params: any) => {
     switch (action) {
-      case 'export':
-        gradeTableViewModel.exportGradeCols(
-          studentGrades,
-          params.name,
-          params.id,
-          defaultFileType
+      case 'edit':
+        gradeTableViewModel.updateSingleStudentGrade(
+          params.value,
+          params.newStatus,
+          classInfo.id,
+          params.colId,
+          params.rowId
         );
         break;
-      case 'import':
-        uploadGradeList(params.data, params.id);
+      case 'markFinal':
+        gradeTableViewModel.updateSingleStudentGrade(
+          params.value,
+          params.newStatus,
+          classInfo.id,
+          params.colId,
+          params.rowId
+        );
         break;
-      case 'finalize':
-        break;
+
       default:
         break;
     }
   };
-
-  const handleCellEvent = (action: string, params: any) => {
-    console.log(action, params);
-  };
-
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setFileType(value);
@@ -78,6 +114,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   };
 
   const uploadStudentList = async (data: any) => {
+    console.log(data);
     const result = await gradeTableViewModel.importStudentList(
       data,
       classInfo.id
@@ -85,6 +122,10 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
     if (result) {
       setSuccess(true);
     }
+  };
+
+  const markTableFinished = () => {
+    gradeTableViewModel.updateTableStatus(true, classInfo.id);
   };
 
   return (
@@ -124,10 +165,14 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
 
                 <Dropdown.Item as="div">
                   <FilePicker
-                    content="Tải lên danh sách sinh viển"
+                    content="Tải lên danh sách sinh viên"
                     onFinish={uploadStudentList}
                     acceptTypes={['xlsx', 'csv', 'xls']}
                   />
+                </Dropdown.Item>
+
+                <Dropdown.Item onClick={() => markTableFinished()}>
+                  Đánh dấu bảng điểm đã hoàn thành
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
