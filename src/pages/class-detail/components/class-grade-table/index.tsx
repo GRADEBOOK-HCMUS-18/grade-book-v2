@@ -52,7 +52,19 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
         case 'import':
           uploadGradeList(params.data, params.id);
           break;
-        case 'finalize':
+        case 'markFinal':
+          gradeTableViewModel.updateGradeColStatus(
+            params.newStatus,
+            classInfo.id,
+            params.id
+          );
+          break;
+        case 'markUnfinished':
+          gradeTableViewModel.updateGradeColStatus(
+            params.newStatus,
+            classInfo.id,
+            params.id
+          );
           break;
         default:
           break;
@@ -62,7 +74,29 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   );
 
   const handleCellEvent = useCallback((action: string, params: any) => {
-    console.log(action, params);
+    switch (action) {
+      case 'edit':
+        gradeTableViewModel.updateSingleStudentGrade(
+          params.value,
+          params.newStatus,
+          classInfo.id,
+          params.colId,
+          params.rowId
+        );
+        break;
+      case 'markFinal':
+        gradeTableViewModel.updateSingleStudentGrade(
+          params.newStaus,
+          params.value,
+          classInfo.id,
+          params.assignmentId,
+          params.studentId
+        );
+        break;
+
+      default:
+        break;
+    }
   }, []);
 
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -91,6 +125,10 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
     if (result) {
       setSuccess(true);
     }
+  };
+
+  const markTableFinished = () => {
+    gradeTableViewModel.updateTableStatus(true, classInfo.id);
   };
 
   return (
@@ -134,6 +172,10 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
                     onFinish={uploadStudentList}
                     acceptTypes={['xlsx', 'csv', 'xls']}
                   />
+                </Dropdown.Item>
+
+                <Dropdown.Item onClick={() => markTableFinished()}>
+                  Đánh dấu bảng điểm đã hoàn thành
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

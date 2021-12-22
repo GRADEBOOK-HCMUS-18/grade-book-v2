@@ -1,4 +1,4 @@
-import { Assignment, StudentGradeInfo } from 'shared/models';
+import { Assignment, GradeInfo, StudentGradeInfo } from 'shared/models';
 import { TableCell, TableColumn, TableRow } from 'shared/types';
 import { Cell, Column } from '../components';
 
@@ -56,6 +56,10 @@ export const buildCols = (
     });
   });
 
+  cols.push({
+    id: 'total',
+    content: <span className="table-col">Điểm tổng kết</span>,
+  });
   return cols;
 };
 
@@ -95,7 +99,12 @@ const buildRowForTeacher = (
         ),
       });
     });
-
+    const avgGrade = calculateAvergageGrade(gradeItem.grades);
+    cells.push({
+      rowId: student.studentId,
+      columnId: 'total',
+      content: <span style={{ padding: '1rem' }}>{avgGrade}</span>,
+    });
     rows.push({
       id: student.studentId,
       cells: cells,
@@ -137,11 +146,32 @@ const buildRowForStudent = (studentGrade: StudentGradeInfo) => {
       ),
     });
   });
-
+  const avgGrade = calculateAvergageGrade(studentGrade.grades);
+  cells.push({
+    rowId: student.studentId,
+    columnId: 'total',
+    content: <span style={{ padding: '1rem' }}>{avgGrade}</span>,
+  });
   rows.push({
     id: student.studentId,
     cells: cells,
   });
 
   return rows;
+};
+
+const calculateAvergageGrade = (grade: GradeInfo[]): number => {
+  if (grade.length === 0) return 0;
+  const [totalGrade, totalWeight] = grade.reduce(function (
+    prev,
+    curVal
+  ): Array<number> {
+    let newVal = prev[0];
+    if (curVal?.studentPoint !== null)
+      newVal = newVal + curVal?.studentPoint * curVal.assignmentWeight;
+    return [newVal, prev[1] + curVal.assignmentWeight];
+  },
+  new Array<number>(0, 0));
+  const avgGrade: number = Math.round((totalGrade / totalWeight) * 100) / 100;
+  return avgGrade;
 };

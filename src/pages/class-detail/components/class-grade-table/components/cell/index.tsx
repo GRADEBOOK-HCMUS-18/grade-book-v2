@@ -55,6 +55,7 @@ export const Cell = ({
           colId: columnId,
           rowId: rowId,
           value: event.target.value,
+          newStatus: false,
         });
       }
       setTimeout(() => setIsLoading(false), 1000);
@@ -65,7 +66,18 @@ export const Cell = ({
     const value: string = event.target.value.trim();
     setValue(value);
   };
-  const handlePopUpAction = (type: string, data: any) => {};
+  const handlePopUpAction = (type: string, data: any) => {
+    setIsLoading(true);
+    if (cellEvent) {
+      cellEvent('markFinal', {
+        colId: columnId,
+        rowId: rowId,
+        value: value,
+        newStatus: true,
+      });
+    }
+    setTimeout(() => setIsLoading(false), 1000);
+  };
   return (
     <div
       onMouseOver={() => setShowAction(true)}

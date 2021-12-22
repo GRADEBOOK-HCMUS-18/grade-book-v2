@@ -26,7 +26,7 @@ export const CellPopUp = ({
           <div
             onClick={() => {
               setShow(false);
-              action('markFinal', { studentId: rowId, grade: columnId });
+              action('markFinal', { studentId: rowId, assignmentId: columnId });
             }}
             className="pop-up-item "
           >
