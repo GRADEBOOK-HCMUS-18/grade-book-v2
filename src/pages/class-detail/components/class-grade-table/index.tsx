@@ -24,46 +24,40 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   const { assignments } = classInfo;
   const { studentGrades } = gradeTableViewModel;
 
-  const uploadGradeList = useCallback(
-    async (data: any, id: number) => {
-      const result = await gradeTableViewModel.importStudentGrade(
-        data,
-        classInfo.id,
-        id
-      );
-      if (result) {
-        setSuccess(true);
-      }
-    },
-    [classInfo.id]
-  );
+  const uploadGradeList = async (data: any, id: number) => {
+    const result = await gradeTableViewModel.importStudentGrade(
+      data,
+      classInfo.id,
+      id
+    );
+    if (result) {
+      setSuccess(true);
+    }
+  };
 
-  const handleColEvent = useCallback(
-    (action: string, params: any) => {
-      switch (action) {
-        case 'export':
-          gradeTableViewModel.exportGradeCols(
-            studentGrades,
-            params.name,
-            params.id,
-            defaultFileType
-          );
-          break;
-        case 'import':
-          uploadGradeList(params.data, params.id);
-          break;
-        case 'finalize':
-          break;
-        default:
-          break;
-      }
-    },
-    [defaultFileType, uploadGradeList, studentGrades]
-  );
+  const handleColEvent = (action: string, params: any) => {
+    switch (action) {
+      case 'export':
+        gradeTableViewModel.exportGradeCols(
+          studentGrades,
+          params.name,
+          params.id,
+          defaultFileType
+        );
+        break;
+      case 'import':
+        uploadGradeList(params.data, params.id);
+        break;
+      case 'finalize':
+        break;
+      default:
+        break;
+    }
+  };
 
-  const handleCellEvent = useCallback((action: string, params: any) => {
+  const handleCellEvent = (action: string, params: any) => {
     console.log(action, params);
-  }, []);
+  };
 
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;

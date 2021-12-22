@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { fileService } from 'shared/services';
-import { PopupAlert } from '../popup-alert';
+import { PopupAlert } from 'shared/components';
 import './style/index.css';
 
 interface IProps {
@@ -10,11 +10,12 @@ interface IProps {
   isMulti?: boolean;
 }
 
-export const FilePicker = ({ content, onFinish, acceptTypes }: IProps) => {
+export const GradeFilePicker = ({ content, onFinish, acceptTypes }: IProps) => {
   const [isError, setIsError] = useState(false);
 
   const handleChange = (event: any) => {
     const formData = new FormData();
+
     formData.append('file', event.target.files[0]);
     const file: any = formData.get('file');
     const tokens = file.name.split('.');
@@ -33,10 +34,10 @@ export const FilePicker = ({ content, onFinish, acceptTypes }: IProps) => {
   };
   return (
     <>
-      <label htmlFor="file-input">
+      <label htmlFor="grade-file-input">
         <span>{content}</span>
       </label>
-      <input type="file" id="file-input" onChange={handleChange} />
+      <input type="file" id="grade-file-input" onChange={handleChange} />
       <PopupAlert
         show={isError}
         error={isError}

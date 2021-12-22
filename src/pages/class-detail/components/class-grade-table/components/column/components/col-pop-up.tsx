@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { FilePicker, PopUp } from 'shared/components';
+import { PopUp } from 'shared/components';
+import { GradeFilePicker } from './grade-file-picker';
 
 interface ColPopUpProps {
   content: string;
@@ -20,6 +21,7 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
           <div
             onClick={() => {
               setShow(false);
+
               action('export', { name: content, id: id });
             }}
             className="pop-up-item "
@@ -27,7 +29,7 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
             <span>Export cột điểm ra file</span>
           </div>
           <div className="pop-up-item ">
-            <FilePicker
+            <GradeFilePicker
               content="Import cột điểm từ file"
               onFinish={(data) => {
                 setShow(false);
@@ -39,7 +41,7 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
           <div
             onClick={() => {
               setShow(false);
-              action('export', { name: content, id: id });
+              action('markFinal', { name: content, id: id });
             }}
             className="pop-up-item "
           >
