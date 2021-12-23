@@ -24,16 +24,19 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   const { assignments } = classInfo;
   const { studentGrades } = gradeTableViewModel;
 
-  const uploadGradeList = async (data: any, id: number) => {
-    const result = await gradeTableViewModel.importStudentGrade(
-      data,
-      classInfo.id,
-      id
-    );
-    if (result) {
-      setSuccess(true);
-    }
-  };
+  const uploadGradeList = useCallback(
+    async (data: any, id: number) => {
+      const result = await gradeTableViewModel.importStudentGrade(
+        data,
+        classInfo.id,
+        id
+      );
+      if (result) {
+        setSuccess(true);
+      }
+    },
+    [classInfo.id]
+  );
 
   const handleColEvent = useCallback(
     (action: string, params: any) => {
@@ -67,65 +70,75 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           break;
       }
     },
-    [defaultFileType, studentGrades]
+    [defaultFileType, studentGrades, classInfo.id, uploadGradeList]
   );
 
-  const handleCellEvent = (action: string, params: any) => {
-    switch (action) {
-      case 'edit':
-        gradeTableViewModel.updateSingleStudentGrade(
-          params.value,
-          params.newStatus,
-          classInfo.id,
-          params.colId,
-          params.rowId
-        );
-        break;
-      case 'markFinal':
-        gradeTableViewModel.updateSingleStudentGrade(
-          params.value,
-          params.newStatus,
-          classInfo.id,
-          params.colId,
-          params.rowId
-        );
-        break;
+  const handleCellEvent = useCallback(
+    (action: string, params: any) => {
+      switch (action) {
+        case 'edit':
+          gradeTableViewModel.updateSingleStudentGrade(
+            params.value,
+            params.newStatus,
+            classInfo.id,
+            params.colId,
+            params.rowId
+          );
+          break;
+        case 'markFinal':
+          gradeTableViewModel.updateSingleStudentGrade(
+            params.value,
+            params.newStatus,
+            classInfo.id,
+            params.colId,
+            params.rowId
+          );
+          break;
 
-      default:
-        break;
-    }
-  };
+        default:
+          break;
+      }
+    },
+    [classInfo.id]
+  );
   const changeFileType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setFileType(value);
   };
 
-  const exportGradeTable = () => {
+  const exportGradeTable = useCallback(() => {
     gradeTableViewModel.exportGradeTable(
       studentGrades,
       assignments,
       defaultFileType
     );
-  };
+  }, [assignments, defaultFileType, studentGrades]);
 
-  const downloadTemplateFile = (type: 'student' | 'grade') => {
-    const headers = type === 'student' ? ['MSSV', 'Họ tên'] : ['MSSV', 'Điểm'];
-    fileService.writeFile(headers, Array(0), 'sample_file', defaultFileType);
-  };
+  const downloadTemplateFile = useCallback(
+    (type: 'student' | 'grade') => {
+      const headers =
+        type === 'student' ? ['MSSV', 'Họ tên'] : ['MSSV', 'Điểm'];
+      fileService.writeFile(headers, Array(0), 'sample_file', defaultFileType);
+    },
+    [defaultFileType]
+  );
 
-  const uploadStudentList = async (data: any) => {
-    const result = await gradeTableViewModel.importStudentList(
-      data,
-      classInfo.id
-    );
-    if (result) {
-      setSuccess(true);
-    }
-  };
+  const uploadStudentList = useCallback(
+    async (data: any) => {
+      const result = await gradeTableViewModel.importStudentList(
+        data,
+        classInfo.id
+      );
+      if (result) {
+        setSuccess(true);
+      }
+    },
+    [classInfo.id]
+  );
 
-  const markTableFinished = () => {
+  const markTableFinished = useCallback(() => {
     gradeTableViewModel.updateTableStatus(true, classInfo.id);
-  };
+  }, [classInfo.id]);
 
   return (
     <>
