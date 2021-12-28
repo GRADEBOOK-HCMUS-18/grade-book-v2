@@ -15,6 +15,7 @@ import { classDetailViewModel } from 'shared/view-models';
 import {
   ClassDashboard,
   ClassGradeManagement,
+  ClassGradeReview,
   ClassGradeTable,
   ClassMember,
 } from './components';
@@ -71,6 +72,11 @@ const ClassRoute = observer(() => {
       <PrivateRoute path={`${url}/grade`}>
         <div className="container">
           <ClassGradeManagement assignments={classInfo.assignments} />
+        </div>
+      </PrivateRoute>
+      <PrivateRoute path={`${url}/grade-reviews`}>
+        <div className="container">
+          <ClassGradeReview />
         </div>
       </PrivateRoute>
       <Route>
