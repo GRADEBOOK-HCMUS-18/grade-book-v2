@@ -61,7 +61,7 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
             }}
             className="pop-up-item "
           >
-            <span>Thu hồi bảng điểm</span>
+            <span>Thu hồi cột điểm</span>
           </div>
         </div>
       }
