@@ -101,7 +101,7 @@ const CreateClassModal = observer(() => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={hideDialog}>
-            Cancel
+            Hủy
           </Button>
           <Button variant="primary" type="submit">
             Tạo lớp

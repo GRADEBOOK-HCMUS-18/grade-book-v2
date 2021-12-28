@@ -5,6 +5,7 @@ export class Assignment {
   name: string = '';
   point: number = 0;
 }
+
 export class ClassDetailInfo {
   id: number = 0;
   name: string = '';

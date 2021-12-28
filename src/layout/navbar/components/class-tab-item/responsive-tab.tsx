@@ -48,8 +48,8 @@ export const ResponsiveTab = observer(() => {
 
 const getContent = (path: string): string => {
   switch (path) {
-    case 'homework':
-      return 'Bài tập';
+    case 'grade-table':
+      return 'Bảng điểm';
     case 'people':
       return 'Mọi người';
     case 'grade':

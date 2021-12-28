@@ -1,5 +1,5 @@
+import { memo } from 'react';
 import { TableColumn, TableRow } from 'shared/types';
-
 import { Column } from './components';
 import './style/index.css';
 
@@ -8,7 +8,7 @@ interface IProps {
   rows: TableRow[];
 }
 
-export const Table = ({ columns, rows }: IProps) => {
+export const Table = memo(({ columns, rows }: IProps) => {
   return (
     <table>
       <thead>
@@ -21,12 +21,12 @@ export const Table = ({ columns, rows }: IProps) => {
       <tbody>
         {rows.map((row) => (
           <tr key={row.id}>
-            {row.cells.map((cell) => (
-              <td key={cell.columnId + cell.rowId}>{cell.content}</td>
+            {row.cells.map((cell, index) => (
+              <td key={`${cell.rowId}/${index}`}>{cell.content}</td>
             ))}
           </tr>
         ))}
       </tbody>
     </table>
   );
-};
+});

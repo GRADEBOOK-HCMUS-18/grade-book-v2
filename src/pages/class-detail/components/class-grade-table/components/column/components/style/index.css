@@ -1,0 +1,13 @@
+#grade-file-input {
+  display: none;
+}
+
+.grade-file-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  cursor: pointer;
+}

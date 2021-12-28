@@ -4,7 +4,7 @@ export class User {
   firstName: string = '';
   lastName: string = '';
   displayName: string = '';
-  studentIdentification: string | null = null;
+  studentIdentification: string | number | null = null;
   profilePictureUrl: string = '';
   defaultProfilePictureHex: string = '';
   isPasswordNotSet: boolean = false;

@@ -1,3 +1,4 @@
+import { FilePicker } from './file-picker';
 import { Table } from './table';
 import { PopUp } from './pop-up';
 import { NavigateBack } from './navigate-back';
@@ -21,5 +22,6 @@ export {
   EmptyData,
   NavigateBack,
   PopUp,
-  Table
+  Table,
+  FilePicker,
 };

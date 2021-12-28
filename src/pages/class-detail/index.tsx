@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { MemberInvitation } from 'pages';
 import { useEffect } from 'react';
 import {
@@ -33,7 +34,7 @@ export const ClassDetail = () => {
   return viewRender;
 };
 
-const ClassRoute = () => {
+const ClassRoute = observer(() => {
   const { path, url } = useRouteMatch();
   const { id }: any = useParams();
   const history = useHistory();
@@ -54,12 +55,12 @@ const ClassRoute = () => {
     <Switch>
       <PrivateRoute exact path={path}>
         <div className="container">
-          <ClassDashboard />
+          <ClassDashboard classInfo={classInfo} />
         </div>
       </PrivateRoute>
-      <PrivateRoute path={`${url}/homework`}>
+      <PrivateRoute path={`${url}/grade-table`}>
         <div className="container">
-          <ClassGradeTable />
+          <ClassGradeTable classInfo={classInfo} />
         </div>
       </PrivateRoute>
       <PrivateRoute path={`${url}/people`}>
@@ -77,4 +78,4 @@ const ClassRoute = () => {
       </Route>
     </Switch>
   );
-};
+});

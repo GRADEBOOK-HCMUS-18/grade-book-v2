@@ -75,7 +75,11 @@ export const InsertEmailAddressModal = observer(() => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button className=" px-3 me-3" onClick={hideModal}>
+          <Button
+            variant="secondary"
+            className=" px-3 me-3"
+            onClick={hideModal}
+          >
             Hủy
           </Button>
           <Button className="px-3" onClick={sendEmailsList}>
