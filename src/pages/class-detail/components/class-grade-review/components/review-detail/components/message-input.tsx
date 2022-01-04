@@ -5,7 +5,7 @@ import { Avatar } from 'shared/components';
 import { userViewModel } from 'shared/view-models';
 import '../style/index.css';
 
-const initPlaceHolder = 'Them nhan xet';
+const initPlaceHolder = 'Thêm nhận xét';
 
 interface IProps {
   sendMessage: (content: string) => void;

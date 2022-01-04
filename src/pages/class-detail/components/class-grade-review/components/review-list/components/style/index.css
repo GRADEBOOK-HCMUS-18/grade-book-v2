@@ -1,5 +1,5 @@
 .review-card:hover {
-  background-color: var(--light-blue);
+  background-color: var(--light-gray);
   cursor: pointer;
 }
 
@@ -10,4 +10,9 @@
 }
 .review-card-logo {
   margin-right: 10px;
+}
+
+.review-card-selected {
+  background-color: var(--light-blue);
+  cursor: pointer;
 }

@@ -9,8 +9,6 @@ export const buildRows = (
 ): TableRow[] => {
   let rows: TableRow[] = [];
 
-  console.log('owner', isClassOwner);
-
   if (isClassOwner) {
     rows = buildRowForTeacher(studentGrades, cellEvent);
   } else {

@@ -4,3 +4,10 @@
   height: 100%;
   overflow: auto;
 }
+
+@media (max-width: 600px) {
+  .review-list {
+    width: 100%;
+    border: none;
+  }
+}

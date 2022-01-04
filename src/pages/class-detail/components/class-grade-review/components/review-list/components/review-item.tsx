@@ -1,19 +1,35 @@
-import { observer } from 'mobx-react-lite';
-import { userViewModel } from 'shared/view-models';
-import './style/index.css';
+import { memo } from 'react';
+import { classDetailViewModel } from 'shared/view-models';
 import { Avatar } from 'shared/components';
+import { GradeReview } from 'shared/models';
+import './style/index.css';
 
-export const ReviewItem = observer(() => {
-  const user = userViewModel.user;
+interface IProps {
+  reviewItem: GradeReview;
+  selected: number;
+  onClick: (item: GradeReview) => void;
+}
+
+export const ReviewItem = memo(({ reviewItem, selected, onClick }: IProps) => {
+  const student = classDetailViewModel.classInfo.students.find(
+    (student) => student.studentIdentification === reviewItem.student.studentId
+  );
+
   return (
-    <div className="review-card">
+    <div
+      onClick={() => onClick(reviewItem)}
+      className={
+        selected === reviewItem.id ? 'review-card-selected' : 'review-card'
+      }
+    >
       <div className="review-card-header">
         <div className="review-card-logo">
-          <Avatar user={user} />
+          {student && <Avatar user={student} />}
         </div>
         <div className="review-card-title">
           <span>
-            Sinh vien: {user.lastName} {user.firstName} phuc khao bai tap
+            {reviewItem.student.fullName} {reviewItem.student.studentId}{' '}
+            {reviewItem.description}
           </span>
         </div>
       </div>

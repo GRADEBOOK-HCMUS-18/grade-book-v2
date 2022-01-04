@@ -6,10 +6,16 @@
 .grade-review-header {
   width: 100%;
   border-bottom: 1px solid var(--medium-gray);
-  padding: 2rem;
+  padding: 30px 0;
 }
 
 .grade-review-body {
   height: 80vh;
   display: flex;
+}
+
+@media (max-width: 600px) {
+  .grade-review-body {
+    flex-direction: column;
+  }
 }
