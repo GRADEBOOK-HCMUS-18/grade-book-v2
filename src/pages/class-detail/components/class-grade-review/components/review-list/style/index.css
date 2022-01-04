@@ -1,0 +1,6 @@
+.review-list {
+  border-right: 1px solid var(--medium-gray);
+  width: 30%;
+  height: 100%;
+  overflow: auto;
+}

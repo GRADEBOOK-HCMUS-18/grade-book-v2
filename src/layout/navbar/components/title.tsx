@@ -33,6 +33,7 @@ export const Title = observer(({ pathName }: IProps) => {
       return <span style={marginStyle}>Lịch</span>;
     case '/profile':
       return <span style={marginStyle}>Hồ sơ</span>;
+
     default:
       return (
         <span style={marginStyle}>{classDetailViewModel.classInfo.name}</span>

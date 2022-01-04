@@ -1,0 +1,15 @@
+.grade-review-container {
+  display: flex;
+  margin-top: 70px;
+  flex-direction: column;
+}
+.grade-review-header {
+  width: 100%;
+  border-bottom: 1px solid var(--medium-gray);
+  padding: 2rem;
+}
+
+.grade-review-body {
+  height: 80vh;
+  display: flex;
+}

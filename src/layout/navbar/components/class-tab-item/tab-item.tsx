@@ -64,4 +64,9 @@ export const Items: ItemArr = [
     content: 'Điểm số',
     path: 'grade',
   },
+  {
+    id: 5,
+    content: 'Phúc khảo',
+    path: 'grade-reviews',
+  },
 ];

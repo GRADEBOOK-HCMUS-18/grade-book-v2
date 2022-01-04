@@ -93,6 +93,7 @@ export const Cell = ({
         onKeyDown={handleKeyDown}
         className="cell-input"
         value={value ? value : ''}
+        disabled={!editAble}
       ></input>
       {isEmpty && (
         <span onClick={() => inputRef.focus()} className="missing-grade">

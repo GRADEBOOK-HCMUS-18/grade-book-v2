@@ -1,0 +1,52 @@
+.review-detail-container {
+  width: 70%;
+  overflow-y: auto;
+  justify-content: space-between;
+}
+.review-message-input {
+  padding: 5px 10px;
+  outline: none;
+  border-radius: 30px;
+  width: 100%;
+  border: 0.5px solid var(--medium-gray);
+  margin-left: 10px;
+  transition: all 0.3s ease-in;
+  overflow: auto;
+}
+
+.review-placeholder {
+  position: absolute;
+  color: gray;
+  left: 70px;
+}
+
+.review-message-input:focus {
+  border: 2px solid var(--blue);
+}
+
+.review-message-input-container {
+  position: relative;
+  display: flex;
+  bottom: 0;
+  padding: 20px 10px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--medium-gray);
+  align-items: center;
+}
+
+.send-icon {
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.send-icon-blue {
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+  color: var(--blue);
+  cursor: pointer;
+}

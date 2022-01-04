@@ -1,0 +1,13 @@
+.review-card:hover {
+  background-color: var(--light-blue);
+  cursor: pointer;
+}
+
+.review-card-header {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+}
+.review-card-logo {
+  margin-right: 10px;
+}
