@@ -37,23 +37,19 @@ export const buildCols = (
     },
     {
       id: 'name',
-      content: <span className="table-col">Họ và tên</span>,
+      content: <span className="center-horizontal table-col">Họ và tên</span>,
     }
   );
 
   assignments.forEach((assignment) => {
     cols.push({
       id: assignment.id,
-      content: isOwner ? (
+      content: (
         <Column
           id={assignment.id}
           content={`${assignment.name} (${assignment.point})`}
           onColClick={colEvent}
-        />
-      ) : (
-        <Column
-          id={assignment.id}
-          content={`${assignment.name} (${assignment.point})`}
+          isTeacher={isOwner}
         />
       ),
     });
@@ -61,7 +57,9 @@ export const buildCols = (
 
   cols.push({
     id: 'total',
-    content: <span className="table-col">Điểm tổng kết</span>,
+    content: (
+      <span className="center-horizontal table-col ">Điểm tổng kết</span>
+    ),
   });
   return cols;
 };
