@@ -7,6 +7,8 @@
   --border-bottom-width: 0.0625rem;
   --loading-background: rgba(0, 0, 0, 0.6);
   --hover-color: rgba(32, 33, 36, 0.039);
+  --green: #56a832;
+  --red: #ee4b2b;
   --box-shadow-value: 0 1px 2px 0 rgb(60 64 67 / 30%),
     0 2px 6px 2px rgb(60 64 67 / 15%);
 }

@@ -11,11 +11,11 @@ export const Header = ({ data }: IProps) => {
     <div className="review-detail-header">
       <div>
         <span>
-          <b>Cot diem: </b>
+          <b>Cột điểm: </b>
           {data.assignment.name}
         </span>
         <span style={{ marginInline: 10 }}>
-          <b>Diem hien tai: </b>
+          <b>Điểm hiện tại: </b>
           {data.currentGrade.point}
         </span>
         <span>
@@ -26,14 +26,13 @@ export const Header = ({ data }: IProps) => {
       <div className="review-detail-header-button-container">
         <div className="review-detail-header-button">
           <AiOutlineCheck
-            style={{ marginRight: 5 }}
-            color={'#6bfc03'}
-            size={20}
+            style={{ marginRight: 5, color: 'var(--green)' }}
+            size={25}
           />
           Đồng ý
         </div>
         <div className="review-detail-header-button">
-          <FcCancel style={{ marginRight: 5 }} size={20} />
+          <FcCancel style={{ marginRight: 5 }} size={25} />
           Từ chối
         </div>
       </div>

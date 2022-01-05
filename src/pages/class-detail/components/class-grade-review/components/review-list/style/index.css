@@ -5,7 +5,19 @@
   overflow: auto;
 }
 
-@media (max-width: 600px) {
+.review-list-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  justify-content: center;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.review-list-header > h4 {
+  padding-right: 10px;
+}
+
+@media (max-width: 1000px) {
   .review-list {
     width: 100%;
     border: none;

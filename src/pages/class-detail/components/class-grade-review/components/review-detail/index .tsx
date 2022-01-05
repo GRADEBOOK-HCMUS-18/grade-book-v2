@@ -23,7 +23,7 @@ export const ReviewDetail = memo(({ data, student }: IProps) => {
       <div className="review-message-container">
         <div className="review-message-total">
           <BsChatRightText size={20} />
-          <span>{data.replies.length + 1} Nhan xet</span>
+          <span>{data.replies.length + 1} Nhận xét</span>
         </div>
         <div className="review-message">
           <Avatar size={40} user={student} />
@@ -77,7 +77,7 @@ export const ReviewDetailModal = memo(
             <div className="review-message-container">
               <div className="review-message-total">
                 <BsChatRightText size={20} />
-                <span>{data.replies.length + 1} Nhan xet</span>
+                <span>{data.replies.length + 1} Nhận xét</span>
               </div>
               <div className="review-message">
                 <Avatar size={40} user={student} />

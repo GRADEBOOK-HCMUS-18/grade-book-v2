@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useCallback, useEffect, useState } from 'react';
+import { Loading } from 'shared/components';
 import { useResponsive } from 'shared/hooks';
 import { ClassDetailInfo, GradeReview, User } from 'shared/models';
 import { classGradeReviewViewModel } from './class-grade-review-view-model';
@@ -18,7 +19,7 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const { isMobile } = useResponsive();
+  const { isBigScreen } = useResponsive();
   //JUST FOR RERENDER
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const trigger = classGradeReviewViewModel.dataVersion;
@@ -52,11 +53,11 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
       if (find) {
         setStudent(find);
       }
-      if (isMobile) {
+      if (isBigScreen) {
         setShowModal(true);
       }
     },
-    [isMobile, classInfo.students]
+    [isBigScreen, classInfo.students]
   );
 
   const onHide = useCallback(() => {
@@ -64,13 +65,13 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
   }, []);
   return (
     <div className="grade-review-container">
-      <div className="grade-review-header"></div>
+      <Loading isLoading={classGradeReviewViewModel.loading} />
       <div className="grade-review-body">
         <ReviewList
           onSelect={onSelect}
           reviewList={classGradeReviewViewModel.gradeReviewList}
         />
-        {!isMobile ? (
+        {!isBigScreen ? (
           <ReviewDetail student={student} data={reviewDetail} />
         ) : (
           <ReviewDetailModal

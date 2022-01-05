@@ -23,16 +23,16 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
   const query = useQuery();
   const inviteId = query.get('invite');
 
-  const { isMobile, isTablet } = useResponsive();
+  const { isMobile, isBigScreen } = useResponsive();
 
   return (
     <div className="nav-bar">
       <div className="nav-bar-left-item">
         <GiHamburgerMenu size={20} onClick={toggleSideBar} />
         <Title pathName={location.pathname} />
-        {match && isTablet && !inviteId && <ResponsiveTab />}
+        {match && isBigScreen && !inviteId && <ResponsiveTab />}
       </div>
-      {match && !isTablet && !inviteId && <TabItem />}
+      {match && !isBigScreen && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
         {location.pathname === '/' && <CreateClassButton />}
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
