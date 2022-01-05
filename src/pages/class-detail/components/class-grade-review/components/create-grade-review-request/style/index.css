@@ -1,0 +1,54 @@
+.card-grade-review-request {
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+
+.card-title-grade-review-request {
+    height:10rem;
+}
+
+.card-title-header-grade-review-request {
+background: blue;
+height: 0.5rem;
+}
+  
+.card-detail-grade-review-request{
+    height: 19.1rem;
+    border-radius: 1rem;
+}
+
+.card-grade-review-request:hover{
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.4);
+}
+
+.text-grade-title-grade-review-request{
+    font-size:1.1rem;
+}
+
+.text-grade-point-grade-review-request{
+    font-size:1.1rem;
+}
+
+.mt-grade-review-request{
+    margin-top:8rem!important;
+}
+
+.mt-card-grade-review-request{
+    margin-top: 1.2rem;
+}
+
+.btn-create-new-grade-review-request{
+    font-size:1rem;
+    background-color:rgba(13, 58, 220, 0.7);
+    border: transparent;
+    padding:0.25rem 1rem 0.2rem 1rem;
+    border-radius: 0.8rem;
+    font-weight: bold;
+    color:white;
+    transition: 0.7s ease-in-out;
+
+}
+
+.btn-create-new-grade-review-request:hover{
+    background-color:rgb(13, 58, 220,1);
+}

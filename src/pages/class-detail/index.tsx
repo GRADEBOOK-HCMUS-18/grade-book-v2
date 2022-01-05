@@ -74,8 +74,8 @@ const ClassRoute = observer(() => {
           <ClassGradeManagement assignments={classInfo.assignments} />
         </div>
       </PrivateRoute>
-      <PrivateRoute path={`${url}/grade-reviews`}>
-        <ClassGradeReview />
+      <PrivateRoute path={`${url}/grade-reviews/*`}>
+        <ClassGradeReview classInfo={classInfo} />
       </PrivateRoute>
       <Route>
         <Redirect to={url} />

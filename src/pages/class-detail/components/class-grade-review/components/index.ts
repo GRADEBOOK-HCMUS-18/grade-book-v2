@@ -1,3 +1,4 @@
 import { ReviewDetail } from './review-detail/index ';
 import { ReviewList } from './review-list';
-export { ReviewList, ReviewDetail };
+import {GradeReviewRequestPage} from './create-grade-review-request'
+export { ReviewList, ReviewDetail ,GradeReviewRequestPage};
