@@ -7,6 +7,7 @@ import './style/index.css';
 interface IProps {
   reviewList: Array<GradeReview>;
   onSelect: (review: GradeReview) => void;
+  isOwner: boolean;
 }
 
 type FilterAction =
@@ -29,7 +30,7 @@ const filterArray: Array<FilterAction> = [
   'Sắp xếp theo tên tăng dần',
 ];
 
-export const ReviewList = memo(({ reviewList, onSelect }: IProps) => {
+export const ReviewList = memo(({ reviewList, onSelect, isOwner }: IProps) => {
   const [selectedReview, setSelectedReview] = useState(0);
 
   const [list, setList] = useState<Array<GradeReview>>([]);
@@ -38,10 +39,23 @@ export const ReviewList = memo(({ reviewList, onSelect }: IProps) => {
     'Sắp xếp theo ngày tăng dần'
   );
 
+  const [filterTypes, setFilterTypes] = useState<Array<FilterAction>>([]);
+
   useEffect(() => {
     if (reviewList.length) setSelectedReview(reviewList[0].id);
     setList(reviewList);
   }, [reviewList]);
+  useEffect(() => {
+    if (isOwner) {
+      setFilterTypes(filterArray);
+    } else {
+      setFilterTypes([
+        'Sắp xếp theo ngày giảm dần',
+        'Sắp xếp theo ngày tăng dần',
+        'Sắp xếp theo trạng thái',
+      ]);
+    }
+  }, [isOwner]);
 
   const handleReviewClick = (item: GradeReview) => {
     setSelectedReview(item.id);
@@ -60,7 +74,7 @@ export const ReviewList = memo(({ reviewList, onSelect }: IProps) => {
         <Dropdown className="dropdown-custom">
           <Dropdown.Toggle>{filterValue}</Dropdown.Toggle>
           <Dropdown.Menu>
-            {filterArray.map((item, id) => (
+            {filterTypes.map((item, id) => (
               <Dropdown.Item
                 key={id}
                 onClick={() => handleFilter(item)}

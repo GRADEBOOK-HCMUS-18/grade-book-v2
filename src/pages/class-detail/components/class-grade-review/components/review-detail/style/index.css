@@ -98,6 +98,10 @@
   padding-inline: 10px;
 }
 
+.review-detail-header-content {
+  padding: 10px 20px;
+}
+
 .review-detail-header-button:hover {
   background-color: var(--light-gray);
 }

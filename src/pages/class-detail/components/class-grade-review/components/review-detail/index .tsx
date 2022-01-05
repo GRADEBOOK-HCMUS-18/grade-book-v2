@@ -10,15 +10,16 @@ import { MessageInput } from './components/message-input';
 interface IProps {
   data: GradeReview;
   student: User;
+  isOwner: boolean;
 }
 
-export const ReviewDetail = memo(({ data, student }: IProps) => {
+export const ReviewDetail = memo(({ data, student, isOwner }: IProps) => {
   const onSendMessage = (content: string) => {
     console.log(content);
   };
   return (
     <div className="review-detail-container">
-      <Header data={data} />
+      <Header isOwner={isOwner} data={data} />
 
       <div className="review-message-container">
         <div className="review-message-total">
@@ -51,10 +52,11 @@ interface IPropsModal {
   onHide: () => void;
   show: boolean;
   student: User;
+  isOwner: boolean;
 }
 
 export const ReviewDetailModal = memo(
-  ({ data, onHide, show, student }: IPropsModal) => {
+  ({ data, onHide, show, student, isOwner }: IPropsModal) => {
     const onSendMessage = (content: string) => {
       console.log(content);
     };
@@ -72,7 +74,7 @@ export const ReviewDetailModal = memo(
         </Modal.Header>
         <Modal.Body style={{ height: '550px' }}>
           <div className="review-detail-container">
-            <Header data={data} />
+            <Header isOwner={isOwner} data={data} />
 
             <div className="review-message-container">
               <div className="review-message-total">

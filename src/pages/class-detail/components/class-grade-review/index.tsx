@@ -68,13 +68,19 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
       <Loading isLoading={classGradeReviewViewModel.loading} />
       <div className="grade-review-body">
         <ReviewList
+          isOwner={classInfo.isTeacher}
           onSelect={onSelect}
           reviewList={classGradeReviewViewModel.gradeReviewList}
         />
         {!isBigScreen ? (
-          <ReviewDetail student={student} data={reviewDetail} />
+          <ReviewDetail
+            isOwner={classInfo.isTeacher}
+            student={student}
+            data={reviewDetail}
+          />
         ) : (
           <ReviewDetailModal
+            isOwner={classInfo.isTeacher}
             student={student}
             data={reviewDetail}
             onHide={onHide}
