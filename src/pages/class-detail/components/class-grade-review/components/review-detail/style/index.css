@@ -2,6 +2,8 @@
   width: 70%;
   overflow-y: auto;
   justify-content: space-between;
+  height: 100%;
+  position: relative;
 }
 .review-message-input {
   padding: 5px 10px;
@@ -12,6 +14,7 @@
   margin-left: 10px;
   transition: all 0.3s ease-in;
   overflow: auto;
+  max-height: 200px;
 }
 
 .review-placeholder {
@@ -24,8 +27,18 @@
   border: 2px solid var(--blue);
 }
 
+.review-message-total {
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.review-message-total > span {
+  padding-left: 10px;
+}
+
 .review-message-input-container {
-  position: relative;
+  position: absolute;
   display: flex;
   bottom: 0;
   padding: 20px 10px;
@@ -56,13 +69,33 @@
   align-items: center;
   border-bottom: 1px solid var(--medium-gray);
   padding-inline: 20px;
+  flex-wrap: wrap;
 }
 .review-detail-header-button {
   padding: 10px 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-left: 10px;
+}
+
+.review-detail-header-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.review-message {
+  display: flex;
+  align-items: center;
+}
+
+.review-message-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.review-message-container {
+  padding-inline: 10px;
 }
 
 .review-detail-header-button:hover {

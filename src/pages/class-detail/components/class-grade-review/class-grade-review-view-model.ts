@@ -15,6 +15,7 @@ class ClassGradeReviewViewModel {
 
   updateGradeReviewList(reviewList: Array<GradeReview>) {
     this.gradeReviewList = reviewList;
+
     this.notify();
   }
 
@@ -27,6 +28,7 @@ class ClassGradeReviewViewModel {
       `/Class/${classId}/review`,
       httpService.getBearerToken()
     );
+    console.log(response);
     if (response instanceof HttpError) {
     } else {
       this.updateGradeReviewList(response);

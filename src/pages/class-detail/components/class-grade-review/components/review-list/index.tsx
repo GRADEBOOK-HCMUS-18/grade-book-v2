@@ -21,6 +21,7 @@ export const ReviewList = memo(({ reviewList, onSelect }: IProps) => {
   };
   return (
     <div className="review-list">
+      <h2>Danh sach phuc khao</h2>
       {reviewList.map((item) => (
         <ReviewItem
           onClick={handleReviewClick}

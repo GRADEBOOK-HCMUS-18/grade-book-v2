@@ -19,20 +19,15 @@ export const MessageInput = observer(({ sendMessage }: IProps) => {
   const user = userViewModel.user;
 
   const handleKeyUp = (event: any) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      setIsEmpty(true);
-      setValue('');
-    } else {
-      const text = event.target.textContent.trim();
-      setValue(text);
+    const text = event.target.textContent.trim();
+    setValue(text);
 
-      if (text !== '') {
-        setIsEmpty(false);
-        setPlaceHolder('');
-      } else {
-        setIsEmpty(true);
-        setPlaceHolder(initPlaceHolder);
-      }
+    if (text !== '') {
+      setIsEmpty(false);
+      setPlaceHolder('');
+    } else {
+      setIsEmpty(true);
+      setPlaceHolder(initPlaceHolder);
     }
   };
   return (
