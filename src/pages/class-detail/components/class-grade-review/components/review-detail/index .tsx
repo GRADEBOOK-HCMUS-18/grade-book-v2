@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 import { BsChatRightText } from 'react-icons/bs';
 import { Avatar } from 'shared/components';
@@ -101,7 +101,7 @@ export const ReviewDetailModal = ({
   let bottomRef: any = useRef();
 
   useEffect(() => {
-    if (bottomRef.current) {
+    if (bottomRef.scrollIntoView) {
       bottomRef.scrollIntoView({ behavior: 'smooth' });
     }
   });
