@@ -1,3 +1,6 @@
+import { isNumber } from 'lodash';
+import { collectStoredAnnotations } from 'mobx/dist/internal';
+import { MdOutlineBluetoothDisabled } from 'react-icons/md';
 import { Assignment, GradeInfo, StudentGradeInfo } from 'shared/models';
 import { TableCell, TableColumn, TableRow } from 'shared/types';
 import { Cell, Column } from '../components';
@@ -24,6 +27,30 @@ export const buildRows = (
 };
 
 export const buildCols = (
+  assignments: Assignment[],
+  studentGrades: StudentGradeInfo[],
+  colEvent: (action: string, params: any) => void,
+  isOwner: boolean
+): TableColumn[] => {
+  let cols: TableColumn[] = [];
+  if (isOwner) {
+    cols = buildColsForTeacher(assignments, colEvent, isOwner);
+  } else {
+    if (studentGrades.length) {
+      if (studentGrades[0].student === null) return cols;
+      cols = buildColsForStudent(
+        assignments,
+        studentGrades[0],
+        colEvent,
+        isOwner
+      );
+    }
+  }
+
+  return cols;
+};
+
+export const buildColsForTeacher = (
   assignments: Assignment[],
   colEvent: (action: string, params: any) => void,
   isOwner: boolean
@@ -52,6 +79,57 @@ export const buildCols = (
           isTeacher={isOwner}
         />
       ),
+    });
+  });
+
+  cols.push({
+    id: 'total',
+    content: (
+      <span className="center-horizontal table-col ">Điểm tổng kết</span>
+    ),
+  });
+  return cols;
+};
+
+export const buildColsForStudent = (
+  assignments: Assignment[],
+  studentGrade: StudentGradeInfo,
+  colEvent: (action: string, params: any) => void,
+  isOwner: boolean
+): TableColumn[] => {
+  const cols: TableColumn[] = [];
+
+  cols.push(
+    {
+      id: 'id',
+      content: <span className="table-col">MSSV</span>,
+    },
+    {
+      id: 'name',
+      content: <span className="center-horizontal table-col">Họ và tên</span>,
+    }
+  );
+  const assignemtGrades = studentGrade.grades;
+  assignments.forEach((assignment) => {
+    const assignmentGrade = assignemtGrades.find(
+      (item) => item.assignmentId === assignment.id
+    );
+    const content =
+      assignmentGrade && assignmentGrade?.studentPoint !== null ? (
+        <Column
+          id={assignment.id}
+          content={`${assignment.name} (${assignment.point})`}
+          onColClick={colEvent}
+          isTeacher={isOwner}
+        />
+      ) : (
+        <span className="center-horizontal table-col ">
+          {`${assignment.name} (${assignment.point})`}
+        </span>
+      );
+    cols.push({
+      id: assignment.id,
+      content: content,
     });
   });
 

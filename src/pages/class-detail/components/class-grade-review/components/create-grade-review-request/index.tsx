@@ -12,7 +12,7 @@ import './style/index.css';
 
 type FormValue = {
   description: string | undefined;
-  requestedNewPoint: number;
+  requestedNewPoint: string;
 };
 
 interface IProps {
@@ -23,7 +23,7 @@ export const GradeReviewRequestPage = observer(({ classInfo }: IProps) => {
   const [errors, setErrors] = useState<FormError[]>([]);
   const [formValue, setFormValue] = useState<FormValue>({
     description: '',
-    requestedNewPoint: 0,
+    requestedNewPoint: '0',
   });
   const [gradeInfo, setGradeInfo] = useState<any>();
   const query = useQuery();
@@ -66,11 +66,11 @@ export const GradeReviewRequestPage = observer(({ classInfo }: IProps) => {
         classId: classInfo.id,
         assignmentId: assignmentId,
         description: formValue.description,
-        requestedNewPoint: formValue.requestedNewPoint,
+        requestedNewPoint: Number.parseFloat(formValue.requestedNewPoint),
       };
       createGradeReviewRequestViewModel.createNewGradeReviewRequest(newValue);
       console.log('handle submit nè');
-      setFormValue({ description: '', requestedNewPoint: 0 });
+      setFormValue({ description: '', requestedNewPoint: '0' });
     }
     setErrors(newErrors);
   };

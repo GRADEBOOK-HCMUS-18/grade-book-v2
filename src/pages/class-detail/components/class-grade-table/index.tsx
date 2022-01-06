@@ -207,7 +207,12 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
       )}
 
       <Table
-        columns={buildCols(assignments, handleColEvent, classInfo.isTeacher)}
+        columns={buildCols(
+          assignments,
+          studentGrades,
+          handleColEvent,
+          classInfo.isTeacher
+        )}
         rows={buildRows(studentGrades, handleCellEvent, classInfo.isTeacher)}
       ></Table>
       <SnackBar
