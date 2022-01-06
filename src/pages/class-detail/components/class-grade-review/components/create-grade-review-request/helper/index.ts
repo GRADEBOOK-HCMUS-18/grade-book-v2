@@ -40,3 +40,11 @@ export const getErrorsState = (formValue: any) => {
   });
   return newErrors;
 };
+
+export const XORLogic=(A: boolean, B:boolean):boolean=>
+{
+  if((A||B)&&!(A&&B))
+    return true;
+  else 
+    return false;
+}

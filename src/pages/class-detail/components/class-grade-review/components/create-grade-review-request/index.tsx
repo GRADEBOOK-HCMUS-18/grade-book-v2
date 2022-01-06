@@ -7,7 +7,7 @@ import { useQuery } from 'shared/hooks';
 import { PopupAlert } from 'shared/components';
 import { createGradeReviewRequestViewModel } from './createGradeReviewRequestViewModel';
 import { FormError } from './types';
-import { getErrorsState, getErrors } from './helper';
+import { getErrorsState, getErrors, XORLogic } from './helper';
 import './style/index.css';
 
 type FormValue = {
@@ -69,8 +69,11 @@ export const GradeReviewRequestPage = observer(({ classInfo }: IProps) => {
         requestedNewPoint: Number.parseFloat(formValue.requestedNewPoint),
       };
       createGradeReviewRequestViewModel.createNewGradeReviewRequest(newValue);
-      console.log('handle submit nè');
       setFormValue({ description: '', requestedNewPoint: '0' });
+      setTimeout(
+        () => history.push(`/class/${classInfo.id}/grade-reviews`),
+        2000
+      );
     }
     setErrors(newErrors);
   };
@@ -177,10 +180,17 @@ export const GradeReviewRequestPage = observer(({ classInfo }: IProps) => {
       </div>
 
       <PopupAlert
-        show={createGradeReviewRequestViewModel.isError}
+        show={XORLogic(
+          createGradeReviewRequestViewModel.isError,
+          createGradeReviewRequestViewModel.isSuccess
+        )}
+        //show={createGradeReviewRequestViewModel.isError}
         error={createGradeReviewRequestViewModel.isError}
         message={createGradeReviewRequestViewModel.message}
-        onHide={() => createGradeReviewRequestViewModel.deleteError()}
+        onHide={() => {
+          createGradeReviewRequestViewModel.deleteError();
+          createGradeReviewRequestViewModel.deleteSuccess();
+        }}
       />
     </div>
   );

@@ -35,7 +35,6 @@ class CreateGradeReviewRequestViewModel extends BaseViewModel {
         return false;
       } else {
         this.setStudentGrade(response);
-        console.log(response);
         return true;
       }
     }
@@ -59,7 +58,8 @@ class CreateGradeReviewRequestViewModel extends BaseViewModel {
       this.makeError('Lỗi không gửi được. Vui lòng thử lại sau!');
       return false;
     } else {
-      return false;  
+      this.makeSuccess('Gửi đơn phúc khảo thành công.');
+      return true;  
     }
   }
 }
