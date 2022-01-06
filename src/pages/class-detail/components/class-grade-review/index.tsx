@@ -20,17 +20,15 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const { isBigScreen } = useResponsive();
-  //JUST FOR RERENDER
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const trigger = classGradeReviewViewModel.dataVersion;
+
   useEffect(() => {
     if (classInfo.id)
       classGradeReviewViewModel.getGradeReviewList(classInfo.id);
   }, [classInfo.id]);
 
   useEffect(() => {
-    const { gradeReviewList } = classGradeReviewViewModel;
-    if (gradeReviewList.length) {
+    const { gradeReviewList, isSendReply } = classGradeReviewViewModel;
+    if (gradeReviewList.length && !isSendReply) {
       setReviewDetail(gradeReviewList[0]);
       const find = classInfo.students.find(
         (student) =>
@@ -40,9 +38,8 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
         setStudent(find);
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [classGradeReviewViewModel.dataVersion]);
+  }, [classInfo.students, classGradeReviewViewModel.gradeReviewList]);
 
   const onSelect = useCallback(
     (item: GradeReview) => {
@@ -57,12 +54,24 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
         setShowModal(true);
       }
     },
-    [isBigScreen, classInfo.students]
+    [classInfo.students, isBigScreen]
   );
 
   const onHide = useCallback(() => {
     setShowModal(false);
   }, []);
+
+  const onSendReply = useCallback(
+    (content: string) => {
+      classGradeReviewViewModel.sendReply(
+        classInfo.id,
+        reviewDetail.id,
+        content
+      );
+    },
+    [reviewDetail.id, classInfo.id]
+  );
+
   return (
     <div className="grade-review-container">
       <Loading isLoading={classGradeReviewViewModel.loading} />
@@ -74,12 +83,14 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
         />
         {!isBigScreen ? (
           <ReviewDetail
+            onSendReply={onSendReply}
             isOwner={classInfo.isTeacher}
             student={student}
             data={reviewDetail}
           />
         ) : (
           <ReviewDetailModal
+            onSendReply={onSendReply}
             isOwner={classInfo.isTeacher}
             student={student}
             data={reviewDetail}

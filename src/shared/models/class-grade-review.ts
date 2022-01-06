@@ -1,4 +1,4 @@
-import { Assignment } from 'shared/models';
+import { Assignment, User } from 'shared/models';
 type CurrentGrade = {
   studentId: string;
   point: number;
@@ -10,6 +10,13 @@ type StudentShortInfo = {
   fullName: string;
 };
 
+export class ReviewReply {
+  id: number = 0;
+  replier: User = new User();
+  content: string = '';
+  dateTime: string = '';
+}
+
 export class GradeReview {
   id: number = 0;
   requestedNewPoint: number = 0;
@@ -19,7 +26,7 @@ export class GradeReview {
   assignment: Assignment = new Assignment();
   currentGrade: CurrentGrade = { studentId: '', point: 0, isFinalized: false };
   student: StudentShortInfo = { studentId: '', fullName: '' };
-  replies: Array<any> = [];
+  replies: Array<ReviewReply> = [];
 }
 
 //  {

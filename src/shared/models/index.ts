@@ -1,4 +1,4 @@
-import { GradeReview } from './class-grade-review';
+import { GradeReview, ReviewReply } from './class-grade-review';
 import { ClassDetailInfo, Assignment } from './class-detail-info';
 import { GradeInfo, StudentGradeInfo } from './class-grade';
 import { User } from './user';
@@ -9,4 +9,5 @@ export {
   StudentGradeInfo,
   GradeInfo,
   GradeReview,
+  ReviewReply,
 };

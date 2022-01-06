@@ -16,6 +16,8 @@ export const MessageInput = observer(({ sendMessage }: IProps) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [placeHolder, setPlaceHolder] = useState(initPlaceHolder);
 
+  let inputRef: any = useRef();
+
   const user = userViewModel.user;
 
   const handleKeyUp = (event: any) => {
@@ -35,6 +37,7 @@ export const MessageInput = observer(({ sendMessage }: IProps) => {
       <Avatar user={user} size={40} />
       <div
         tabIndex={0}
+        ref={(e) => (inputRef = e)}
         contentEditable
         onKeyUp={handleKeyUp}
         onFocus={() => setPlaceHolder('')}
@@ -45,7 +48,15 @@ export const MessageInput = observer(({ sendMessage }: IProps) => {
       ></div>
       <span className="review-placeholder">{placeHolder}</span>
       <AiOutlineSend
-        onClick={() => !isEmpty && sendMessage(value)}
+        onClick={() => {
+          if (!isEmpty) {
+            sendMessage(value);
+            setValue('');
+            inputRef.textContent = '';
+            setIsEmpty(true);
+            setPlaceHolder(initPlaceHolder);
+          }
+        }}
         className={isEmpty ? 'send-icon' : 'send-icon-blue'}
         size={30}
       />

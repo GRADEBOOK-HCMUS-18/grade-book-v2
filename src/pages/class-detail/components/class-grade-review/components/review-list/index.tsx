@@ -42,9 +42,11 @@ export const ReviewList = memo(({ reviewList, onSelect, isOwner }: IProps) => {
   const [filterTypes, setFilterTypes] = useState<Array<FilterAction>>([]);
 
   useEffect(() => {
-    if (reviewList.length) setSelectedReview(reviewList[0].id);
-    setList(reviewList);
-  }, [reviewList]);
+    if (reviewList.length !== list.length) {
+      setSelectedReview(reviewList[0].id);
+      setList(reviewList);
+    }
+  }, [reviewList, list]);
   useEffect(() => {
     if (isOwner) {
       setFilterTypes(filterArray);

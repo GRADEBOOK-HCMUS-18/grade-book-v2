@@ -24,7 +24,7 @@ export const Header = ({ data, isOwner }: IProps) => {
           {data.requestedNewPoint}
         </span>
       </div>
-      {isOwner && (
+      {isOwner && data.state === 'Waiting' && (
         <div className="review-detail-header-button-container">
           <div className="review-detail-header-button">
             <AiOutlineCheck

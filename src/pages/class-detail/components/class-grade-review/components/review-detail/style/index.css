@@ -30,7 +30,8 @@
 .review-message-total {
   display: flex;
   align-items: center;
-  padding: 20px 10px;
+  padding: 10px 30px;
+  border-bottom: 1px solid var(--medium-gray);
 }
 
 .review-message-total > span {
@@ -46,6 +47,7 @@
   right: 0;
   border-top: 1px solid var(--medium-gray);
   align-items: center;
+  background-color: white;
 }
 
 .send-icon {
@@ -86,6 +88,7 @@
 .review-message {
   display: flex;
   align-items: center;
+  padding-bottom: 30px;
 }
 
 .review-message-info {
@@ -95,11 +98,14 @@
 }
 
 .review-message-container {
-  padding-inline: 10px;
+  padding-inline: 30px;
+  padding-top: 20px;
+  max-height: 450px;
+  overflow: auto;
 }
 
 .review-detail-header-content {
-  padding: 10px 20px;
+  padding: 15px 20px;
 }
 
 .review-detail-header-button:hover {
@@ -119,5 +125,12 @@
   }
   .review-detail-header {
     padding-inline: 0px;
+  }
+  .review-message-container {
+    padding-inline: 20px;
+    padding-top: 20px;
+    max-height: 450px;
+    padding-bottom: 80px;
+    overflow: auto;
   }
 }
