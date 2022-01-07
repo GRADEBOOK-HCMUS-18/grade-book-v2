@@ -12,6 +12,7 @@ interface IProps {
   student: User;
   isOwner: boolean;
   onSendReply: (content: string) => void;
+  onChangeStatus: (type: 'rejected' | 'accepted') => void;
 }
 
 export const ReviewDetail = ({
@@ -19,6 +20,7 @@ export const ReviewDetail = ({
   student,
   isOwner,
   onSendReply,
+  onChangeStatus,
 }: IProps) => {
   const onSendMessage = (content: string) => {
     onSendReply(content);
@@ -30,7 +32,7 @@ export const ReviewDetail = ({
   });
   return (
     <div className="review-detail-container">
-      <Header isOwner={isOwner} data={data} />
+      <Header onChangeStatus={onChangeStatus} isOwner={isOwner} data={data} />
 
       <div className="review-message-total">
         <BsChatRightText size={20} />
@@ -104,7 +106,7 @@ export const ReviewDetailModal = ({
     if (bottomRef.scrollIntoView) {
       bottomRef.scrollIntoView({ behavior: 'smooth' });
     }
-  });
+  }, [data.replies]);
 
   return (
     <Modal
@@ -118,7 +120,7 @@ export const ReviewDetailModal = ({
       </Modal.Header>
       <Modal.Body style={{ padding: 0 }}>
         <div className="review-detail-container">
-          <Header isOwner={isOwner} data={data} />
+          {/* <Header isOwner={isOwner} data={data} /> */}
           <div className="review-message-total">
             <BsChatRightText size={20} />
             <span>{data.replies.length + 1} Nhận xét</span>

@@ -44,8 +44,8 @@ export const ReviewList = memo(({ reviewList, onSelect, isOwner }: IProps) => {
   useEffect(() => {
     if (reviewList.length !== list.length) {
       setSelectedReview(reviewList[0].id);
-      setList(reviewList);
     }
+    setList(reviewList);
   }, [reviewList, list]);
   useEffect(() => {
     if (isOwner) {

@@ -72,6 +72,17 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
     [reviewDetail.id, classInfo.id]
   );
 
+  const onChangeStatus = useCallback(
+    (type: 'rejected' | 'accepted') => {
+      classGradeReviewViewModel.changeStatus(
+        type,
+        classInfo.id,
+        reviewDetail.id
+      );
+    },
+    [reviewDetail.id, classInfo.id]
+  );
+
   return (
     <div className="grade-review-container">
       <Loading isLoading={classGradeReviewViewModel.loading} />
@@ -86,6 +97,7 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
             onSendReply={onSendReply}
             isOwner={classInfo.isTeacher}
             student={student}
+            onChangeStatus={onChangeStatus}
             data={reviewDetail}
           />
         ) : (

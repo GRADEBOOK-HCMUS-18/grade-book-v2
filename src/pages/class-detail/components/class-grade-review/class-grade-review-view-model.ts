@@ -15,6 +15,7 @@ class ClassGradeReviewViewModel extends BaseViewModel {
       gradeReviewList: observable,
       updateGradeReviewList: action,
       updateReply: action,
+      updateReviewState: action,
     });
   }
 
@@ -26,6 +27,13 @@ class ClassGradeReviewViewModel extends BaseViewModel {
     const temp = [...this.gradeReviewList];
     const index = temp.findIndex((review) => review.id === reviewId);
     temp[index].replies.push(reply);
+    this.gradeReviewList = temp;
+  }
+
+  updateReviewState(reviewId: number, type: 'rejected' | 'accepted') {
+    const temp = [...this.gradeReviewList];
+    const index = temp.findIndex((review) => review.id === reviewId);
+    temp[index].state = type === 'rejected' ? 'Rejected' : 'Accepted';
     this.gradeReviewList = temp;
   }
 
@@ -56,6 +64,25 @@ class ClassGradeReviewViewModel extends BaseViewModel {
     } else {
       this.updateReply(response, reviewId);
     }
+  }
+
+  async changeStatus(
+    type: 'rejected' | 'accepted',
+    classId: number,
+    reviewId: number
+  ) {
+    lineLoadingViewModel.startLoading();
+    const response = await httpService.sendPut(
+      `/Class/${classId}/review/${reviewId}`,
+      { State: type },
+      httpService.getBearerToken()
+    );
+
+    if (response instanceof HttpError) {
+    } else {
+      this.updateReviewState(reviewId, type);
+    }
+    lineLoadingViewModel.stopLoading();
   }
 }
 
