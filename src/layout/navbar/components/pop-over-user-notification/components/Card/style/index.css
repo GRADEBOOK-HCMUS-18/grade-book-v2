@@ -1,0 +1,61 @@
+:root{
+    --cardColor: #edf2fa;
+    --optionsColor: #999;
+    --time: #9ea3ab;
+    --cardHover: #ebedf0;
+}
+
+.user-notification-card{
+    display: flex;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.3);
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cardColor);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.user-notification-card:hover{
+    background-color: var(--cardHover);
+}
+
+.user-notification-card-content{
+    display: flex;
+    flex-direction: row;
+    color: black;
+    align-items: center; 
+}
+
+
+.user-notification-card-time{
+    color: var(--optionsColor);
+}
+
+.user-notification-card-message{
+    margin: 0 0.5rem;
+    text-align: start;
+}
+
+
+.user-notification-card-text:hover{
+    text-decoration: underline;
+}
+
+.user-notification-card-link{
+
+    text-decoration: none;
+    color: var(--optionsColor);
+}
+
+.user-notification-card-unread{
+    display: flex;
+    
+    background-color: lightseagreen;
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.user-notification-image{
+    margin-left: auto;
+}

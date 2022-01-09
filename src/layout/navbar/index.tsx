@@ -1,7 +1,6 @@
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { Observer } from 'mobx-react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { IoMdNotificationsOutline } from 'react-icons/io';
 import { useQuery, useResponsive } from 'shared/hooks';
 import { LineLoading } from 'shared/components';
 import { lineLoadingViewModel } from 'shared/view-models';
@@ -11,6 +10,7 @@ import {
   TabItem,
   ResponsiveTab,
   CreateClassButton,
+  PopOverUserNotifications,
 } from './components';
 import './style/index.css';
 
@@ -35,7 +35,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       {match && !isBigScreen && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
         {location.pathname === '/' && <CreateClassButton />}
-        <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
+        <PopOverUserNotifications></PopOverUserNotifications>
         {!isMobile && <PopOverProfile />}
       </div>
       <Observer>

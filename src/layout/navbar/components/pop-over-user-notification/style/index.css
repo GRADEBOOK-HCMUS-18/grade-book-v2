@@ -1,0 +1,105 @@
+:root{
+    --cyan:#365899;
+}
+
+.user-notification-icon{
+    position: relative;
+    margin: 0px 20px 0px 20px;
+}
+
+.user-notification-icon:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    
+}
+
+.user-notification-image{
+    cursor: pointer;
+}
+
+.user-notification-count{
+    height: 18px;
+    width: 18px;
+    max-width: 18px;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top:-0.2rem;
+    right: -0.2rem;
+    font-size: 0.65rem;
+    border-radius: 50%;
+    background-color: blue;
+    font-weight: 400;
+    color: white;
+}
+
+.user-notification-container{
+    width: 400px;/*responsive width*/
+    display:flex;
+    flex-direction: column;
+}
+
+.user-notification-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    margin-bottom: auto;
+}
+
+.user-notification-header-title{
+    color: var(--cyan);
+    font-weight:bold;
+}
+
+.user-notification-header-option{
+    margin: 0rem 0.3rem;
+    color: var(--cyan);
+    font-weight: bold;
+
+}
+
+.user-notification-header-option:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.user-notification-items{
+    height:50vh; /*reponsive height*/
+    overflow-y:auto;
+}
+
+.user-notification-card-loader{
+    margin:2px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-empty-notification{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    flex-direction: column;
+}
+
+.user-notification-footer{
+    text-align: center;
+    padding: 0.3px;
+    color: var(--cyan);
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-top:auto;
+}
+
+.user-notification-see-all{
+    cursor: pointer;
+    color: var(--cyan);
+}
+
+.user-notification-see-all:hover{
+    text-decoration: underline;
+}
