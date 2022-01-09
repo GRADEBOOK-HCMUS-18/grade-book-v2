@@ -38,13 +38,20 @@ export const PopOverUserNotifications = observer(() => {
     //setNotificationCount(userNotificationsViewModel.notifications.length);
   }, [userNotificationsViewModel.notifications, showPopUp]);
 
+  const scrollToBottom = useCallback(() => {
+    bottomRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, [bottomRef]);
+
   const markAsReadAll = () => {
-    console.log('mark as read all');
     //userNotificationViewModel.markAsReadAll(userId);
   };
 
   const getMoreNotifications = () => {
     setLoading(true);
+    scrollToBottom();
     //userNotificationViewModel.fetchMoreNotifications();
   };
 
