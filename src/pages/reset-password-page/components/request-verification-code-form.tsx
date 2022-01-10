@@ -29,8 +29,8 @@ export const RequestVerificationCodeForm = ({
 
   return (
     <div className="card">
-      <div className="card-header">
-        <h2>Nhập mã xác thực</h2>
+      <div className="card-header text-center">
+        <h2 className="text-center">Nhập mã xác thực</h2>
       </div>
       <div className="card-body">
         <Form onSubmit={handleSubmit}>

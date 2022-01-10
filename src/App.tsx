@@ -16,9 +16,7 @@ function App() {
 
   const location = useLocation();
   const isInAuthenPage =
-    location.pathname !== '/login' &&
-    location.pathname !== '/register' &&
-    location.pathname !== '/reset';
+    location.pathname !== '/login' && location.pathname !== '/register';
 
   const toggleSideBar = () => {
     setShowSidebar(!showSidebar);

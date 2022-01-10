@@ -73,7 +73,7 @@ export const ResetPasswordPage = () => {
         fields={fields}
         handleConfirmClick={handleComfirmClick}
         handleFieldChange={handleFieldsChange}
-        isLoading={isSendingEmail}
+        isLoading={isConfirming}
       />
     ) : emailSent === true ? (
       <RequestVerificationCodeForm
@@ -87,7 +87,7 @@ export const ResetPasswordPage = () => {
         fields={fields}
         handleSendEmailClick={handleSendEmailClick}
         handleFieldChange={handleFieldsChange}
-        isLoading={isConfirming}
+        isLoading={isSendingEmail}
       />
     );
   return (

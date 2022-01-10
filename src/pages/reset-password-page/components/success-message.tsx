@@ -4,13 +4,15 @@ import './style/index.css';
 
 export const SuccessMessage = () => {
   return (
-    <div className="success">
+    <div className="success text-center">
       <h3>
-        <BsCheck size={16} /> Mật khẩu của bạn đã được thay đổi.
+        <BsCheck size={16} /> Mật khẩu thay đổi thành công.
       </h3>
-      <h4 className="come-back-login-link">
-        <Link to="/login">Click vào đây để quay trở về trang đăng nhập.</Link>
-      </h4>
+      <Link to="/login">
+        <h4 className="come-back-login-link">
+          Click vào đây để quay trở về trang đăng nhập.
+        </h4>
+      </Link>
     </div>
   );
 };

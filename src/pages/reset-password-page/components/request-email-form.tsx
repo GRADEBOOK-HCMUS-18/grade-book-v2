@@ -29,7 +29,7 @@ export const RequestEmailForm = ({
   return (
     <div className="card">
       <div className="card-header">
-        <h2>Nhập email đăng nhập</h2>
+        <h2>Nhập email của bạn</h2>
       </div>
       <div className="card-body">
         <Form onSubmit={handleSubmit}>

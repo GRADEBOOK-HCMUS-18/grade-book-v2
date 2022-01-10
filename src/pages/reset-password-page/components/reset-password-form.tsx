@@ -31,8 +31,8 @@ export const ResetPasswordForm = ({
 
   return (
     <div className="card">
-      <div className="card-header">
-        <h2>Nhập mật khẩu mới</h2>
+      <div className="card-header text-center">
+        <h2 className="text-center">Nhập mật khẩu mới</h2>
       </div>
       <div className="card-body">
         <Form onSubmit={handleSubmit}>
@@ -51,7 +51,7 @@ export const ResetPasswordForm = ({
               {errorMessage}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="confirmPassword">
+          <Form.Group controlId="confirmPassword" className="mt-3">
             <Form.Label>Xác nhận lại mật khẩu</Form.Label>
             <Form.Control
               name="confirmPassword"
