@@ -71,6 +71,7 @@ class ClassGradeReviewViewModel extends BaseViewModel {
     classId: number,
     reviewId: number
   ) {
+    this.isSendReply = true;
     lineLoadingViewModel.startLoading();
     const response = await httpService.sendPut(
       `/Class/${classId}/review/${reviewId}`,
