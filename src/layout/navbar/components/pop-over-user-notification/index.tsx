@@ -5,38 +5,43 @@ import { BiMessageAltX } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import { PopUp } from 'shared/components';
 import { User, UserNotification } from 'shared/models';
+import { useResponsive } from 'shared/hooks';
+import { UserNotificationType } from 'shared/types';
 import { userNotificationsViewModel, userViewModel } from 'shared/view-models';
 import { NotificationCard, NotificationSpinner } from './components';
 import { createURL } from './helper';
-
 import './style/index.css';
-import { useResponsive } from 'shared/hooks';
 
 export const PopOverUserNotifications = observer(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
-  const [notificationCount, setNotificationCount] = useState<number>(98);
+  const [numberOfNotViewNotification, setNumberOfNotViewNotification] =
+    useState<number>(98);
   const history = useHistory();
   const bottomRef = useRef<any>();
   const { isMobile } = useResponsive();
 
-  const [data, setData] = useState<Array<UserNotification>>(
-    createNotificationList()
-  );
+  const [data, setData] = useState<Array<UserNotification>>([]);
 
   useEffect(() => {
     const waitForData = async () => {
       await userNotificationsViewModel.getNotifications();
     };
     waitForData();
-  }, []);
+  }, [userNotificationsViewModel]);
 
   useEffect(() => {
     //recompute recevied time
     //update notifications
-    //setData(userNotificationsViewModel.notifications);
-    //setNotificationCount(userNotificationsViewModel.notifications.length);
-  }, [userNotificationsViewModel.notifications, showPopUp]);
+    setData(userNotificationsViewModel.notifications);
+    setNumberOfNotViewNotification(
+      userNotificationsViewModel.numberOfNotViewedNotification
+    );
+  }, [
+    userNotificationsViewModel.notifications,
+    userNotificationsViewModel.numberOfNotViewedNotification,
+    showPopUp,
+  ]);
 
   const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({
@@ -45,25 +50,26 @@ export const PopOverUserNotifications = observer(() => {
     });
   }, [bottomRef]);
 
-  const markAsReadAll = () => {
-    //userNotificationViewModel.markAsReadAll(userId);
-  };
+  const markAsReadAll = useCallback(() => {
+    //userNotificationsViewModel.markAsReadAll(userId);
+  }, [userNotificationsViewModel]);
 
-  const getMoreNotifications = () => {
+  const getMoreNotifications = useCallback(async () => {
     setLoading(true);
     scrollToBottom();
-    //userNotificationViewModel.fetchMoreNotifications();
-  };
+    await userNotificationsViewModel.fetchMoreNotifications();
+    setLoading(false);
+  }, [scrollToBottom, userNotificationsViewModel]);
 
-  const goToDetailPage = (
-    type: number,
-    classId: number,
-    notificationId: number
-  ) => {
-    const url = createURL(type, classId);
-    history.push(url);
-    //userNotificationViewModel.markAsRead(notificationId);
-  };
+  const goToDetailPage = useCallback(
+    (type: UserNotificationType, classId: number, notificationId: number) => {
+      const url = createURL(type, classId);
+      history.push(url);
+      setShowPopUp(false);
+      //userNotificationViewModel.markAsRead(notificationId);
+    },
+    [history, userNotificationsViewModel]
+  );
 
   return (
     <>
@@ -93,7 +99,7 @@ export const PopOverUserNotifications = observer(() => {
                 <>
                   {data?.map((item) => (
                     <NotificationCard
-                      key={item.notificationId}
+                      key={item.id}
                       content={item}
                       goToDetailPage={goToDetailPage}
                     ></NotificationCard>
@@ -135,12 +141,16 @@ export const PopOverUserNotifications = observer(() => {
             className="user-notification-image"
             size={30}
           />
-          {notificationCount > 0 && (
+          {numberOfNotViewNotification > 0 && (
             <div
               className="user-notification-count"
-              style={notificationCount >= 100 ? { fontSize: '0.5rem' } : {}}
+              style={
+                numberOfNotViewNotification >= 100 ? { fontSize: '0.5rem' } : {}
+              }
             >
-              {notificationCount < 100 ? notificationCount : '99+'}
+              {numberOfNotViewNotification < 100
+                ? numberOfNotViewNotification
+                : '99+'}
             </div>
           )}
         </div>
@@ -149,26 +159,26 @@ export const PopOverUserNotifications = observer(() => {
   );
 });
 
-const createNotificationList = (): Array<UserNotification> => {
-  const notification = new UserNotification();
-  notification.notificationId = '3';
-  notification.createdAt = new Date();
-  notification.classId = 1;
-  notification.isRead = false;
-  notification.type = 1;
-  notification.user = userViewModel.user;
-  notification.assignmentName = 'final-term';
-  notification.className =
-    'Java Programming For Advanced Student From ABC Univeristy of Science Ho Chi Minh City';
+// const createNotificationList = (): Array<UserNotification> => {
+//   const notification = new UserNotification();
+//   notification.notificationId = '3';
+//   notification.createdAt = new Date();
+//   notification.classId = 1;
+//   notification.isRead = false;
+//   notification.type = 1;
+//   notification.user = userViewModel.user;
+//   notification.assignmentName = 'final-term';
+//   notification.className =
+//     'Java Programming For Advanced Student From ABC Univeristy of Science Ho Chi Minh City';
 
-  const list = [
-    notification,
-    notification,
-    notification,
-    notification,
-    notification,
-    notification,
-    notification,
-  ];
-  return list;
-};
+//   const list = [
+//     notification,
+//     notification,
+//     notification,
+//     notification,
+//     notification,
+//     notification,
+//     notification,
+//   ];
+//   return list;
+// };

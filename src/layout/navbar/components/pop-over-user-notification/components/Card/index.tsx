@@ -2,7 +2,9 @@ import { observer } from 'mobx-react';
 import TextTruncate from 'react-text-truncate'; // recommend
 import { Avatar } from 'shared/components';
 import { UserNotification } from 'shared/models';
-import { calcReceivedTime } from 'utils/date';
+import { userViewModel } from 'shared/view-models';
+import { calcReceivedTime, stringToDateDisplay } from 'utils/date';
+import { generateNotificationMessage } from './helper';
 import './style/index.css';
 
 interface IProps {
@@ -10,23 +12,31 @@ interface IProps {
   goToDetailPage: any;
 }
 
+const LoggedInUser = userViewModel.user;
+
 export const NotificationCard = observer(
   ({ content, goToDetailPage }: IProps) => {
     const {
-      notificationId,
+      id,
       user,
-      classId,
-      className,
-      assignmentName,
-      createdAt,
-      isRead,
-      type,
+      assignment,
+      dateTime,
+      isViewed,
+      review,
+      notificationType,
     } = content;
+    const classInfo = content.class;
+    const createdTime: Date = new Date(dateTime);
+    const receivedTime = calcReceivedTime(createdTime);
+    const message = generateNotificationMessage(
+      notificationType,
+      classInfo,
+      assignment,
+      user
+    );
 
-    const receivedTime = calcReceivedTime(createdAt);
-    const message = `${className}: ${assignmentName}`;
     const handleClick = () => {
-      goToDetailPage(type, classId, notificationId);
+      goToDetailPage(notificationType, classInfo?.id, id);
     };
 
     return (
@@ -34,22 +44,24 @@ export const NotificationCard = observer(
         <div className="user-notification-card-link">
           <div className="user-notification-card-content">
             <div className="user-notification-image">
-              <Avatar size={50} user={user} />
+              <Avatar size={50} user={LoggedInUser} />
             </div>
             <div className="user-notification-card-message">
               <div className="user-notification-card-text">
+                <strong>{classInfo.name}</strong>
+                <br />
                 <TextTruncate
                   line={2}
                   element="span"
                   truncateText="..."
                   text={message}
                   textTruncateChild={
-                    <span style={{ color: 'blueviolet' }}>Read more</span>
+                    <span style={{ color: 'blueviolet' }}>Đọc thêm</span>
                   }
                 />
               </div>
 
-              {createdAt && (
+              {dateTime && (
                 <div className="user-notification-card-time">
                   {receivedTime}
                 </div>
@@ -57,7 +69,7 @@ export const NotificationCard = observer(
             </div>
           </div>
         </div>
-        {isRead === false ? (
+        {isViewed === false ? (
           <div className="user-notification-card-unread"></div>
         ) : (
           <></>
