@@ -84,7 +84,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
           break;
       }
     },
-    [defaultFileType, studentGrades, classInfo.id, uploadGradeList]
+    [defaultFileType, studentGrades, classInfo.id, uploadGradeList, history]
   );
 
   const handleCellEvent = useCallback(
