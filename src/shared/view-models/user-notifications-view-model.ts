@@ -18,6 +18,7 @@ class UserNotificationsViewModel extends BaseViewModel {
       numberOfNotViewedNotification: observable,
       notifications: observable,
       updateNotifications: action,
+      pushNotifications:action,
     });
   }
 
@@ -51,10 +52,6 @@ class UserNotificationsViewModel extends BaseViewModel {
     if (newData.notifications.length !== 0) {
       this.notifications.push(...newData.notifications);
       this.pageNumber = newData.pageNumber + 1;
-    }
-    else 
-    {
-        
     }
   }
 
