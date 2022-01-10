@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
 import { Form, Card, Modal } from 'react-bootstrap';
 import { ClassDetailInfo, GradeInfo } from 'shared/models';
-import { Loading, PopupAlert } from 'shared/components';
+import { Loading, PopupAlert, SnackBar } from 'shared/components';
 import { createGradeReviewRequestViewModel } from './createGradeReviewRequestViewModel';
 import { FormError } from './types';
 import { getErrorsState, getErrors } from './helper';
@@ -46,13 +46,10 @@ export const ReviewRequestModal = observer(
           description: formValue.description,
           requestedNewPoint: Number.parseFloat(formValue.requestedNewPoint),
         };
-        const result =
-          await createGradeReviewRequestViewModel.createNewGradeReviewRequest(
-            newValue
-          );
-        if (result) {
-          history.push(`/class/${classInfo.id}/grade-reviews`);
-        }
+
+        await createGradeReviewRequestViewModel.createNewGradeReviewRequest(
+          newValue
+        );
         setFormValue({ description: '', requestedNewPoint: '0' });
       }
       setErrors(newErrors);
@@ -181,6 +178,12 @@ export const ReviewRequestModal = observer(
               onHide={() => {
                 createGradeReviewRequestViewModel.deleteError();
               }}
+            />
+            <SnackBar
+              type="success"
+              onClose={() => createGradeReviewRequestViewModel.deleteSuccess()}
+              show={createGradeReviewRequestViewModel.isSuccess}
+              message={createGradeReviewRequestViewModel.message}
             />
             <Loading isLoading={createGradeReviewRequestViewModel.loading} />
           </div>
