@@ -4,12 +4,18 @@ import './index.css';
 interface ColProps {
   content: string;
   id: number;
-  onColClick?: (action: string, params: any) => void;
+  onColClick: (action: string, params: any) => void;
+  isTeacher: boolean;
 }
 
-export const Column = ({ content, id, onColClick }: ColProps) => {
+export const Column = ({ content, id, onColClick, isTeacher }: ColProps) => {
   const handleAction = (
-    type: 'import' | 'export' | 'markFinal' | 'markUnfinished',
+    type:
+      | 'import'
+      | 'export'
+      | 'markFinal'
+      | 'markUnfinished'
+      | 'requestGradeReview',
     data: any
   ) => {
     if (onColClick) {
@@ -18,11 +24,15 @@ export const Column = ({ content, id, onColClick }: ColProps) => {
   };
   return (
     <>
-      {onColClick ? (
-        <ColPopUp content={content} id={id} action={handleAction} />
-      ) : (
-        <div style={{ padding: '1rem' }}>{content}</div>
-      )}
+      <div className="center-horizontal table-col">
+        <span style={{ marginRight: '0.3rem' }}>{content}</span>
+        <ColPopUp
+          content={content}
+          id={id}
+          action={handleAction}
+          isTeacher={isTeacher}
+        />
+      </div>
     </>
   );
 };

@@ -3,3 +3,7 @@ th {
   border: 0.5px solid var(--light-gray) !important;
   font-weight: normal !important;
 }
+
+.table-margin-top{
+  margin-top: 3vh!important;
+}

@@ -6,13 +6,19 @@ import { GradeFilePicker } from './grade-file-picker';
 interface ColPopUpProps {
   content: string;
   id: number;
+  isTeacher: boolean;
   action: (
-    type: 'import' | 'export' | 'markFinal' | 'markUnfinished',
+    type:
+      | 'import'
+      | 'export'
+      | 'markFinal'
+      | 'markUnfinished'
+      | 'requestGradeReview',
     data: any
   ) => void;
 }
 
-export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
+export const ColPopUp = ({ content, id, isTeacher, action }: ColPopUpProps) => {
   const [show, setShow] = useState(false);
   return (
     <PopUp
@@ -20,57 +26,69 @@ export const ColPopUp = ({ content, id, action }: ColPopUpProps) => {
       onHide={() => setShow(false)}
       placement="bottom-right"
       overlay={
-        <div>
-          <div
-            onClick={() => {
-              setShow(false);
-
-              action('export', { name: content, id: id });
-            }}
-            className="pop-up-item "
-          >
-            <span>Export cột điểm ra file</span>
-          </div>
-          <div className="pop-up-item ">
-            <GradeFilePicker
-              content="Import cột điểm từ file"
-              onFinish={(data) => {
+        isTeacher ? (
+          <div>
+            <div
+              onClick={() => {
                 setShow(false);
-                action('import', data);
+
+                action('export', { name: content, id: id });
               }}
-              acceptTypes={['xlsx', 'csv', 'xls']}
-            />
+              className="pop-up-item "
+            >
+              <span>Export cột điểm ra file</span>
+            </div>
+            <div className="pop-up-item ">
+              <GradeFilePicker
+                content="Import cột điểm từ file"
+                onFinish={(data) => {
+                  setShow(false);
+                  action('import', data);
+                }}
+                acceptTypes={['xlsx', 'csv', 'xls']}
+              />
+            </div>
+            <div
+              onClick={() => {
+                setShow(false);
+                action('markFinal', { newStatus: true, name: content, id: id });
+              }}
+              className="pop-up-item "
+            >
+              <span>Đánh dấu đã hoàn thành</span>
+            </div>
+            <div
+              onClick={() => {
+                setShow(false);
+                action('markUnfinished', {
+                  newStatus: false,
+                  name: content,
+                  id: id,
+                });
+              }}
+              className="pop-up-item "
+            >
+              <span>Thu hồi cột điểm</span>
+            </div>
           </div>
+        ) : (
           <div
             onClick={() => {
               setShow(false);
-              action('markFinal', { newStatus: true, name: content, id: id });
-            }}
-            className="pop-up-item "
-          >
-            <span>Đánh dấu đã hoàn thành</span>
-          </div>
-          <div
-            onClick={() => {
-              setShow(false);
-              action('markUnfinished', {
-                newStatus: false,
-                name: content,
+              action('requestGradeReview', {
                 id: id,
+                name: content,
               });
             }}
             className="pop-up-item "
           >
-            <span>Thu hồi cột điểm</span>
+            <span>Phúc khảo</span>
           </div>
-        </div>
+        )
       }
     >
-      <div className="center-horizontal table-col">
-        <span>{content}</span>
-        <div onClick={() => setShow(true)} className="three-dot-btn">
-          <BsThreeDotsVertical />
-        </div>
+      <div onClick={() => setShow(true)} className="three-dot-btn">
+        <BsThreeDotsVertical />
       </div>
     </PopUp>
   );

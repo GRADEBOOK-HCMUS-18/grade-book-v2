@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Dropdown } from 'react-bootstrap';
 import { FilePicker, PopupAlert, SnackBar, Table } from 'shared/components';
 import { ClassDetailInfo } from 'shared/models';
@@ -20,6 +21,8 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   useEffect(() => {
     gradeTableViewModel.getGradeTable(classInfo.id);
   }, [classInfo.id]);
+
+  const history = useHistory();
 
   const { assignments } = classInfo;
   const { studentGrades } = gradeTableViewModel;
@@ -65,6 +68,17 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
             classInfo.id,
             params.id
           );
+          break;
+        case 'requestGradeReview':
+          const { id, name } = params;
+
+          history.push(
+            `/class/${classInfo.id}/grade-reviews/new-request?assignment=${id}`
+          );
+          // gradeTableViewModel.openNewGradeReviewRequestPage(
+          //   classInfo.id
+          //   params.id,
+          // )
           break;
         default:
           break;
@@ -193,7 +207,12 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
       )}
 
       <Table
-        columns={buildCols(assignments, handleColEvent, classInfo.isTeacher)}
+        columns={buildCols(
+          assignments,
+          studentGrades,
+          handleColEvent,
+          classInfo.isTeacher
+        )}
         rows={buildRows(studentGrades, handleCellEvent, classInfo.isTeacher)}
       ></Table>
       <SnackBar
