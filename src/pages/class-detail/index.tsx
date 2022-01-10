@@ -18,7 +18,6 @@ import {
   ClassGradeReview,
   ClassGradeTable,
   ClassMember,
-  GradeReviewRequestPage,
 } from './components';
 
 export const ClassDetail = () => {
@@ -74,9 +73,6 @@ const ClassRoute = observer(() => {
         <div className="container">
           <ClassGradeManagement assignments={classInfo.assignments} />
         </div>
-      </PrivateRoute>
-      <PrivateRoute path={`${url}/grade-reviews/new-request`}>
-        <GradeReviewRequestPage classInfo={classInfo} />
       </PrivateRoute>
       <PrivateRoute path={`${url}/grade-reviews`}>
         <ClassGradeReview classInfo={classInfo} />

@@ -1,6 +1,3 @@
-import { isNumber } from 'lodash';
-import { collectStoredAnnotations } from 'mobx/dist/internal';
-import { MdOutlineBluetoothDisabled } from 'react-icons/md';
 import { Assignment, GradeInfo, StudentGradeInfo } from 'shared/models';
 import { TableCell, TableColumn, TableRow } from 'shared/types';
 import { Cell, Column } from '../components';
