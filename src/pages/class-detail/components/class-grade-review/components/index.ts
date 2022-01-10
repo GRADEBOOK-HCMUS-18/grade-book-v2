@@ -1,3 +1,3 @@
-import { ReviewDetail } from './review-detail/index ';
+import { ReviewDetail, ReviewDetailModal } from './review-detail/index ';
 import { ReviewList } from './review-list';
-export { ReviewList, ReviewDetail };
+export { ReviewList, ReviewDetail, ReviewDetailModal };

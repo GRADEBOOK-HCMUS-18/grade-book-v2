@@ -1,7 +1,11 @@
 .review-detail-container {
   width: 70%;
   overflow-y: auto;
-  justify-content: space-between;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
 }
 .review-message-input {
   padding: 5px 10px;
@@ -12,6 +16,7 @@
   margin-left: 10px;
   transition: all 0.3s ease-in;
   overflow: auto;
+  max-height: 200px;
 }
 
 .review-placeholder {
@@ -24,8 +29,19 @@
   border: 2px solid var(--blue);
 }
 
+.review-message-total {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.review-message-total > span {
+  padding-left: 10px;
+}
+
 .review-message-input-container {
-  position: relative;
+  position: absolute;
   display: flex;
   bottom: 0;
   padding: 20px 10px;
@@ -33,6 +49,7 @@
   right: 0;
   border-top: 1px solid var(--medium-gray);
   align-items: center;
+  background-color: white;
 }
 
 .send-icon {
@@ -49,4 +66,72 @@
   right: 20px;
   color: var(--blue);
   cursor: pointer;
+}
+
+.review-detail-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--medium-gray);
+  padding-inline: 20px;
+  flex-wrap: wrap;
+}
+.review-detail-header-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.review-detail-header-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.review-message {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.review-message-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.review-message-container {
+  padding-inline: 30px;
+  padding-top: 20px;
+  max-height: 100%px;
+  overflow: auto;
+}
+
+.review-detail-header-content {
+  padding: 15px 20px;
+}
+
+.review-detail-header-button:hover {
+  background-color: var(--light-gray);
+}
+
+@media (max-width: 1000px) {
+  .review-detail-container {
+    width: 100%;
+    border: none;
+  }
+  .review-detail-header-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .review-detail-header {
+    padding-inline: 0px;
+  }
+  .review-message-container {
+    padding-inline: 20px;
+    padding-top: 20px;
+    max-height: 450px;
+    overflow: auto;
+  }
 }

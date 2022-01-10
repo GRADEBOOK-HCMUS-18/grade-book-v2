@@ -10,7 +10,7 @@ interface IProps {
 
 export const Table = memo(({ columns, rows }: IProps) => {
   return (
-    <table>
+    <table className="table-margin-top">
       <thead>
         <tr>
           {columns.map((col) => (

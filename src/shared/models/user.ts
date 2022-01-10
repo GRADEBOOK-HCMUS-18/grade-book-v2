@@ -8,6 +8,7 @@ export class User {
   profilePictureUrl: string = '';
   defaultProfilePictureHex: string = '';
   isPasswordNotSet: boolean = false;
+  isLocked: boolean = false;
 
   static map(user: User) {
     const temp = new User();
@@ -20,6 +21,7 @@ export class User {
     temp.studentIdentification = user.studentIdentification;
     temp.role = user.role;
     temp.isPasswordNotSet = user.isPasswordNotSet;
+    temp.isLocked = user.isLocked;
     return temp;
   }
 }

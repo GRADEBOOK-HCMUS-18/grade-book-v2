@@ -9,8 +9,6 @@ export const buildRows = (
 ): TableRow[] => {
   let rows: TableRow[] = [];
 
-  console.log('owner', isClassOwner);
-
   if (isClassOwner) {
     rows = buildRowForTeacher(studentGrades, cellEvent);
   } else {
@@ -25,6 +23,30 @@ export const buildRows = (
 
 export const buildCols = (
   assignments: Assignment[],
+  studentGrades: StudentGradeInfo[],
+  colEvent: (action: string, params: any) => void,
+  isOwner: boolean
+): TableColumn[] => {
+  let cols: TableColumn[] = [];
+  if (isOwner) {
+    cols = buildColsForTeacher(assignments, colEvent, isOwner);
+  } else {
+    if (studentGrades.length) {
+      if (studentGrades[0].student === null) return cols;
+      cols = buildColsForStudent(
+        assignments,
+        studentGrades[0],
+        colEvent,
+        isOwner
+      );
+    }
+  }
+
+  return cols;
+};
+
+export const buildColsForTeacher = (
+  assignments: Assignment[],
   colEvent: (action: string, params: any) => void,
   isOwner: boolean
 ): TableColumn[] => {
@@ -37,23 +59,19 @@ export const buildCols = (
     },
     {
       id: 'name',
-      content: <span className="table-col">Họ và tên</span>,
+      content: <span className="center-horizontal table-col">Họ và tên</span>,
     }
   );
 
   assignments.forEach((assignment) => {
     cols.push({
       id: assignment.id,
-      content: isOwner ? (
+      content: (
         <Column
           id={assignment.id}
           content={`${assignment.name} (${assignment.point})`}
           onColClick={colEvent}
-        />
-      ) : (
-        <Column
-          id={assignment.id}
-          content={`${assignment.name} (${assignment.point})`}
+          isTeacher={isOwner}
         />
       ),
     });
@@ -61,7 +79,60 @@ export const buildCols = (
 
   cols.push({
     id: 'total',
-    content: <span className="table-col">Điểm tổng kết</span>,
+    content: (
+      <span className="center-horizontal table-col ">Điểm tổng kết</span>
+    ),
+  });
+  return cols;
+};
+
+export const buildColsForStudent = (
+  assignments: Assignment[],
+  studentGrade: StudentGradeInfo,
+  colEvent: (action: string, params: any) => void,
+  isOwner: boolean
+): TableColumn[] => {
+  const cols: TableColumn[] = [];
+
+  cols.push(
+    {
+      id: 'id',
+      content: <span className="table-col">MSSV</span>,
+    },
+    {
+      id: 'name',
+      content: <span className="center-horizontal table-col">Họ và tên</span>,
+    }
+  );
+  const assignemtGrades = studentGrade.grades;
+  assignments.forEach((assignment) => {
+    const assignmentGrade = assignemtGrades.find(
+      (item) => item.assignmentId === assignment.id
+    );
+    const content =
+      assignmentGrade && assignmentGrade?.studentPoint !== null ? (
+        <Column
+          id={assignment.id}
+          content={`${assignment.name} (${assignment.point})`}
+          onColClick={colEvent}
+          isTeacher={isOwner}
+        />
+      ) : (
+        <span className="center-horizontal table-col ">
+          {`${assignment.name} (${assignment.point})`}
+        </span>
+      );
+    cols.push({
+      id: assignment.id,
+      content: content,
+    });
+  });
+
+  cols.push({
+    id: 'total',
+    content: (
+      <span className="center-horizontal table-col ">Điểm tổng kết</span>
+    ),
   });
   return cols;
 };

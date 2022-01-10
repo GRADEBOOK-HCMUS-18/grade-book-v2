@@ -1,5 +1,5 @@
 .review-card:hover {
-  background-color: var(--light-blue);
+  background-color: var(--light-gray);
   cursor: pointer;
 }
 
@@ -10,4 +10,26 @@
 }
 .review-card-logo {
   margin-right: 10px;
+}
+
+.review-card-title {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.review-card-selected {
+  background-color: var(--light-blue);
+  cursor: pointer;
+}
+.review-status-accepted {
+  color: var(--green);
+}
+
+.review-status-rejected {
+  color: var(--red);
+}
+
+.review-status-waiting {
+  color: var(--blue);
 }

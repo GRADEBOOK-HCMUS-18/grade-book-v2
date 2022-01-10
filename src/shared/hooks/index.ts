@@ -6,7 +6,8 @@ import { responsiveType } from 'shared/styles';
 export const useResponsive = () => {
   const isMobile = useMediaQuery({ query: responsiveType.mobile });
   const isTablet = useMediaQuery({ query: responsiveType.tablet });
-  return { isMobile, isTablet };
+  const isBigScreen = useMediaQuery({ query: responsiveType.bigScreen });
+  return { isMobile, isTablet, isBigScreen };
 };
 
 export function useQuery() {
