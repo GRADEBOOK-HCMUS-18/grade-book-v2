@@ -108,6 +108,7 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
             data={reviewDetail}
             onHide={onHide}
             show={showModal}
+            onChangeStatus={onChangeStatus}
           />
         )}
       </div>

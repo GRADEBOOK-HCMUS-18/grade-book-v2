@@ -86,6 +86,7 @@ interface IPropsModal {
   student: User;
   isOwner: boolean;
   onSendReply: (content: string) => void;
+  onChangeStatus: (type: 'rejected' | 'accepted') => void;
 }
 
 export const ReviewDetailModal = ({
@@ -95,6 +96,7 @@ export const ReviewDetailModal = ({
   student,
   isOwner,
   onSendReply,
+  onChangeStatus,
 }: IPropsModal) => {
   const onSendMessage = (content: string) => {
     onSendReply(content);
@@ -120,7 +122,11 @@ export const ReviewDetailModal = ({
       </Modal.Header>
       <Modal.Body style={{ padding: 0 }}>
         <div className="review-detail-container">
-          {/* <Header isOwner={isOwner} data={data} /> */}
+          <Header
+            onChangeStatus={onChangeStatus}
+            isOwner={isOwner}
+            data={data}
+          />
           <div className="review-message-total">
             <BsChatRightText size={20} />
             <span>{data.replies.length + 1} Nhận xét</span>
