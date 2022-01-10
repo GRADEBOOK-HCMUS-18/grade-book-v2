@@ -1,5 +1,6 @@
 import { useState, memo } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { UserAuthen } from 'shared/types';
 import { getErrors, getErrorsState } from './helper';
 import { FormError } from './types';
@@ -72,6 +73,9 @@ export const LoginForm = memo(({ onLogin }: IProps) => {
           {passwordError?.errorMessage}
         </Form.Control.Feedback>
       </Form.Group>
+      <Link to="/reset">
+        <p className="register-btn"> Quên mật khẩu?</p>
+      </Link>
 
       <Button variant="secondary" type="submit">
         Đăng nhập

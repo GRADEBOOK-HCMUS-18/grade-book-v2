@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { SideBar, NavBar } from 'layout';
-import { ClassDetail, HomePage, AuthenticationPage, ProfilePage } from 'pages';
+import {
+  ClassDetail,
+  HomePage,
+  AuthenticationPage,
+  ProfilePage,
+  ResetPasswordPage,
+} from 'pages';
 import { PrivateRoute } from 'router';
 import 'shared/styles/common.css';
 
@@ -10,7 +16,9 @@ function App() {
 
   const location = useLocation();
   const isInAuthenPage =
-    location.pathname !== '/login' && location.pathname !== '/register';
+    location.pathname !== '/login' &&
+    location.pathname !== '/register' &&
+    location.pathname !== '/reset';
 
   const toggleSideBar = () => {
     setShowSidebar(!showSidebar);
@@ -33,6 +41,9 @@ function App() {
         </Route>
         <Route path="/register">
           <AuthenticationPage isLogin={false} />
+        </Route>
+        <Route path="/reset">
+          <ResetPasswordPage />
         </Route>
         <PrivateRoute path="/class/:id">
           <ClassDetail />

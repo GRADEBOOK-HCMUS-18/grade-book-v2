@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useHistory, useLocation } from 'react-router-dom';
 import { responsiveType } from 'shared/styles';
@@ -34,4 +34,20 @@ export function usePreviousPath() {
   }
 
   return { previousPath };
+}
+
+
+
+export function useFormFields(initialState:any) {
+  const [fields, setValues] = useState<any>(initialState);
+
+  return [
+    fields,
+    function(event:any) {
+      setValues({
+        ...fields,
+        [event.target.id]: event.target.value
+      });
+    }
+  ];
 }
