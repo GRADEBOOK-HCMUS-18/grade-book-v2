@@ -1,14 +1,14 @@
 import { UserNotificationType } from "shared/types";
 
-export const createURL = (notificationType:UserNotificationType,classId:number):string=>
+export const generateURL = (notificationType:UserNotificationType,classId:number):string=>
 {
     let url = '';
     switch (notificationType) {
         case 'AcceptedOrRejectedGradeReview':
-            url = `class/${classId}/grade-reviews`;
+            url = `/class/${classId}/grade-reviews`;
             break;
         case 'NewFinalizedGradeComposition':
-            url = `class/${classId}/grade-table`;
+            url = `/class/${classId}/grade-table`;
             break;
         case 'NewGradeReviewReply':
             url = `/class/${classId}/grade-reviews`;

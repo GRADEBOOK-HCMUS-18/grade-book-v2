@@ -4,12 +4,12 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { BiMessageAltX } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import { PopUp } from 'shared/components';
-import { User, UserNotification } from 'shared/models';
+import { UserNotification } from 'shared/models';
 import { useResponsive } from 'shared/hooks';
 import { UserNotificationType } from 'shared/types';
 import { userNotificationsViewModel, userViewModel } from 'shared/view-models';
 import { NotificationCard, NotificationSpinner } from './components';
-import { createURL } from './helper';
+import { generateURL } from './helper';
 import './style/index.css';
 
 export const PopOverUserNotifications = observer(() => {
@@ -64,7 +64,7 @@ export const PopOverUserNotifications = observer(() => {
 
   const goToDetailPage = useCallback(
     (type: UserNotificationType, classId: number, notificationId: number) => {
-      const url = createURL(type, classId);
+      const url = generateURL(type, classId);
       history.push(url);
       setShowPopUp(false);
       userNotificationsViewModel.markAsRead(notificationId);
