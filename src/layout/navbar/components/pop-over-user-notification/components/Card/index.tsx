@@ -43,9 +43,6 @@ export const NotificationCard = observer(
       <div onClick={handleClick} className="user-notification-card">
         <div className="user-notification-card-link">
           <div className="user-notification-card-content">
-            <div className="user-notification-image">
-              <Avatar size={50} user={LoggedInUser} />
-            </div>
             <div className="user-notification-card-message">
               <div className="user-notification-card-text">
                 <strong>{classInfo.name}</strong>
@@ -56,7 +53,7 @@ export const NotificationCard = observer(
                   truncateText="..."
                   text={message}
                   textTruncateChild={
-                    <span style={{ color: 'blueviolet' }}>Đọc thêm</span>
+                    <span style={{ color: 'blueviolet' }}>Read</span>
                   }
                 />
               </div>

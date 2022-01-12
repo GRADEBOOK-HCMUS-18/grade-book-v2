@@ -18,11 +18,14 @@ class UserNotificationsViewModel extends BaseViewModel {
       numberOfNotViewedNotification: observable,
       notifications: observable,
       updateNotifications: action,
-      pushNotifications:action,
+      pushNotifications: action,
+      updateAllNotificationsRead:action,
+      setDefaultPropertyValues:action,
     });
   }
 
   async getNotifications() {
+    this.setDefaultPropertyValues();
     lineLoadingViewModel.startLoading();
     const response: UserNotificationReponse | HttpError =
       await httpService.sendGet(
@@ -38,20 +41,6 @@ class UserNotificationsViewModel extends BaseViewModel {
       this.updateNotifications(response);
       lineLoadingViewModel.stopLoading();
       return true;
-    }
-  }
-
-  updateNotifications(newData: UserNotificationReponse) {
-    //split data into reply notification and grade notification
-    this.notifications = newData.notifications;
-    this.pageNumber = newData.pageNumber + 1;
-    this.numberOfNotViewedNotification = newData.numberOfNotViewedNotification;
-  }
-
-  pushNotifications(newData: UserNotificationReponse) {
-    if (newData.notifications.length !== 0) {
-      this.notifications.push(...newData.notifications);
-      this.pageNumber = newData.pageNumber + 1;
     }
   }
 
@@ -75,11 +64,95 @@ class UserNotificationsViewModel extends BaseViewModel {
   }
 
   async markAsReadAll(): Promise<boolean> {
+    const response: string | HttpError = await httpService.sendPut(
+      `/notification`,
+      {},
+      httpService.getBearerToken()
+    );
+
+    if (response instanceof HttpError) {
+      this.makeError('Lỗi rồi. Vui lòng thử lại sau.');
+      return false;
+    } else {
+      this.updateAllNotificationsRead();
+      return true;
+    }
+  }
+
+  async markAsRead(notificationId: number): Promise<boolean> {
+    if (this.isReadNotification(notificationId)) {
+      const response: string | HttpError = await httpService.sendPut(
+        `/notification/${notificationId}`,
+        {},
+        httpService.getBearerToken()
+      );
+
+      if (response instanceof HttpError) {
+        this.makeError('Lỗi rồi. Vui lòng thử lại sau.');
+        return false;
+      } else {
+        this.updateSingleNotificionRead(notificationId)
+        return true;
+      }
+    }
     return false;
   }
 
-  async markAsRead(): Promise<boolean> {
-    return false;
+  isReadNotification(notificationId: number): boolean {
+    let res: boolean = false;
+    const foundNotification = this.notifications.find(
+      (item) => item.id === notificationId
+    );
+    if (
+      typeof foundNotification !== 'undefined' &&
+      foundNotification?.isViewed === false
+    ) {
+      res = true;
+    }
+    return res;
+  }
+  
+  updateNotifications(newData: UserNotificationReponse) {
+    this.notifications = newData.notifications;
+    this.pageNumber = newData.pageNumber + 1;
+    this.numberOfNotViewedNotification = newData.numberOfNotViewedNotification;
+  }
+
+  pushNotifications(newData: UserNotificationReponse) {
+    if (newData.notifications.length !== 0) {
+      this.notifications.push(...newData.notifications);
+      this.pageNumber = newData.pageNumber + 1;
+    }
+  }
+
+  setDefaultPropertyValues()
+  {
+    this.pageNumber = 1;
+    this.notificationPerPage=5;
+    this.numberOfNotViewedNotification = 0;
+    this.notifications = [];
+  }
+
+  updateAllNotificationsRead() {
+    this.notifications = this.notifications.map((item) => {
+      item.isViewed = true;
+      return item;
+    });
+    this.numberOfNotViewedNotification = 0;
+  }
+
+  updateSingleNotificionRead(notificationId:number){
+    const foundNotification = this.notifications.find(
+      (item) => item.id === notificationId
+    );
+    if (
+      typeof foundNotification !== 'undefined' &&
+      foundNotification?.isViewed === false
+    ) {
+      foundNotification.isViewed =true;
+      if(this.numberOfNotViewedNotification>0)
+        this.numberOfNotViewedNotification--;
+    }
   }
 }
 

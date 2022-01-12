@@ -28,7 +28,7 @@ export const PopOverUserNotifications = observer(() => {
       await userNotificationsViewModel.getNotifications();
     };
     waitForData();
-  }, [userNotificationsViewModel]);
+  }, []);
 
   useEffect(() => {
     //recompute recevied time
@@ -50,25 +50,26 @@ export const PopOverUserNotifications = observer(() => {
     });
   }, [bottomRef]);
 
-  const markAsReadAll = useCallback(() => {
-    //userNotificationsViewModel.markAsReadAll(userId);
-  }, [userNotificationsViewModel]);
+  const markAsReadAll = useCallback(async () => {
+    const result = await userNotificationsViewModel.markAsReadAll();
+    if (result === false) setShowPopUp(false);
+  }, []);
 
   const getMoreNotifications = useCallback(async () => {
     setLoading(true);
     scrollToBottom();
     await userNotificationsViewModel.fetchMoreNotifications();
     setLoading(false);
-  }, [scrollToBottom, userNotificationsViewModel]);
+  }, [scrollToBottom]);
 
   const goToDetailPage = useCallback(
     (type: UserNotificationType, classId: number, notificationId: number) => {
       const url = createURL(type, classId);
       history.push(url);
       setShowPopUp(false);
-      //userNotificationViewModel.markAsRead(notificationId);
+      userNotificationsViewModel.markAsRead(notificationId);
     },
-    [history, userNotificationsViewModel]
+    [history]
   );
 
   return (

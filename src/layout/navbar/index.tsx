@@ -1,7 +1,6 @@
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { Observer } from 'mobx-react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { RiMessengerLine } from 'react-icons/ri';
 import { useQuery, useResponsive } from 'shared/hooks';
 import { LineLoading } from 'shared/components';
 import { lineLoadingViewModel } from 'shared/view-models';
@@ -36,7 +35,6 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       {match && !isBigScreen && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
         {location.pathname === '/' && <CreateClassButton />}
-        <RiMessengerLine size={28} />
         <PopOverUserNotifications></PopOverUserNotifications>
         {!isMobile && <PopOverProfile />}
       </div>

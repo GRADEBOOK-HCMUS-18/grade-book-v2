@@ -1,5 +1,5 @@
 import {User} from 'shared/models'
-import { ReplyNotificationType, GradeNotificationType, UserNotificationType } from 'shared/types';
+import { UserNotificationType } from 'shared/types';
 import { Assignment } from './class-detail-info';
 export class UserNotification {
     id: number = 0;
@@ -11,15 +11,3 @@ export class UserNotification {
     review:any = null;
     notificationType:UserNotificationType = 'NewGradeReviewRequest';
 }
-
-export class ReplyNotification extends UserNotification{
-    notificationType :ReplyNotificationType = 'NewGradeReviewRequest';
-}
-
-export class GradeNotification extends UserNotification{
-    notificationType: GradeNotificationType = "NewFinalizedGradeComposition";
-}
-
-
-
-
