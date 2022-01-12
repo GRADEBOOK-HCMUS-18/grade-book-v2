@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useFormFields } from 'shared/hooks';
 import {
   RequestEmailForm,
@@ -6,6 +6,7 @@ import {
   ResetPasswordForm,
   SuccessMessage,
 } from './components';
+import { resetPasswordViewModel } from './reset-password-view-model';
 import './style/index.css';
 
 export const ResetPasswordPage = () => {
@@ -22,20 +23,16 @@ export const ResetPasswordPage = () => {
   const [isSendingCode, setIsSendingCode] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
-  const handleSendEmailClick = async () => {
-    let errorMessage: string = '';
+  const handleSendEmailClick = useCallback(async () => {
     setIsSendingEmail(true);
+    const result = await resetPasswordViewModel.verifyIsEmailExist(
+      fields.email
+    );
+    if (result) setEmailSent(true);
+    else setIsSendingEmail(false);
+  }, [resetPasswordViewModel]);
 
-    try {
-      //errorMesssage = resetPasswordViewModel.verifyIsExistEmail(email);
-      setEmailSent(true);
-    } catch (error) {
-      setIsSendingEmail(false);
-    }
-    return errorMessage;
-  };
-
-  const handleSendCodeClick = async (): Promise<string> => {
+  const handleSendCodeClick = useCallback(async (): Promise<string> => {
     const errorMessage: string = '';
     setIsSendingCode(true);
 
@@ -44,15 +41,15 @@ export const ResetPasswordPage = () => {
       //   email:fields.email,
       //   code:fields.code
       // }
-      //errorMesssage = resetPasswordViewModel.verifyIsValidEmail(params);
+      //errorMesssage = resetPasswordViewModel.verifyIsValidEmail(email,verificationCode);
       setCodeSent(true);
     } catch (error) {
       setIsSendingCode(false);
     }
     return errorMessage;
-  };
+  }, [resetPasswordViewModel]);
 
-  const handleComfirmClick = async (): Promise<string> => {
+  const handleComfirmClick = useCallback(async (): Promise<string> => {
     const errorMessage: string = '';
     setIsConfirming(true);
 
@@ -63,7 +60,7 @@ export const ResetPasswordPage = () => {
       setIsConfirming(false);
     }
     return errorMessage;
-  };
+  }, []);
 
   const content =
     confirmed === true ? (
