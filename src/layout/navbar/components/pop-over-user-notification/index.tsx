@@ -159,27 +159,3 @@ export const PopOverUserNotifications = observer(() => {
     </>
   );
 });
-
-// const createNotificationList = (): Array<UserNotification> => {
-//   const notification = new UserNotification();
-//   notification.notificationId = '3';
-//   notification.createdAt = new Date();
-//   notification.classId = 1;
-//   notification.isRead = false;
-//   notification.type = 1;
-//   notification.user = userViewModel.user;
-//   notification.assignmentName = 'final-term';
-//   notification.className =
-//     'Java Programming For Advanced Student From ABC Univeristy of Science Ho Chi Minh City';
-
-//   const list = [
-//     notification,
-//     notification,
-//     notification,
-//     notification,
-//     notification,
-//     notification,
-//     notification,
-//   ];
-//   return list;
-// };
