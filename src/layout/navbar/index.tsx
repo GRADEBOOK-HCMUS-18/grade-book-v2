@@ -36,7 +36,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       </div>
       {match && !isBigScreen && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
-        {user.isEmailConfirmed === false ? <ConfirmEmailBtn /> : <></>}
+        {!user.isEmailConfirmed ? <ConfirmEmailBtn /> : <></>}
         {user.isEmailConfirmed && location.pathname === '/' && (
           <CreateClassButton />
         )}

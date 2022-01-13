@@ -16,6 +16,8 @@ export type UserResponse = {
   token: string;
   studentIdentification: string;
   isPasswordNotSet: boolean;
+  isEmailConfirmed:boolean,
+  isLocked:boolean,
 };
 
 export type UserStore = {
@@ -27,4 +29,6 @@ export type UserStore = {
   displayName: string;
   isPasswordNotSet: boolean;
   studentIdentification: string;
+  isEmailConfirmed:boolean,
+  isLocked:boolean,
 };

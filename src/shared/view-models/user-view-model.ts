@@ -2,9 +2,10 @@ import { HttpError, ProfileError } from 'shared/errors';
 import { makeObservable, observable, action } from 'mobx';
 import { TOKEN_KEY } from 'shared/constants';
 import { httpService, storageService } from 'shared/services';
-import { UserStore } from 'shared/types';
+import { UserResponse, UserStore } from 'shared/types';
 import { User } from 'shared/models';
 import { BaseViewModel } from './base-view-model';
+import { lineLoadingViewModel } from '.';
 class UserViewModel extends BaseViewModel {
   user: User = new User();
   dataVersion: number = 0;
@@ -36,6 +37,8 @@ class UserViewModel extends BaseViewModel {
       profilePictureUrl,
       defaultProfilePictureHex,
       isPasswordNotSet,
+      isEmailConfirmed,
+      isLocked,
       displayName,
       studentIdentification,
     } = user;
@@ -50,12 +53,41 @@ class UserViewModel extends BaseViewModel {
     temp.isPasswordNotSet = isPasswordNotSet
       ? isPasswordNotSet
       : this.user.isPasswordNotSet;
+    temp.isEmailConfirmed = isEmailConfirmed;
+    temp.isLocked = isLocked;
     temp.studentIdentification = studentIdentification;
     this.user = User.map(temp);
   }
 
   logout() {
     storageService.clearUser();
+  }
+
+  getRememberUser(response: UserResponse): UserStore {
+    return {
+      firstName: response.firstName,
+      lastName: response.lastName,
+      email: response.email,
+      defaultProfilePictureHex: response.defaultProfilePictureHex,
+      profilePictureUrl: response.profilePictureUrl,
+      displayName: response.lastName + ' ' + response.firstName,
+      isPasswordNotSet: response.isPasswordNotSet,
+      studentIdentification: response.studentIdentification,
+      isEmailConfirmed: response.isEmailConfirmed,
+      isLocked:response.isLocked,
+    };
+  }
+
+  async fetchUserAgain ():Promise<boolean>{
+    const response:UserResponse |HttpError = await httpService.sendGet('/user', httpService.getBearerToken())
+    
+    if (response instanceof HttpError) {
+      return false;
+    } else {
+      const rememberUser: UserStore = this.getRememberUser(response);
+      this.updateUser(rememberUser);
+      return true;
+    }
   }
 
   async requestNewAvatar(data: any): Promise<boolean> {
@@ -112,6 +144,28 @@ class UserViewModel extends BaseViewModel {
       this.updateUser(response);
       return true;
     }
+  }
+
+  async sendConfirmationCode() {
+    let result = true;
+    lineLoadingViewModel.startLoading();
+
+    const response: any | HttpError = await httpService.sendPost(
+      `/Authentication/confirmation`,
+      {},
+      httpService.getBearerToken()
+    );
+
+    if (response instanceof HttpError) {
+      this.makeError('Có lỗi xảy ra. Vui lòng thử lại sau.');
+      result = false; 
+    } else {
+      result = true;
+    }
+
+    lineLoadingViewModel.stopLoading();
+
+    return result;
   }
 }
 

@@ -38,6 +38,8 @@ export class LoginViewModel extends BaseViewModel {
       displayName: response.lastName + ' ' + response.firstName,
       isPasswordNotSet: response.isPasswordNotSet,
       studentIdentification: response.studentIdentification,
+      isEmailConfirmed: response.isEmailConfirmed,
+      isLocked:response.isLocked,
     };
   }
 

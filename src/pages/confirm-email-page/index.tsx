@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { observer } from 'mobx-react';
 import { useHistory } from 'react-router';
 import { useCountdownTimer } from 'shared/hooks';
 import { PopupAlert } from 'shared/components';
@@ -8,7 +9,7 @@ import { getVerificationCodeError } from './helper';
 import { ConfirmEmailViewModel } from './confirm-email-view-model';
 import { ErrorType } from './types';
 
-export const ConfirmEmailPage = () => {
+export const ConfirmEmailPage = observer(() => {
   const [viewModel] = useState(new ConfirmEmailViewModel());
   const [confirmationCode, setConfirmationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -28,18 +29,12 @@ export const ConfirmEmailPage = () => {
   const user = userViewModel.user;
 
   useEffect(() => {
-    if (user.isEmailConfirmed === false) {
-      const waitforResult = async () => {
-        const result = await viewModel.sendConfirmationCode();
-        if (result) timer.startCountDown();
-        else history.push('/');
-      };
-      waitforResult();
-    } else history.push('/');
+    if (user.isEmailConfirmed === false) timer.startCountDown();
+    else history.push('/');
   }, []);
 
   useEffect(() => {
-    if (codeSent) timer.pauseCountDown();
+    if (timer.isRunning) if (codeSent) timer.pauseCountDown();
   }, [timer, codeSent]);
 
   useEffect(() => {
@@ -66,7 +61,7 @@ export const ConfirmEmailPage = () => {
 
   const onHide = useCallback(() => {
     viewModel.deleteError();
-    history.push('/login');
+    history.push('/');
   }, [history, viewModel]);
 
   const content =
@@ -98,4 +93,4 @@ export const ConfirmEmailPage = () => {
       />
     </div>
   );
-};
+});

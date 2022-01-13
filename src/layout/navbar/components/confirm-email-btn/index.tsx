@@ -1,13 +1,25 @@
+import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useResponsive } from 'shared/hooks';
+import { User } from 'shared/models';
+import { userViewModel } from 'shared/view-models';
 
-export const ConfirmEmailBtn = () => {
+export const ConfirmEmailBtn = observer(() => {
   const history = useHistory();
-  const handleClick = () => {
-    history.push('/confirm');
-  };
+
   const { isMobile } = useResponsive();
+  const user: User = userViewModel.user;
+  const handleClick = () => {
+    if (user.isEmailConfirmed === false) {
+      const waitforResult = async () => {
+        const result = await userViewModel.sendConfirmationCode();
+        if (result) history.push('/confirm');
+        else history.push('/');
+      };
+      waitforResult();
+    }
+  };
   return (
     <div className="d-flex flex-row justify-content-center align-items-center">
       {!isMobile && (
@@ -27,4 +39,4 @@ export const ConfirmEmailBtn = () => {
       </Button>
     </div>
   );
-};
+});

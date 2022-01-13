@@ -40,7 +40,7 @@ function App() {
         <Route path="/register">
           <AuthenticationPage isLogin={false} />
         </Route>
-        <PrivateRoute exact path="/confirm">
+        <PrivateRoute path="/confirm">
           <ConfirmEmailPage />
         </PrivateRoute>
         <PrivateRoute path="/class/:id">

@@ -1,12 +1,24 @@
+import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import { MdOutlineEmail } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import { User } from 'shared/models';
+import { userViewModel } from 'shared/view-models';
 
-export const UnconfirmedEmailPage = () => {
+export const UnconfirmedEmailPage = observer(() => {
   const history = useHistory();
+  const user: User = userViewModel.user;
   const handleClick = () => {
-    history.push('/confirm');
+    if (user.isEmailConfirmed === false) {
+      const waitforResult = async () => {
+        const result = await userViewModel.sendConfirmationCode();
+        if (result) history.push('/confirm');
+        else history.push('/');
+      };
+      waitforResult();
+    }
   };
+
   return (
     <div
       className="container d-flex flex-column align-items-center justify-content-center"
@@ -28,4 +40,4 @@ export const UnconfirmedEmailPage = () => {
       </Button>
     </div>
   );
-};
+});
