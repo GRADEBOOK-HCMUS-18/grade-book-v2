@@ -12,7 +12,9 @@
   background-color: #0d6efd !important;
 }
 
-
+.card-body-class{
+  height: 10rem;;
+}
 
 .card-footer {
   padding: 0.2rem 0 0.2rem 0 !important;

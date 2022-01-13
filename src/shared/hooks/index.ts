@@ -1,4 +1,3 @@
-import { count } from 'console';
 import { useMemo, useState,useCallback, useReducer, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -112,20 +111,20 @@ export function useCountdownTimer(
 ): {
   countdown: number,
   isRunning: boolean,
-  start: () => void,
-  reset: () => void,
-  pause: () => void} {
+  startCountDown: () => void,
+  resetCountDown: () => void,
+  pauseCountDown: () => void} {
   const [state, dispatch] = useReducer(countDownReducer, {
     canStart: autostart,
     countdown: timer,
     isRunning: false,
   })
 
-  function start() {
+  function startCountDown() {
     dispatch({ type: 'START' })
   }
 
-  function pause() {
+  function pauseCountDown() {
     dispatch({ type: 'PAUSE' })
   }
 
@@ -133,14 +132,14 @@ export function useCountdownTimer(
     dispatch({ type: 'RESET', payload: time })
   }
 
-  const reset = useCallback(() => {
+  const resetCountDown = useCallback(() => {
     initStopped(timer)
     if (onReset && typeof onReset === 'function') {
       onReset()
     }
   }, [timer, onReset])
 
-  const expire = useCallback(() => {
+  const expireCountDown = useCallback(() => {
     initStopped(resetOnExpire ? timer : 0)
     if (onExpire && typeof onExpire === 'function') {
       onExpire()
@@ -153,7 +152,7 @@ export function useCountdownTimer(
         state.countdown / 1000 <= 0 ||
         (expireImmediate && (state.countdown - interval) / 1000 <= 0)
       ) {
-        expire()
+        expireCountDown()
       } else {
         dispatch({ type: 'TICK', payload: interval })
       }
@@ -168,7 +167,7 @@ export function useCountdownTimer(
     }
     return () => clearInterval(id)
   }, [
-    expire,
+    expireCountDown,
     expireImmediate,
     interval,
     state.canStart,
@@ -179,8 +178,8 @@ export function useCountdownTimer(
   return {
     countdown: state.countdown,
     isRunning: state.isRunning,
-    start,
-    reset,
-    pause,
+    startCountDown,
+    resetCountDown,
+    pauseCountDown,
   }
 }

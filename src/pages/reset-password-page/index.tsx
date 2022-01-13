@@ -1,5 +1,7 @@
-import { useCallback, useState } from 'react';
-import { useFormFields } from 'shared/hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useCountdownTimer, useFormFields } from 'shared/hooks';
+import { PopupAlert } from 'shared/components';
 import {
   RequestEmailForm,
   RequestVerificationCodeForm,
@@ -11,12 +13,12 @@ import {
   getPasswordError,
   getVerificationCodeError,
 } from './helper';
-import { resetPasswordViewModel } from './reset-password-view-model';
+import { ResetPasswordViewModel } from './reset-password-view-model';
 import { ErrorType } from './types';
-
 import './style/index.css';
 
 export const ResetPasswordPage = () => {
+  const [viewModel] = useState(new ResetPasswordViewModel());
   const [fields, handleFieldsChange] = useFormFields({
     code: '',
     email: '',
@@ -24,12 +26,29 @@ export const ResetPasswordPage = () => {
     confirmPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState<string>('');
+
   const [emailSent, setEmailSent] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [isSendingCode, setIsSendingCode] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
+  const history = useHistory();
+  //start countdown with 10 minutes
+  const timer: {
+    countdown: number;
+    startCountDown: () => void;
+    pauseCountDown: () => void;
+  } = useCountdownTimer(1000 * 10);
+
+  useEffect(() => {
+    if (emailSent) timer.startCountDown();
+    if (codeSent) timer.pauseCountDown();
+  }, [emailSent, codeSent]);
+
+  useEffect(() => {
+    if (timer.countdown == 0) timer.pauseCountDown();
+  }, [timer.countdown]);
 
   const handleSendEmailClick = useCallback(async () => {
     setIsSendingEmail(true);
@@ -37,7 +56,7 @@ export const ResetPasswordPage = () => {
     let message = getEmailError(fields.email);
 
     if (message === '') {
-      const result: ErrorType = await resetPasswordViewModel.verifyIsEmailExist(
+      const result: ErrorType = await viewModel.verifyIsEmailExist(
         fields.email
       );
 
@@ -47,7 +66,7 @@ export const ResetPasswordPage = () => {
 
     setIsSendingEmail(false);
     setErrorMessage(message);
-  }, []);
+  }, [fields.email, viewModel]);
 
   const handleSendCodeClick = useCallback(async () => {
     setIsSendingCode(true);
@@ -55,7 +74,7 @@ export const ResetPasswordPage = () => {
     let message = getVerificationCodeError(fields.code);
 
     if (message === '') {
-      const result: ErrorType = await resetPasswordViewModel.verifyIsValidCode(
+      const result: ErrorType = await viewModel.verifyIsValidCode(
         fields.email,
         fields.code
       );
@@ -66,16 +85,16 @@ export const ResetPasswordPage = () => {
 
     setIsSendingCode(false);
     setErrorMessage(message);
-  }, []);
+  }, [fields.code, fields.email, viewModel]);
 
   const handleComfirmClick = useCallback(async () => {
     setIsConfirming(true);
 
-    let message = getPasswordError(fields.password);
+    let message = getPasswordError(fields.password, fields.confirmPassword);
 
     if (message === '') {
-      const result: ErrorType = await resetPasswordViewModel.updateNewPassword(
-        fields.passsword
+      const result: ErrorType = await viewModel.updateNewPassword(
+        fields.password
       );
 
       if (result.status) setConfirmed(true);
@@ -84,7 +103,12 @@ export const ResetPasswordPage = () => {
 
     setIsConfirming(false);
     setErrorMessage(message);
-  }, []);
+  }, [fields.password, viewModel]);
+
+  const onHide = useCallback(() => {
+    viewModel.deleteError();
+    history.push('/login');
+  }, [history, viewModel]);
 
   const content =
     confirmed === true ? (
@@ -100,6 +124,7 @@ export const ResetPasswordPage = () => {
     ) : emailSent === true ? (
       <RequestVerificationCodeForm
         fields={fields}
+        countdown={timer.countdown}
         handleSendCodeClick={handleSendCodeClick}
         handleFieldChange={handleFieldsChange}
         isLoading={isSendingCode}
@@ -115,11 +140,20 @@ export const ResetPasswordPage = () => {
       />
     );
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: '80vh' }}
-    >
-      {content}
+    <div>
+      {' '}
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: '80vh' }}
+      >
+        {content}
+      </div>
+      <PopupAlert
+        show={viewModel.isError}
+        error={true}
+        onHide={onHide}
+        message={viewModel.message}
+      />
     </div>
   );
 };

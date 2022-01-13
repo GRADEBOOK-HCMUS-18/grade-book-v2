@@ -23,18 +23,33 @@ export const getPasswordError = (
   let result: string = '';
 
   if (newPassword === '') result = 'Vui lòng nhập password mới';
-  else
-    if (newPassword === confirmPassword)
-      result = 'Mật khẩu xác nhận không trùng khớp';
-    else if (!validatePassword(newPassword))
-      result = 'Độ dài mật khẩu từ 8-16 kí tự';
+  else if (newPassword !== confirmPassword)
+    result = 'Mật khẩu xác nhận không trùng khớp';
+  else if (!validatePassword(newPassword))
+    result = 'Độ dài mật khẩu từ 8-16 kí tự';
 
   return result;
 };
 
+// convert miliseconds to date form 'HH/MM/SS'.
+export const convertMilisecondsToString = (miliseconds: number): string => {
+  const seconds = Math.floor((miliseconds / 1000) % 60);
+  const minutes = Math.floor((miliseconds / (1000 * 60)) % 60);
+  const hours = Math.floor((miliseconds / (1000 * 60 * 60)) % 24);
 
-export const translateApiErrorMessage = (type:string, message:string):string=>{
-  switch(type){
+  const hoursInString = hours < 10 ? '0' + hours : hours;
+  const minutesInString = minutes < 10 ? '0' + minutes : minutes;
+  const secondsInString = seconds < 10 ? '0' + seconds : seconds;
+
+  if(hours<1) return minutesInString + ':' + secondsInString;
+  else return hoursInString + ':' + minutesInString + ':' + secondsInString;
+};
+
+export const translateApiErrorMessage = (
+  type: string,
+  message: string
+): string => {
+  switch (type) {
     case 'email':
       return translateEmailErrorMessage(message);
     case 'code':
@@ -42,29 +57,29 @@ export const translateApiErrorMessage = (type:string, message:string):string=>{
     default:
       return '';
   }
-}
+};
 
-const translateEmailErrorMessage = (message:string):string=>{
-  switch(message){
-    case 'email does not exist':
+const translateEmailErrorMessage = (message: string): string => {
+  switch (message) {
+    case 'User does not exist':
       return 'Email không tồn tại.';
       break;
     default:
       return '';
       break;
   }
-}
+};
 
-const translateCodeErrorMessage = (message:string):string=>{
-  switch(message){
-    case 'code does not exist':
-      return 'Mã xác thực không hợp lê';
+const translateCodeErrorMessage = (message: string): string => {
+  switch (message) {
+    case 'Invalid confirmation, you have maximum 10 minutes to confirm. Try again':
+      return 'Mã xác thực không hợp lệ';
       break;
     case 'code is overtime':
-      return 'Mã xác thực không còn hiệu lực'
+      return 'Mã xác thực không còn hiệu lực';
       break;
     default:
       return '';
       break;
   }
-}
+};

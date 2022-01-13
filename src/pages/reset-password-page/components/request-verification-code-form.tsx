@@ -1,8 +1,15 @@
 import { Form, Button, Spinner } from 'react-bootstrap';
+import { convertMilisecondsToString } from '../helper';
 interface IProps {
-  fields: any;
-  handleFieldChange: () => void;
+  fields: {
+    email: string;
+    code: string;
+    password: string;
+    confirmPassword: string;
+  };
+  handleFieldChange: (event: any) => void;
   handleSendCodeClick: () => void;
+  countdown: number;
   isLoading: boolean;
   errorMessage: string;
 }
@@ -10,6 +17,7 @@ export const RequestVerificationCodeForm = ({
   fields,
   handleFieldChange,
   handleSendCodeClick,
+  countdown,
   isLoading,
   errorMessage,
 }: IProps) => {
@@ -17,6 +25,7 @@ export const RequestVerificationCodeForm = ({
     event.preventDefault();
     handleSendCodeClick();
   };
+  const countdownInString: string = convertMilisecondsToString(countdown);
 
   return (
     <div className="card">
@@ -33,7 +42,7 @@ export const RequestVerificationCodeForm = ({
               value={fields.code}
               isInvalid={errorMessage !== ''}
               onChange={handleFieldChange}
-              placeholder="Nhập 6 ký tự"
+              placeholder="Nhập mã xác thực"
             />
             <Form.Control.Feedback type="invalid">
               {errorMessage}
@@ -42,7 +51,9 @@ export const RequestVerificationCodeForm = ({
           <Form.Text>
             Vui lòng iểm tra email của bạn để lấy mã xác thực
           </Form.Text>
-
+          <Form.Text>
+            {`Mã xác thực sẽ hết hạn sau ${countdownInString}`}
+          </Form.Text>
           <Button
             className="my-3 btn-secondary"
             style={{ width: '100%' }}

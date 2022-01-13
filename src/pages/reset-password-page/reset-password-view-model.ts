@@ -6,81 +6,95 @@ import { BaseViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { ErrorType } from './types';
 import { translateApiErrorMessage } from './helper';
 
-class ResetPasswordViewModel extends BaseViewModel{
-    private bearerToken:string = '';
-    
-    async verifyIsEmailExist(email:string):Promise<ErrorType>{
-        lineLoadingViewModel.startLoading();
+export class ResetPasswordViewModel extends BaseViewModel {
+  private bearerToken: string = '';
 
-        const res:ErrorType = {
-            status:false,
-            errorMessage:'',
-        }
-        
-        const response:string|HttpError = await httpService.sendPost(`/Authentication/forgotPassword`, {email:email});
+  async verifyIsEmailExist(email: string): Promise<ErrorType> {
+    lineLoadingViewModel.startLoading();
 
-        if(response instanceof HttpError)
-        {
-            res.status=false;
-            res.errorMessage = translateApiErrorMessage('email', response?.getMessage());
-        }
-        else{
-            res.status =true;
-        }
+    const res: ErrorType = {
+      status: false,
+      errorMessage: '',
+    };
 
-        lineLoadingViewModel.stopLoading();
+    const response: string | HttpError = await httpService.sendPost(
+      `/Authentication/forgotPassword`,
+      { email: email }
+    );
 
-        return res;
+    if (response instanceof HttpError) {
+      res.status = false;
+      res.errorMessage = translateApiErrorMessage(
+        'email',
+        response?.getMessage()
+      );
+    } else {
+      res.status = true;
     }
 
-    async verifyIsValidCode(email:string, verificationCode:string):Promise<ErrorType>{
-        const res:ErrorType = {
-            status:false,
-            errorMessage:'',
-        }
+    lineLoadingViewModel.stopLoading();
+    res.status = true;
+    return res;
+  }
 
-        lineLoadingViewModel.startLoading()
+  async verifyIsValidCode(
+    email: string,
+    verificationCode: string
+  ): Promise<ErrorType> {
+    const res: ErrorType = {
+      status: false,
+      errorMessage: '',
+    };
 
-        const response:any|HttpError= await httpService.sendPost(`/Authentication/forgotPassword/code`, {email:email,confirmationCode:verificationCode});
-        
-        if(response instanceof HttpError)
-        {
-            res.status=false;
-            res.errorMessage = translateApiErrorMessage('code',response.getMessage());
-        }
-        else{
-            res.status =true;
-            this.bearerToken = response.token;
-        }
-        
-        lineLoadingViewModel.stopLoading()
+    lineLoadingViewModel.startLoading();
 
-        return res;
+    const response: any | HttpError = await httpService.sendPost(
+      `/Authentication/forgotPassword/code`,
+      { email: email, confirmationCode: verificationCode }
+    );
+
+    if (response instanceof HttpError) {
+      res.status = false;
+      res.errorMessage = translateApiErrorMessage(
+        'code',
+        response.getMessage()
+      );
+    } else {
+      res.status = true;
+      this.bearerToken = `Bearer ${response.token}`;
     }
 
-    async updateNewPassword (newPassword:string):Promise<ErrorType>{
-        lineLoadingViewModel.startLoading();
-    
-        const res:ErrorType = {
-            status:false,
-            errorMessage:'',
-        }
+    lineLoadingViewModel.stopLoading();
 
-        const response:string|HttpError = await httpService.sendPost(`/user/password`, {password:newPassword}, this.bearerToken);
+    return res;
+  }
 
-        if(response instanceof HttpError)
-        {
-            this.makeError('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        }
-        else{
-            res.status =true;
-            res.errorMessage = '';
-        }
-        
-        lineLoadingViewModel.stopLoading()
+  async updateNewPassword(newPassword: string): Promise<ErrorType> {
+    lineLoadingViewModel.startLoading();
 
-        return res;
+    const res: ErrorType = {
+      status: false,
+      errorMessage: '',
+    };
+
+    const response: string | HttpError = await httpService.sendPost(
+      `/User/password`,
+      { newPassword: newPassword },
+      this.bearerToken
+    );
+
+    if (response instanceof HttpError) {
+      if (response.getStatusCode() === 401)
+        this.makeError('Lỗi xác thực. Thử lại lần sau');
+      else this.makeError('Có lỗi xảy ra. Thử lại sau');
+    } else {
+      res.status = true;
+      res.errorMessage = '';
     }
+
+    lineLoadingViewModel.stopLoading();
+
+    return res;
+  }
 }
 
-export const resetPasswordViewModel = new ResetPasswordViewModel();

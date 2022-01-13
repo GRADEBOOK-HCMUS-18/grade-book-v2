@@ -1,8 +1,13 @@
 import { Form, Button, Spinner } from 'react-bootstrap';
 
 interface IProps {
-  fields: any;
-  handleFieldChange: () => void;
+  fields: {
+    email: string;
+    code: string;
+    password: string;
+    confirmPassword: string;
+  };
+  handleFieldChange: (event: any) => void;
   handleSendEmailClick: () => void;
   isLoading: boolean;
   errorMessage: string;
