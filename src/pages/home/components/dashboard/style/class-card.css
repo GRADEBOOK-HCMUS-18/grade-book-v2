@@ -12,8 +12,8 @@
   background-color: #0d6efd !important;
 }
 
-.card-body {
-  height: 7rem !important;
+.card-body-class{
+  height: 10rem;;
 }
 
 .card-footer {

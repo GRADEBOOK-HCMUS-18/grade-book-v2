@@ -31,6 +31,12 @@
   right: 5px;
 }
 
+.nav-bar-brand-name {
+  font-size: 2rem;
+  color:blue;
+  font-weight: bold;
+}
+
 .btn-floating {
   border-radius: 50%;
   background-color: transparent;

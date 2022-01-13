@@ -97,7 +97,7 @@ export const ClassCard = observer(
             </PopUp>
           </Card.Title>
         </Card.Header>
-        <Card.Body className="card-body" />
+        <Card.Body className="card-body-class" />
         <Card.Footer className="card-footer bg-white d-flex flex-row-reverse">
           <OverlayTrigger
             placement="bottom-end"
