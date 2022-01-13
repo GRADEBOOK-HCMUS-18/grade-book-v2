@@ -13,16 +13,14 @@ interface IProps {
 
 export const NotificationCard = observer(
   ({ content, goToDetailPage }: IProps) => {
-    const { id, user, assignment, dateTime, isViewed, notificationType } =
-      content;
+    const { id, assignment, dateTime, isViewed, notificationType } = content;
     const classInfo = content.class;
     const createdTime: Date = new Date(dateTime);
     const receivedTime = calcReceivedTime(createdTime);
     const message = generateNotificationMessage(
       notificationType,
       classInfo,
-      assignment,
-      user
+      assignment
     );
 
     const handleClick = () => {
