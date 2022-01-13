@@ -23,7 +23,7 @@ export const ConfirmEmailPage = () => {
     isRunning: boolean;
     startCountDown: () => void;
     pauseCountDown: () => void;
-  } = useCountdownTimer(1000 * 10);
+  } = useCountdownTimer(1000 * 600);
 
   const user = userViewModel.user;
 
