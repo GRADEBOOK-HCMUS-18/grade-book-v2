@@ -9,7 +9,7 @@ export class User {
   defaultProfilePictureHex: string = '';
   isPasswordNotSet: boolean = false;
   isLocked: boolean = false;
-
+  isEmailConfirmed:boolean= false;
   static map(user: User) {
     const temp = new User();
     temp.defaultProfilePictureHex = user.defaultProfilePictureHex;
@@ -22,6 +22,7 @@ export class User {
     temp.role = user.role;
     temp.isPasswordNotSet = user.isPasswordNotSet;
     temp.isLocked = user.isLocked;
+    temp.isEmailConfirmed = user.isEmailConfirmed;
     return temp;
   }
 }

@@ -2,10 +2,11 @@ import { observer } from 'mobx-react-lite';
 import { useCallback, useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { FilePicker, PopupAlert, SnackBar, Table } from 'shared/components';
-import { ClassDetailInfo } from 'shared/models';
+import { ClassDetailInfo, GradeInfo } from 'shared/models';
 import { fileService } from 'shared/services';
 import { gradeTableViewModel } from './grade-table-view-model';
 import { buildCols, buildRows } from './helper';
+import { ReviewRequestModal } from './components';
 
 interface IProps {
   classInfo: ClassDetailInfo;
@@ -15,8 +16,12 @@ const fileTypes: string[] = ['xlsx', 'csv'];
 
 export const ClassGradeTable = observer(({ classInfo }: IProps) => {
   const [defaultFileType, setFileType] = useState<any>('xlsx');
+  const [showModal, setShowModal] = useState(false);
 
   const [success, setSuccess] = useState(false);
+  const [reviewAssignment, setReviewAssignment] = useState<GradeInfo>(
+    new GradeInfo()
+  );
   useEffect(() => {
     gradeTableViewModel.getGradeTable(classInfo.id);
   }, [classInfo.id]);
@@ -65,6 +70,15 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
             classInfo.id,
             params.id
           );
+          break;
+        case 'requestGradeReview':
+          const { id } = params;
+          const assignment = gradeTableViewModel.studentGrades[0].grades.find(
+            (grade) => grade.assignmentId === id
+          );
+          if (assignment) setReviewAssignment(assignment);
+          setShowModal(true);
+
           break;
         default:
           break;
@@ -193,7 +207,12 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
       )}
 
       <Table
-        columns={buildCols(assignments, handleColEvent, classInfo.isTeacher)}
+        columns={buildCols(
+          assignments,
+          studentGrades,
+          handleColEvent,
+          classInfo.isTeacher
+        )}
         rows={buildRows(studentGrades, handleCellEvent, classInfo.isTeacher)}
       ></Table>
       <SnackBar
@@ -207,6 +226,12 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
         error={gradeTableViewModel.isError}
         message={gradeTableViewModel.message}
         onHide={() => gradeTableViewModel.deleteError()}
+      />
+      <ReviewRequestModal
+        assignment={reviewAssignment}
+        onHide={() => setShowModal(false)}
+        show={showModal}
+        classInfo={classInfo}
       />
     </>
   );

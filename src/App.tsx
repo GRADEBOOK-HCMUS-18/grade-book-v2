@@ -7,6 +7,7 @@ import {
   AuthenticationPage,
   ProfilePage,
   ResetPasswordPage,
+  ConfirmEmailPage,
 } from 'pages';
 import { PrivateRoute } from 'router';
 import 'shared/styles/common.css';
@@ -43,6 +44,9 @@ function App() {
         <Route path="/reset">
           <ResetPasswordPage />
         </Route>
+        <PrivateRoute path="/confirm">
+          <ConfirmEmailPage />
+        </PrivateRoute>
         <PrivateRoute path="/class/:id">
           <ClassDetail />
         </PrivateRoute>

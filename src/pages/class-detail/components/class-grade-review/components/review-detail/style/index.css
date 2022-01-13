@@ -1,7 +1,6 @@
 .review-detail-container {
   width: 70%;
   overflow-y: auto;
-  justify-content: space-between;
   height: 100%;
   position: relative;
   display: flex;

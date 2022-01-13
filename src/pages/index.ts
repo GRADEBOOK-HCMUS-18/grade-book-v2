@@ -1,3 +1,4 @@
+import { ConfirmEmailPage } from './confirm-email-page/index';
 import { ProfilePage } from './profile';
 import { AuthenticationPage } from './authentication';
 import { ClassDetail } from './class-detail';
@@ -10,5 +11,6 @@ export {
   AuthenticationPage,
   MemberInvitation,
   ProfilePage,
-  ResetPasswordPage
+  ResetPasswordPage,
+  ConfirmEmailPage
 };

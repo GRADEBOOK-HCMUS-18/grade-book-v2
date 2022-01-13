@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import logo from 'assets/images/logo.png';
 import { useQuery, useResponsive } from 'shared/hooks';
 import { LineLoading } from 'shared/components';
-import { lineLoadingViewModel } from 'shared/view-models';
+import { lineLoadingViewModel, userViewModel } from 'shared/view-models';
 import {
   Title,
   PopOverProfile,
@@ -13,6 +13,7 @@ import {
   ResponsiveTab,
   CreateClassButton,
   PopOverUserNotifications,
+  ConfirmEmailBtn,
 } from './components';
 import './style/index.css';
 import { Fragment } from 'react';
@@ -27,6 +28,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
 
   const inviteId = query.get('invite');
   const isResetPasswordPage: boolean = location.pathname === '/reset';
+  const user = userViewModel.user;
 
   const { isMobile, isBigScreen } = useResponsive();
 
@@ -55,7 +57,10 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
           </div>
           {match && !isBigScreen && !inviteId && <TabItem />}
           <div className="nav-bar-left-right">
-            {location.pathname === '/' && <CreateClassButton />}
+            {!user.isEmailConfirmed ? <ConfirmEmailBtn /> : <></>}
+            {user.isEmailConfirmed && location.pathname === '/' && (
+              <CreateClassButton />
+            )}
             <PopOverUserNotifications></PopOverUserNotifications>
             {!isMobile && <PopOverProfile />}
           </div>
