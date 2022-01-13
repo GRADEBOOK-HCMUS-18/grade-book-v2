@@ -4,13 +4,14 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { useQuery, useResponsive } from 'shared/hooks';
 import { LineLoading } from 'shared/components';
-import { lineLoadingViewModel } from 'shared/view-models';
+import { lineLoadingViewModel, userViewModel } from 'shared/view-models';
 import {
   Title,
   PopOverProfile,
   TabItem,
   ResponsiveTab,
   CreateClassButton,
+  ConfirmEmailBtn,
 } from './components';
 import './style/index.css';
 
@@ -22,6 +23,7 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
   const match = useRouteMatch({ path: '/class/:id' });
   const query = useQuery();
   const inviteId = query.get('invite');
+  const user = userViewModel.user;
 
   const { isMobile, isBigScreen } = useResponsive();
 
@@ -34,7 +36,10 @@ export const NavBar = ({ toggleSideBar }: IProps) => {
       </div>
       {match && !isBigScreen && !inviteId && <TabItem />}
       <div className="nav-bar-left-right">
-        {location.pathname === '/' && <CreateClassButton />}
+        {user.isEmailConfirmed === false ? <ConfirmEmailBtn /> : <></>}
+        {user.isEmailConfirmed && location.pathname === '/' && (
+          <CreateClassButton />
+        )}
         <IoMdNotificationsOutline style={{ margin: '0px 20px' }} size={30} />
         {!isMobile && <PopOverProfile />}
       </div>

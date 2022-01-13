@@ -1,17 +1,21 @@
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Dashboard } from './components';
+import { User } from 'shared/models';
+import { userViewModel } from 'shared/view-models';
+import { Dashboard, UnconfirmedEmailPage } from './components';
 import { homeViewModel } from './home-view-model';
 
 export const HomePage = observer(() => {
   const { path } = useRouteMatch();
-
+  const user: User = userViewModel.user;
   useEffect(() => {
     homeViewModel.fetchAllClasses();
   }, []);
 
-  return (
+  return user.isEmailConfirmed === false ? (
+    <UnconfirmedEmailPage />
+  ) : (
     <Switch>
       <Route exact path={path}>
         <>
