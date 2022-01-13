@@ -7,7 +7,7 @@ import { PopUp } from 'shared/components';
 import { UserNotification } from 'shared/models';
 import { useResponsive } from 'shared/hooks';
 import { UserNotificationType } from 'shared/types';
-import { userNotificationsViewModel, userViewModel } from 'shared/view-models';
+import { userNotificationsViewModel } from 'shared/view-models';
 import { NotificationCard, NotificationSpinner } from './components';
 import { generateURL } from './helper';
 import './style/index.css';
@@ -15,13 +15,13 @@ import './style/index.css';
 export const PopOverUserNotifications = observer(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
-  const [numberOfNotViewNotification, setNumberOfNotViewNotification] =
-    useState<number>(98);
+  const numberOfNotViewNotification: number =
+    userNotificationsViewModel.numberOfNotViewedNotification;
+  const data: Array<UserNotification> =
+    userNotificationsViewModel.notifications;
   const history = useHistory();
   const bottomRef = useRef<any>();
   const { isMobile } = useResponsive();
-
-  const [data, setData] = useState<Array<UserNotification>>([]);
 
   useEffect(() => {
     const waitForData = async () => {
@@ -29,19 +29,6 @@ export const PopOverUserNotifications = observer(() => {
     };
     waitForData();
   }, []);
-
-  useEffect(() => {
-    //recompute recevied time
-    //update notifications
-    setData(userNotificationsViewModel.notifications);
-    setNumberOfNotViewNotification(
-      userNotificationsViewModel.numberOfNotViewedNotification
-    );
-  }, [
-    userNotificationsViewModel.notifications,
-    userNotificationsViewModel.numberOfNotViewedNotification,
-    showPopUp,
-  ]);
 
   const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({

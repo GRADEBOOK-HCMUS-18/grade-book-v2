@@ -1,8 +1,7 @@
-import { NotificationSpinner } from './../../layout/navbar/components/pop-over-user-notification/components/NotficationSpinner/index';
 import { UserNotificationReponse } from 'shared/types';
 import { action, makeObservable, observable } from 'mobx';
 import { BaseViewModel, lineLoadingViewModel } from 'shared/view-models';
-import { User, UserNotification } from 'shared/models';
+import { UserNotification } from 'shared/models';
 import { HttpError } from 'shared/errors';
 import { httpService } from 'shared/services';
 

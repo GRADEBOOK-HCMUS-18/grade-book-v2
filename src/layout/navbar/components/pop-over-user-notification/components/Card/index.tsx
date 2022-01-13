@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react';
-import TextTruncate from 'react-text-truncate'; // recommend
-import { Avatar } from 'shared/components';
+import TextTruncate from 'react-text-truncate'; // reccommend
+import { AiTwotoneNotification, AiFillMessage } from 'react-icons/ai';
 import { UserNotification } from 'shared/models';
-import { userViewModel } from 'shared/view-models';
-import { calcReceivedTime, stringToDateDisplay } from 'utils/date';
+import { calcReceivedTime } from 'utils/date';
 import { generateNotificationMessage } from './helper';
 import './style/index.css';
 
@@ -12,19 +11,10 @@ interface IProps {
   goToDetailPage: any;
 }
 
-const LoggedInUser = userViewModel.user;
-
 export const NotificationCard = observer(
   ({ content, goToDetailPage }: IProps) => {
-    const {
-      id,
-      user,
-      assignment,
-      dateTime,
-      isViewed,
-      review,
-      notificationType,
-    } = content;
+    const { id, user, assignment, dateTime, isViewed, notificationType } =
+      content;
     const classInfo = content.class;
     const createdTime: Date = new Date(dateTime);
     const receivedTime = calcReceivedTime(createdTime);
@@ -45,8 +35,24 @@ export const NotificationCard = observer(
           <div className="user-notification-card-content">
             <div className="user-notification-card-message">
               <div className="user-notification-card-text">
-                <strong>{classInfo.name}</strong>
-                <br />
+                <div className="d-flex flex-row">
+                  {notificationType === 'NewFinalizedGradeComposition' ? (
+                    <AiTwotoneNotification
+                      style={{ color: 'green' }}
+                      className="me-2"
+                      size={20}
+                    />
+                  ) : (
+                    <AiFillMessage
+                      style={{ color: 'blue' }}
+                      className="me-2"
+                      size={20}
+                    />
+                  )}
+                  <strong style={{ fontSize: '1.2rem' }}>
+                    {classInfo.name}
+                  </strong>
+                </div>
                 <TextTruncate
                   line={2}
                   element="span"
