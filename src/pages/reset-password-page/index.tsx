@@ -42,13 +42,15 @@ export const ResetPasswordPage = () => {
     pauseCountDown: () => void;
   } = useCountdownTimer(1000 * 600);
 
+  //dont add timer in dependencies array.
   useEffect(() => {
     if (emailSent) timer.startCountDown();
     if (codeSent) timer.pauseCountDown();
   }, [emailSent, codeSent]);
 
+  //dont add timer in dependencies array.
   useEffect(() => {
-    if (timer.isRunning) if (timer.countdown == 0) timer.pauseCountDown();
+    if (timer.isRunning) if (timer.countdown === 0) timer.pauseCountDown();
   }, [timer.countdown]);
 
   const handleSendEmailClick = useCallback(async () => {
@@ -104,7 +106,7 @@ export const ResetPasswordPage = () => {
 
     setIsConfirming(false);
     setErrorMessage(message);
-  }, [fields.password, viewModel]);
+  }, [fields.password, fields.confirmPassword, viewModel]);
 
   const onHide = useCallback(() => {
     viewModel.deleteError();

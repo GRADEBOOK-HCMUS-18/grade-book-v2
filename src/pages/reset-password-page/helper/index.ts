@@ -63,10 +63,8 @@ const translateEmailErrorMessage = (message: string): string => {
   switch (message) {
     case 'User does not exist':
       return 'Email không tồn tại.';
-      break;
     default:
       return '';
-      break;
   }
 };
 
@@ -74,12 +72,9 @@ const translateCodeErrorMessage = (message: string): string => {
   switch (message) {
     case 'Invalid confirmation, you have maximum 10 minutes to confirm. Try again':
       return 'Mã xác thực không hợp lệ';
-      break;
     case 'code is overtime':
       return 'Mã xác thực không còn hiệu lực';
-      break;
     default:
       return '';
-      break;
   }
 };
