@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
-import { getPasswordError } from './helper';
 
 interface IProps {
   fields: any;
-  handleFieldChange: any;
-  handleConfirmClick: any;
-  isLoading?: boolean;
+  handleFieldChange: () => void;
+  handleConfirmClick: () => void;
+  isLoading: boolean;
+  errorMessage: string;
 }
 
 export const ResetPasswordForm = ({
@@ -14,19 +13,11 @@ export const ResetPasswordForm = ({
   handleFieldChange,
   handleConfirmClick,
   isLoading,
+  errorMessage,
 }: IProps) => {
-  const [errorMessage, setErrorMessage] = useState<any>('');
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    let message = '';
-    if (fields.password !== fields.confirmPassword)
-      message = 'Mật khẩu xác nhận không trùng khớp';
-    message = getPasswordError(fields.password);
-    if (message === '') {
-      message = handleConfirmClick();
-    }
-    setErrorMessage(message);
+    handleConfirmClick();
   };
 
   return (

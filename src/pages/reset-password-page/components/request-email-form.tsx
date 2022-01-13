@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
-import { getEmailError } from './helper';
 
 interface IProps {
   fields: any;
-  handleFieldChange: any;
-  handleSendEmailClick: any;
-  isLoading?: boolean;
+  handleFieldChange: () => void;
+  handleSendEmailClick: () => void;
+  isLoading: boolean;
+  errorMessage: string;
 }
 
 export const RequestEmailForm = ({
@@ -14,16 +13,11 @@ export const RequestEmailForm = ({
   handleFieldChange,
   handleSendEmailClick,
   isLoading,
+  errorMessage,
 }: IProps) => {
-  const [errorMessage, setErrorMessage] = useState<any>('');
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    let message = getEmailError(fields.email);
-    if (message === '') {
-      message = handleSendEmailClick();
-    }
-    setErrorMessage(message);
+    handleSendEmailClick();
   };
 
   return (

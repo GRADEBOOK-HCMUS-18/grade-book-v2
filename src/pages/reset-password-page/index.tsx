@@ -6,7 +6,14 @@ import {
   ResetPasswordForm,
   SuccessMessage,
 } from './components';
+import {
+  getEmailError,
+  getPasswordError,
+  getVerificationCodeError,
+} from './helper';
 import { resetPasswordViewModel } from './reset-password-view-model';
+import { ErrorType } from './types';
+
 import './style/index.css';
 
 export const ResetPasswordPage = () => {
@@ -16,6 +23,7 @@ export const ResetPasswordPage = () => {
     password: '',
     confirmPassword: '',
   });
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [emailSent, setEmailSent] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
@@ -25,41 +33,57 @@ export const ResetPasswordPage = () => {
 
   const handleSendEmailClick = useCallback(async () => {
     setIsSendingEmail(true);
-    const result = await resetPasswordViewModel.verifyIsEmailExist(
-      fields.email
-    );
-    if (result) setEmailSent(true);
-    else setIsSendingEmail(false);
-  }, [resetPasswordViewModel]);
 
-  const handleSendCodeClick = useCallback(async (): Promise<string> => {
-    const errorMessage: string = '';
+    let message = getEmailError(fields.email);
+
+    if (message === '') {
+      const result: ErrorType = await resetPasswordViewModel.verifyIsEmailExist(
+        fields.email
+      );
+
+      if (result.status) setEmailSent(true);
+      message = result.errorMessage;
+    }
+
+    setIsSendingEmail(false);
+    setErrorMessage(message);
+  }, []);
+
+  const handleSendCodeClick = useCallback(async () => {
     setIsSendingCode(true);
 
-    try {
-      // const params = {
-      //   email:fields.email,
-      //   code:fields.code
-      // }
-      //errorMesssage = resetPasswordViewModel.verifyIsValidEmail(email,verificationCode);
-      setCodeSent(true);
-    } catch (error) {
-      setIsSendingCode(false);
-    }
-    return errorMessage;
-  }, [resetPasswordViewModel]);
+    let message = getVerificationCodeError(fields.code);
 
-  const handleComfirmClick = useCallback(async (): Promise<string> => {
-    const errorMessage: string = '';
+    if (message === '') {
+      const result: ErrorType = await resetPasswordViewModel.verifyIsValidCode(
+        fields.email,
+        fields.code
+      );
+
+      if (result.status) setCodeSent(true);
+      message = result.errorMessage;
+    }
+
+    setIsSendingCode(false);
+    setErrorMessage(message);
+  }, []);
+
+  const handleComfirmClick = useCallback(async () => {
     setIsConfirming(true);
 
-    try {
-      //errorMesssage = resetPasswordViewModel.updateNewPassword(fields);
-      setConfirmed(true);
-    } catch (error) {
-      setIsConfirming(false);
+    let message = getPasswordError(fields.password);
+
+    if (message === '') {
+      const result: ErrorType = await resetPasswordViewModel.updateNewPassword(
+        fields.passsword
+      );
+
+      if (result.status) setConfirmed(true);
+      message = result.errorMessage;
     }
-    return errorMessage;
+
+    setIsConfirming(false);
+    setErrorMessage(message);
   }, []);
 
   const content =
@@ -71,6 +95,7 @@ export const ResetPasswordPage = () => {
         handleConfirmClick={handleComfirmClick}
         handleFieldChange={handleFieldsChange}
         isLoading={isConfirming}
+        errorMessage={errorMessage}
       />
     ) : emailSent === true ? (
       <RequestVerificationCodeForm
@@ -78,6 +103,7 @@ export const ResetPasswordPage = () => {
         handleSendCodeClick={handleSendCodeClick}
         handleFieldChange={handleFieldsChange}
         isLoading={isSendingCode}
+        errorMessage={errorMessage}
       />
     ) : (
       <RequestEmailForm
@@ -85,6 +111,7 @@ export const ResetPasswordPage = () => {
         handleSendEmailClick={handleSendEmailClick}
         handleFieldChange={handleFieldsChange}
         isLoading={isSendingEmail}
+        errorMessage={errorMessage}
       />
     );
   return (

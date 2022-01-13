@@ -1,30 +1,21 @@
-import { useState } from 'react';
 import { Form, Button, Spinner } from 'react-bootstrap';
-import { getVerificationCodeError } from './helper';
-
 interface IProps {
   fields: any;
-  handleFieldChange: any;
-  handleSendCodeClick: any;
-  isLoading?: boolean;
+  handleFieldChange: () => void;
+  handleSendCodeClick: () => void;
+  isLoading: boolean;
+  errorMessage: string;
 }
 export const RequestVerificationCodeForm = ({
   fields,
   handleFieldChange,
   handleSendCodeClick,
   isLoading,
+  errorMessage,
 }: IProps) => {
-  const [errorMessage, setErrorMessage] = useState<any>('');
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    let message = '';
-
-    message = getVerificationCodeError(fields.code);
-    if (message === '') {
-      message = handleSendCodeClick();
-    }
-    setErrorMessage(message);
+    handleSendCodeClick();
   };
 
   return (
@@ -49,8 +40,9 @@ export const RequestVerificationCodeForm = ({
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Text>
-            Vui lòng kiểm tra email của bạn để lấy mã xác thực
+            Vui lòng iểm tra email của bạn để lấy mã xác thực
           </Form.Text>
+
           <Button
             className="my-3 btn-secondary"
             style={{ width: '100%' }}
