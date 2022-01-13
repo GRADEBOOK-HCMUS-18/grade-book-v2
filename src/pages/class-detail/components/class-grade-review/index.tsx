@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { useCallback, useEffect, useState } from 'react';
-import { Loading } from 'shared/components';
+import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Loading, EmptyData } from 'shared/components';
 import { useResponsive } from 'shared/hooks';
 import { ClassDetailInfo, GradeReview, User } from 'shared/models';
 import { classGradeReviewViewModel } from './class-grade-review-view-model';
@@ -85,33 +85,42 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
 
   return (
     <div className="grade-review-container">
-      <Loading isLoading={classGradeReviewViewModel.loading} />
-      <div className="grade-review-body">
-        <ReviewList
-          isOwner={classInfo.isTeacher}
-          onSelect={onSelect}
-          reviewList={classGradeReviewViewModel.gradeReviewList}
+      {classGradeReviewViewModel.gradeReviewList.length === 0 ? (
+        <EmptyData
+          src="preview-svgrepo-com.svg"
+          message="Bạn chưa có bài tập nào."
         />
-        {!isBigScreen ? (
-          <ReviewDetail
-            onSendReply={onSendReply}
-            isOwner={classInfo.isTeacher}
-            student={student}
-            onChangeStatus={onChangeStatus}
-            data={reviewDetail}
-          />
-        ) : (
-          <ReviewDetailModal
-            onSendReply={onSendReply}
-            isOwner={classInfo.isTeacher}
-            student={student}
-            data={reviewDetail}
-            onHide={onHide}
-            show={showModal}
-            onChangeStatus={onChangeStatus}
-          />
-        )}
-      </div>
+      ) : (
+        <Fragment>
+          <Loading isLoading={classGradeReviewViewModel.loading} />
+          <div className="grade-review-body">
+            <ReviewList
+              isOwner={classInfo.isTeacher}
+              onSelect={onSelect}
+              reviewList={classGradeReviewViewModel.gradeReviewList}
+            />
+            {!isBigScreen ? (
+              <ReviewDetail
+                onSendReply={onSendReply}
+                isOwner={classInfo.isTeacher}
+                student={student}
+                onChangeStatus={onChangeStatus}
+                data={reviewDetail}
+              />
+            ) : (
+              <ReviewDetailModal
+                onSendReply={onSendReply}
+                isOwner={classInfo.isTeacher}
+                student={student}
+                data={reviewDetail}
+                onHide={onHide}
+                show={showModal}
+                onChangeStatus={onChangeStatus}
+              />
+            )}
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 });
