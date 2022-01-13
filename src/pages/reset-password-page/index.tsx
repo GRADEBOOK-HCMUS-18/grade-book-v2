@@ -37,9 +37,10 @@ export const ResetPasswordPage = () => {
   //start countdown with 10 minutes
   const timer: {
     countdown: number;
+    isRunning: boolean;
     startCountDown: () => void;
     pauseCountDown: () => void;
-  } = useCountdownTimer(1000 * 10);
+  } = useCountdownTimer(1000 * 600);
 
   useEffect(() => {
     if (emailSent) timer.startCountDown();
@@ -47,7 +48,7 @@ export const ResetPasswordPage = () => {
   }, [emailSent, codeSent]);
 
   useEffect(() => {
-    if (timer.countdown == 0) timer.pauseCountDown();
+    if (timer.isRunning) if (timer.countdown == 0) timer.pauseCountDown();
   }, [timer.countdown]);
 
   const handleSendEmailClick = useCallback(async () => {
