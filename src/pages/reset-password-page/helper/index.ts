@@ -55,7 +55,7 @@ export const translateApiErrorMessage = (
     case 'code':
       return translateCodeErrorMessage(message);
     default:
-      return '';
+      return message;
   }
 };
 
@@ -64,17 +64,21 @@ const translateEmailErrorMessage = (message: string): string => {
     case 'User does not exist':
       return 'Email không tồn tại.';
     default:
-      return '';
+      return message;
   }
 };
 
 const translateCodeErrorMessage = (message: string): string => {
+  if(message.startsWith('Confirmation code', 0))
+  {
+    return `Mã xác thực không chính xác.`
+  }
+
   switch (message) {
     case 'Invalid confirmation, you have maximum 10 minutes to confirm. Try again':
-      return 'Mã xác thực không hợp lệ';
-    case 'code is overtime':
-      return 'Mã xác thực không còn hiệu lực';
+      return 'Mã xác thực không còn hiệu lực. Thử lại sau.';
+  
     default:
-      return '';
+      return message;
   }
 };

@@ -33,7 +33,7 @@ export class ResetPasswordViewModel extends BaseViewModel {
     }
 
     lineLoadingViewModel.stopLoading();
-    res.status = true;
+
     return res;
   }
 
