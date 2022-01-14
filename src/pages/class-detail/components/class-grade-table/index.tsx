@@ -165,7 +165,7 @@ export const ClassGradeTable = observer(({ classInfo }: IProps) => {
       {classInfo.assignments.length === 0 ? (
         <EmptyData
           message="Bạn chưa có đơn phúc khảo nào."
-          src="rank-svgrepo-com.svg"
+          src="preview-svgrepo-com.svg"
         />
       ) : (
         <>
