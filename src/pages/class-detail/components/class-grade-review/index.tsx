@@ -87,7 +87,7 @@ export const ClassGradeReview = observer(({ classInfo }: IProps) => {
     <div className="grade-review-container">
       {classGradeReviewViewModel.gradeReviewList.length === 0 ? (
         <EmptyData
-          src="preview-svgrepo-com.svg"
+          src="rank-svgrepo-com.svg"
           message="Bạn chưa có bài tập nào."
         />
       ) : (
