@@ -1,0 +1,17 @@
+node_modules
+Dockerfile
+.git
+
+.gitignore
+
+.prettierrc
+
+LISCENSE
+
+netlity.toml
+
+package-lock.json
+
+README.md
+
+yarn.lock
