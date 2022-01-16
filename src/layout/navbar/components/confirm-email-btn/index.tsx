@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useResponsive } from 'shared/hooks';
 import { User } from 'shared/models';
-import { userViewModel } from 'shared/view-models';
+import { userViewModel, confirmEmailViewModel } from 'shared/view-models';
 
 export const ConfirmEmailBtn = observer(() => {
   const history = useHistory();
@@ -13,7 +13,7 @@ export const ConfirmEmailBtn = observer(() => {
   const handleClick = () => {
     if (user.isEmailConfirmed === false) {
       const waitforResult = async () => {
-        const result = await userViewModel.sendConfirmationCode();
+        const result = await confirmEmailViewModel.sendConfirmationCode();
         if (result) history.push('/confirm');
         else history.push('/');
       };

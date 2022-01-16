@@ -22,15 +22,4 @@ export const convertMilisecondsToString = (miliseconds: number): string => {
 };
 
 
-export const translateCodeErrorMessage = (message: string): string => {
-  if(message.startsWith('Confirmation code'))
-  {
-    return `Mã xác thực không chính xác.`
-  }
-  switch (message) {
-    case 'Invalid confirmation, you have maximum 10 minutes to confirm. Try again':
-      return 'Mã xác thực không hợp lệ';
-    default:
-      return message;
-  }
-};
+

@@ -6,11 +6,10 @@ import { PopupAlert } from 'shared/components';
 import { userViewModel } from 'shared/view-models';
 import { RequestConfirmationCodeForm, SuccessMessage } from './components';
 import { getVerificationCodeError } from './helper';
-import { ConfirmEmailViewModel } from './confirm-email-view-model';
+import { confirmEmailViewModel } from 'shared/view-models';
 import { ErrorType } from './types';
 
 export const ConfirmEmailPage = observer(() => {
-  const [viewModel] = useState(new ConfirmEmailViewModel());
   const [confirmationCode, setConfirmationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [codeSent, setCodeSent] = useState(false);
@@ -48,7 +47,7 @@ export const ConfirmEmailPage = observer(() => {
     let message = getVerificationCodeError(confirmationCode);
 
     if (message === '') {
-      const result: ErrorType = await viewModel.verifyIsValidCode(
+      const result: ErrorType = await confirmEmailViewModel.verifyIsValidCode(
         confirmationCode
       );
 
@@ -58,12 +57,12 @@ export const ConfirmEmailPage = observer(() => {
 
     setIsSendingCode(false);
     setErrorMessage(message);
-  }, [confirmationCode, viewModel]);
+  }, [confirmationCode, confirmEmailViewModel]);
 
   const onHide = useCallback(() => {
-    viewModel.deleteError();
+    confirmEmailViewModel.deleteError();
     history.push('/');
-  }, [history, viewModel]);
+  }, [history, confirmEmailViewModel]);
 
   const content =
     codeSent === true ? (
@@ -87,10 +86,10 @@ export const ConfirmEmailPage = observer(() => {
         {content}
       </div>
       <PopupAlert
-        show={viewModel.isError}
+        show={confirmEmailViewModel.isError}
         error={true}
         onHide={onHide}
-        message={viewModel.message}
+        message={confirmEmailViewModel.message}
       />
     </div>
   );
