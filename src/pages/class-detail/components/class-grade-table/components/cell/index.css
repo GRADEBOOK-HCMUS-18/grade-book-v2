@@ -19,6 +19,7 @@
   align-items: center;
   position: relative;
   padding: 1rem 0.5rem;
+  justify-content: center;
 }
 .cell-spinner-container {
   position: absolute;
@@ -36,5 +37,4 @@
   color: red;
   position: absolute;
 
-  left: 1rem;
 }
