@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { observer } from 'mobx-react';
+import { useHistory } from 'react-router-dom';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { classActionViewModel } from 'shared/view-models';
+import { classActionViewModel, joinClassViewModel } from 'shared/view-models';
 import './style/index.css';
+import { translateErrorMessage } from './helper';
 
 const JoinClassModal = observer(() => {
   const [InviteID, setInviteID] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inviteID: string = event.target.value;
@@ -17,8 +21,22 @@ const JoinClassModal = observer(() => {
     classActionViewModel.setShowJoinClassModal(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const res: { isError: boolean; message: string } =
+      await joinClassViewModel.getClassInfoByInviteId(InviteID);
+    console.log(res);
+    if (res.isError) setErrorMessage(res.message);
+    else JoinClass(InviteID);
+  };
+
+  const JoinClass = async (inviteId: string) => {
+    const classId = joinClassViewModel.invitedClassInfo.classInformation.id;
+    if (!joinClassViewModel.isAlreadyInClass) {
+      const res = await joinClassViewModel.joinClass(inviteId);
+      if (res.isError) setErrorMessage(res.message);
+      else history.push(`/class/${classId}`);
+    } else history.push(`/class/${classId}`);
   };
 
   return (
@@ -35,25 +53,29 @@ const JoinClassModal = observer(() => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="Mã lớp học"
+              placeholder="Nhập mã lớp học"
               name="inviteClassID"
               value={InviteID}
               onChange={handleChange}
               aria-describedby="title-help"
               className="mt-1"
+              isInvalid={errorMessage !== ''}
               required
             ></Form.Control>
+            <Form.Control.Feedback type="invalid">
+              {translateErrorMessage(errorMessage)}
+            </Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={hideDialog}>
+            Hủy
+          </Button>
+          <Button variant="primary" type="submit">
+            Tham gia
+          </Button>
+        </Modal.Footer>
       </Form>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={hideDialog}>
-          Hủy
-        </Button>
-        <Button variant="primary" type="submit">
-          Tham gia
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 });
