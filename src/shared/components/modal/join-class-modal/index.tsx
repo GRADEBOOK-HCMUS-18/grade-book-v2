@@ -25,7 +25,7 @@ const JoinClassModal = observer(() => {
     event.preventDefault();
     const res: { isError: boolean; message: string } =
       await joinClassViewModel.getClassInfoByInviteId(InviteID);
-    console.log(res);
+
     if (res.isError) setErrorMessage(res.message);
     else JoinClass(InviteID);
   };

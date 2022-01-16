@@ -36,20 +36,20 @@ export const ReviewList = memo(({ reviewList, onSelect, isOwner }: IProps) => {
   const [list, setList] = useState<Array<GradeReview>>([]);
 
   const [filterValue, setFilterValue] = useState<FilterAction>(
-    'Sắp xếp theo ngày tăng dần'
+    'Sắp xếp theo ngày giảm dần'
   );
 
   const [filterTypes, setFilterTypes] = useState<Array<FilterAction>>([]);
 
   useEffect(() => {
     if (reviewList.length !== list.length) {
-      console.log('ALo');
       setSelectedReview(reviewList[0].id);
     }
   }, [reviewList, list]);
 
   useEffect(() => {
-    setList(reviewList);
+    const res = filterList('Sắp xếp theo ngày giảm dần', reviewList);
+    setList(res);
   }, [reviewList]);
 
   useEffect(() => {

@@ -36,7 +36,7 @@ export const ReviewItem = memo(({ reviewItem, selected, onClick }: IProps) => {
     >
       <div className="review-card-header">
         <div className="review-card-logo">
-          {student && <Avatar user={student} />}
+          <Avatar user={student} />
         </div>
         <div className="review-card-title">
           <span>

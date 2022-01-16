@@ -1,4 +1,4 @@
-import { observer, Observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { User } from 'shared/models';

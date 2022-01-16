@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 import { Form, Card, Modal } from 'react-bootstrap';
 import { ClassDetailInfo, GradeInfo } from 'shared/models';
 import { Loading, PopupAlert, SnackBar } from 'shared/components';
@@ -28,8 +27,6 @@ export const ReviewRequestModal = observer(
       description: '',
       requestedNewPoint: '0',
     });
-
-    const history = useHistory();
 
     const handleFieldChange = (fieldName: string, newValue: any) => {
       setFormValue({ ...formValue, [fieldName]: newValue });

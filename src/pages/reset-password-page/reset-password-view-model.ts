@@ -1,7 +1,5 @@
-import { BASE_URL } from 'shared/constants';
 import { httpService } from 'shared/services';
 import { HttpError } from 'shared/errors';
-import { responsiveType } from 'shared/styles';
 import { BaseViewModel, lineLoadingViewModel } from 'shared/view-models';
 import { ErrorType } from './types';
 import { translateApiErrorMessage } from './helper';
@@ -97,4 +95,3 @@ export class ResetPasswordViewModel extends BaseViewModel {
     return res;
   }
 }
-
