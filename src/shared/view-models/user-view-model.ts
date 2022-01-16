@@ -146,27 +146,7 @@ class UserViewModel extends BaseViewModel {
     }
   }
 
-  async sendConfirmationCode() {
-    let result = true;
-    lineLoadingViewModel.startLoading();
-
-    const response: any | HttpError = await httpService.sendPost(
-      `/Authentication/confirmation`,
-      {},
-      httpService.getBearerToken()
-    );
-
-    if (response instanceof HttpError) {
-      this.makeError('Có lỗi xảy ra. Vui lòng thử lại sau.');
-      result = false; 
-    } else {
-      result = true;
-    }
-
-    lineLoadingViewModel.stopLoading();
-    
-    return result;
-  }
+  
 }
 
 export const userViewModel = new UserViewModel();

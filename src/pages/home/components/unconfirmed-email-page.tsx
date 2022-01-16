@@ -2,8 +2,9 @@ import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import { MdOutlineEmail } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import { PopupAlert } from 'shared/components';
 import { User } from 'shared/models';
-import { userViewModel } from 'shared/view-models';
+import { confirmEmailViewModel, userViewModel } from 'shared/view-models';
 
 export const UnconfirmedEmailPage = observer(() => {
   const history = useHistory();
@@ -11,7 +12,7 @@ export const UnconfirmedEmailPage = observer(() => {
   const handleClick = () => {
     if (user.isEmailConfirmed === false) {
       const waitforResult = async () => {
-        const result = await userViewModel.sendConfirmationCode();
+        const result = await confirmEmailViewModel.sendConfirmationCode();
         if (result) history.push('/confirm');
         else history.push('/');
       };
@@ -38,6 +39,12 @@ export const UnconfirmedEmailPage = observer(() => {
       >
         <strong>Xác thực ngay</strong>
       </Button>
+      <PopupAlert
+        show={confirmEmailViewModel.isError}
+        error={true}
+        onHide={() => confirmEmailViewModel.deleteError()}
+        message={confirmEmailViewModel.message}
+      />
     </div>
   );
 });
