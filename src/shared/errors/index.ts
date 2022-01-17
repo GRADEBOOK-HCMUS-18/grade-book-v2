@@ -1,3 +1,4 @@
+import { GradeTableError } from './grade-table-error';
 import { AuthenError } from './authen-error';
 import { HomepageError } from './homepage-error';
 import { HttpError } from './http-error';
@@ -11,4 +12,5 @@ export {
   InvitationError,
   ProfileError,
   ConfirmEmailError,
+  GradeTableError,
 };

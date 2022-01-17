@@ -15,6 +15,8 @@ export class AuthenError extends HttpError {
         return 'Mật khẩu sai';
       case 'Existed user':
         return 'Tài khoản với email này đã tồn tại, hãy đăng nhập lại !!!!';
+      case 'Your account is locked':
+        return 'Tài khoản của bạn đã bị khóa';
       default:
         return super.getDefaultMessage();
     }

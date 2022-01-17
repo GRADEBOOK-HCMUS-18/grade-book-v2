@@ -1,5 +1,5 @@
 import { action, makeObservable, observable, computed } from 'mobx';
-import { HttpError } from 'shared/errors';
+import { HttpError, GradeTableError } from 'shared/errors';
 import { lineLoadingViewModel } from 'shared/view-models';
 import { httpService } from 'shared/services';
 import { StudentGradeInfo, Assignment } from 'shared/models';
@@ -150,7 +150,8 @@ class GradeTableViewModel extends BaseViewModel {
 
     lineLoadingViewModel.stopLoading();
     if (response instanceof HttpError) {
-      this.makeError('Có lỗi xảy ra vui lòng thử lại sau');
+      const error = new GradeTableError(response);
+      this.makeError(error.getMessage());
       return null;
     } else {
       await this.getGradeTable(classId);
