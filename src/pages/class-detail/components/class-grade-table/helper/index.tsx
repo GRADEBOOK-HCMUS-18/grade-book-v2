@@ -177,7 +177,13 @@ const buildRowForTeacher = (
     cells.push({
       rowId: student.studentId,
       columnId: 'total',
-      content: <span style={{ padding: '1rem' }}>{avgGrade}</span>,
+      content: (
+        <span
+          style={{ padding: '1rem', display: 'flex', justifyContent: 'center' }}
+        >
+          {avgGrade}
+        </span>
+      ),
     });
     rows.push({
       id: student.studentId,
@@ -224,7 +230,13 @@ const buildRowForStudent = (studentGrade: StudentGradeInfo) => {
   cells.push({
     rowId: student.studentId,
     columnId: 'total',
-    content: <span style={{ padding: '1rem' }}>{avgGrade}</span>,
+    content: (
+      <span
+        style={{ padding: '1rem', display: 'flex', justifyContent: 'center' }}
+      >
+        {avgGrade}
+      </span>
+    ),
   });
   rows.push({
     id: student.studentId,

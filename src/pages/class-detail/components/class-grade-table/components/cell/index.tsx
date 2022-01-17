@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
+import { isNumeric } from 'utils/number';
 import { CellPopUp } from './components';
 import './index.css';
 
@@ -92,7 +93,7 @@ export const Cell = ({
         ref={(e) => (inputRef = e)}
         onKeyDown={handleKeyDown}
         className="cell-input"
-        value={value ? value : ''}
+        value={value !== '' && value != null ? value : ''}
         disabled={!editAble}
       ></input>
       {isEmpty && (
@@ -105,7 +106,7 @@ export const Cell = ({
           <Spinner size="sm" animation="border" variant="primary" />
         </div>
       )}
-      {content && showAction && isEditAble && (
+      {isNumeric(content) && showAction && isEditAble && (
         <CellPopUp
           columnId={columnId}
           rowId={rowId}

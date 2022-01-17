@@ -35,8 +35,14 @@ const JoinClassModal = observer(() => {
     if (!joinClassViewModel.isAlreadyInClass) {
       const res = await joinClassViewModel.joinClass(inviteId);
       if (res.isError) setErrorMessage(res.message);
-      else history.push(`/class/${classId}`);
-    } else history.push(`/class/${classId}`);
+      else {
+        history.push(`/class/${classId}`);
+        classActionViewModel.setShowJoinClassModal(false);
+      }
+    } else {
+      history.push(`/class/${classId}`);
+      classActionViewModel.setShowJoinClassModal(false);
+    }
   };
 
   return (
